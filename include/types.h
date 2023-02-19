@@ -8,7 +8,7 @@
 #define tout wcout
 #define tstring wstring
 #else 
-#define tout wcout
+#define tout cout
 #define tstring string
 #endif
 

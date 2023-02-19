@@ -1,45 +1,68 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
+
 #include "pch.h"
-#include <string>
-#include <iostream>
-#include <fstream>
+#include "../include/shared.h"
+#include "../include/types.h"
+
+bool _CreatePipe(HANDLE* __pipe) {
+
+  *__pipe = CreateFile(
+    PIPE_NAME,
+    FILE_GENERIC_READ | FILE_GENERIC_WRITE,
+    FILE_SHARE_READ | FILE_SHARE_WRITE,
+    NULL,
+    OPEN_EXISTING,
+    FILE_ATTRIBUTE_NORMAL,
+    NULL
+  );
+
+  if (*__pipe == INVALID_HANDLE_VALUE) { return false; }
+  if (GetLastError() != ERROR_PIPE_BUSY) {
+    *__pipe = INVALID_HANDLE_VALUE;
+    return false;
+  }
+  if (!WaitNamedPipe(PIPE_NAME, 20000)) {
+    *__pipe = INVALID_HANDLE_VALUE;
+    false;
+  }
+  return false;
+}
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
                      ) {
-  if (ul_reason_for_call == DLL_PROCESS_ATTACH
-      || ul_reason_for_call == DLL_THREAD_ATTACH) {
-    PBYTE __pb = NULL;
-    MEMORY_BASIC_INFORMATION __mbi;
+  HANDLE __pipe = INVALID_HANDLE_VALUE;
 
-    while (VirtualQuery(__pb, &__mbi, sizeof(__mbi)) == sizeof(__mbi)) {
-      int32_t __len = 0;
-      CHAR __modName[MAX_PATH] = { 0x00 };
+  if (ul_reason_for_call == DLL_PROCESS_ATTACH) {
 
-      if (__mbi.State == MEM_FREE) {
-        __mbi.AllocationBase = __mbi.BaseAddress;
-      }
+    TCHAR __buff[PIPE_BUFFER_SIZE] = { 0x00 };
+    DWORD __totalWritten = 0;
+    bool __isOk = false;
 
-      if (__mbi.AllocationBase == hModule
-        || __mbi.AllocationBase != __mbi.BaseAddress
-        || __mbi.AllocationBase == NULL) { __len = 0; }
-      else {
-        __len = GetModuleFileNameA(
-          reinterpret_cast<HINSTANCE>(__mbi.AllocationBase),
-          __modName, MAX_PATH);
-      }
+    __isOk = _CreatePipe(&__pipe);
 
-      if (__len > 0) {
-        std::fstream __fd("C:\\Users\\Richelieu\\source\\repos\\Monitor\\hello.txt", std::ios_base::out || std::ios_base::ate);
-        if (__fd.is_open()) {
-          __fd << std::hex << __mbi.AllocationBase << "-" << __modName << std::endl;
-          __fd.close();
-        }
-      }
+    while (__isOk) {
+      ZeroMemory(__buff, PIPE_BUFFER_SIZE * sizeof(TCHAR));
+
+      StringCbCopy(__buff, PIPE_BUFFER_SIZE * sizeof(TCHAR),
+        TEXT("Hi, there!"));
+
+      __isOk = WriteFile(
+        __pipe,
+        __buff,
+        PIPE_BUFFER_SIZE * sizeof(TCHAR),
+        &__totalWritten,
+        NULL
+      );
+
+      Sleep(1000);
+    }
+  } else if (ul_reason_for_call == DLL_PROCESS_DETACH) {
+    if (__pipe != INVALID_HANDLE_VALUE) {
+      CloseHandle(__pipe);
     }
   }
-    
     return TRUE;
 }
 

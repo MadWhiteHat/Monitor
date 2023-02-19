@@ -6,9 +6,13 @@
 #include <unordered_map>
 #include <vector>
 
-#include "types.h"
+#include "../include/types.h"
 
 namespace MyProgram {
+
+extern "C" {
+  DWORD WINAPI InstanceThread(LPVOID __pipe);
+}
 
 class Monitor {
  public:
@@ -32,12 +36,15 @@ class Monitor {
 
 private:
 
-  void _Inject(const std::tstring& __injLib);
+  bool _InjectAll(const std::tstring& __injLib);
+  bool _InjectPid(DWORD __pid, const std::tstring& __injLib);
 
   DWORD _AddPid(const std::tstring& __pidStr);
   DWORD _GetProcIdByName(const std::tstring& __pidStr);
   void _AddFunc(DWORD __pid, const std::tstring& __funcName);
   void _AddFilename(DWORD __pid, const std::tstring& __filename);
+
+  void _CreateThreadedPipes();
 
   struct Tracking {
     std::vector<std::tstring> _funcNames;

@@ -130,6 +130,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +139,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -144,8 +148,9 @@
     <ClCompile Include="monitor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\shared.h" />
+    <ClInclude Include="..\include\types.h" />
     <ClInclude Include="monitor.h" />
-    <ClInclude Include="types.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

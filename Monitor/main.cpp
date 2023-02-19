@@ -6,7 +6,7 @@
 #include <vector>
 #include <cstdlib>
 
-#include "types.h"
+#include "../include/types.h"
 #include "monitor.h"
 
 int32_t main(const int32_t argc, const char** argv) {
