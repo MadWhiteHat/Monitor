@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "../include/types.h"
+#include "../include/shared.h"
 
 namespace MyProgram {
 
@@ -45,6 +46,9 @@ private:
   void _AddFilename(DWORD __pid, const std::tstring& __filename);
 
   void _CreateThreadedPipes();
+  BOOL _ConnectToNewClient(HANDLE __pipe, LPOVERLAPPED __lpOverlapped);
+  void _DisconnectAndReconnect(DWORD __idx);
+  void _ServerOperate();
 
   struct Tracking {
     std::vector<std::tstring> _funcNames;
@@ -53,6 +57,8 @@ private:
 
   // pid, what to track
   std::unordered_map<DWORD, Tracking> _mp;
+  std::vector<PIPEINST> _pipes;
+  std::vector<HANDLE> _events;
   bool _isGood = false;
 };
 

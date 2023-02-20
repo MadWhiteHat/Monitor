@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <tlhelp32.h>
 #include <aclapi.h>
+#include <strsafe.h>
 
 #include "../include/shared.h"
 #include "../include/types.h"
@@ -43,6 +44,8 @@ Monitor::Monitor(const std::vector<std::tstring>& __args) {
     else if (__mode == HIDE) { this->_AddFilename(__currPid, __elem); }
     __command.erase(__command.begin());
   }
+  _pipes.resize(_mp.size());
+  _events.resize(_mp.size());
 }
 
 bool
@@ -185,11 +188,7 @@ Monitor::_AddFilename(DWORD __pid, const std::tstring& __filename) {
 void
 MyProgram::
 Monitor::_CreateThreadedPipes() {
-  bool __connected = false;
-  DWORD __threadId = -1;
-  HANDLE __pipe = INVALID_HANDLE_VALUE;
-  HANDLE __thread = NULL;
-  std::vector<HANDLE> __vt;
+  BOOL __connected = FALSE;
 
   PSID __pEveryoneSID = NULL;
   PSID __pAdminSID = NULL;
@@ -199,6 +198,7 @@ Monitor::_CreateThreadedPipes() {
   SID_IDENTIFIER_AUTHORITY __SIDAuthAll = SECURITY_WORLD_SID_AUTHORITY;
   SID_IDENTIFIER_AUTHORITY __SIDAuthNT = SECURITY_NT_AUTHORITY;
   SECURITY_ATTRIBUTES __sa;
+  DWORD i = -1;
 
   if (!AllocateAndInitializeSid(&__SIDAuthAll, 1, SECURITY_WORLD_RID, 0, 0, 0,
     0, 0, 0, 0, &__pEveryoneSID)) { goto Cleanup; }
@@ -244,68 +244,52 @@ Monitor::_CreateThreadedPipes() {
   __sa.bInheritHandle = FALSE;
 
   for (const auto& __el : _mp) {
+    ++i;
+    _events[i] = CreateEvent(&__sa, TRUE, TRUE, NULL);
+    if (_events[i] == NULL) {
+      std::tout << TEXT("CreateEvent failed with: ") << GetLastError()
+        << std::endl;
+      goto Cleanup;
+    }
 
-    __pipe = CreateNamedPipe(
+    _pipes[i]._overlap.hEvent = _events[i];
+    _pipes[i]._overlap.Offset = 0;
+    _pipes[i]._overlap.OffsetHigh = 0;
+
+    _pipes[i]._pipe = CreateNamedPipe(
       PIPE_NAME,
-      PIPE_ACCESS_DUPLEX,
+      PIPE_ACCESS_DUPLEX | FILE_FLAG_OVERLAPPED,
       PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT,
-      PIPE_UNLIMITED_INSTANCES,
+      _mp.size(),
       PIPE_BUFFER_SIZE * sizeof(TCHAR),
       PIPE_BUFFER_SIZE * sizeof(TCHAR),
-      NMPWAIT_USE_DEFAULT_WAIT,
+      PIPE_TIMEOUT,
       &__sa
     );
-    if (__pipe == INVALID_HANDLE_VALUE) {
+    if (_pipes[i]._pipe == INVALID_HANDLE_VALUE) {
       std::tout << TEXT("CreateNamedPipe failed with: ") << std::hex
         << GetLastError() << std::endl;
       goto Cleanup;
     } else {
-      std::tout << TEXT("Named pipe sucessfully created for PID") << __el.first
-        << std::endl;
+      std::tout << TEXT("Named pipe sucessfully created for PID: ")
+        << __el.first << std::endl;
     }
 
+    _pipes[i]._pendingIO = _ConnectToNewClient(_pipes[i]._pipe,
+      &_pipes[i]._overlap);
+    
     if (!this->_InjectPid(__el.first,
       TEXT("C:\\Users\\Richelieu\\source\\repos\\Monitor\\x64\\Release\\showlibs.dll"))) {
       std::tout << TEXT("Hooking library injection failed") << std::endl;
     }
     else {
-      std::tout << TEXT("Hooking library injection success");
+      std::tout << TEXT("Hooking library injection success") << std::endl;
     }
 
-    __connected = ConnectNamedPipe(__pipe, NULL) ? true
-      : (GetLastError() == ERROR_PIPE_CONNECTED);
-
-    if (__connected) {
-      std::tout << TEXT("Pipe connection success") << std::endl;
-      __thread = CreateThread(
-        NULL,
-        0,
-        InstanceThread,
-        reinterpret_cast<LPVOID>(__pipe),
-        0,
-        &__threadId
-      );
-      if (__thread == NULL) {
-        std::tout << TEXT("CreateThread failed with: ") << std::hex
-          << GetLastError() << std::endl;
-      } else {
-        __vt.push_back(__thread);
-      }
-    } else {
-      std::tout << TEXT("Pipe connection failed with: ") << std::hex <<
-        GetLastError() << std::endl;
-      CloseHandle(__pipe); }
+    _pipes[i]._state = _pipes[i]._pendingIO ? CONNECTING_STATE : READING_STATE;
   }
-  if (__vt.size()) {
-    WaitForMultipleObjects(
-      __vt.size(),
-      __vt.data(),
-      true,
-      INFINITE
-    );
-  }
-  for (const auto __thread : __vt) { CloseHandle(__thread); }
 
+  this->_ServerOperate();
 Cleanup:
   if (__pEveryoneSID) { FreeSid(__pEveryoneSID); }
   if (__pAdminSID) { FreeSid(__pAdminSID); }
@@ -315,45 +299,132 @@ Cleanup:
   return;
 }
 
-DWORD WINAPI
+BOOL
 MyProgram::
-InstanceThread(LPVOID __param) {
-  HANDLE __heap = GetProcessHeap();
-  if (__heap == NULL) { return -1; }
-  TCHAR* __message = static_cast<TCHAR*>(HeapAlloc(__heap, 0, PIPE_BUFFER_SIZE
-    * sizeof(TCHAR)));
-  DWORD __totalBytesRead = 0;
-  bool __isOk = false;
-  if (__param == NULL) {
-    if (__message != NULL) { HeapFree(__heap, 0, __message); }
-    return -1;
-  }
-  if (__message == NULL) { return -1; }
-  HANDLE __pipe = reinterpret_cast<HANDLE>(__param);
+Monitor::_ConnectToNewClient(HANDLE __pipe, LPOVERLAPPED __lpOverlapped) {
+  BOOL __connected = FALSE;
+  BOOL __pendingIO = FALSE;
 
-  // Processing
-  while (true) {
-    std::cout << "Read file" << std::endl;
-    __isOk = ReadFile(
-      __pipe,
-      __message,
-      PIPE_BUFFER_SIZE * sizeof(TCHAR),
-      &__totalBytesRead,
-      NULL
-    );
-    std::cout << "Passed" << std::endl;
-    if (!__isOk || __totalBytesRead == 0) {
-      if (GetLastError() == ERROR_BROKEN_PIPE) {
-        std::tout << TEXT("Client disconected");
-      } else { std::tout << TEXT("Read data from pipe failed"); }
-      break;
-    }
-    else { std::tout << __message << std::endl; }
+  __connected = ConnectNamedPipe(__pipe, __lpOverlapped);
+  if (__connected) {
+    std::tout << TEXT("ConnectNamedPipe failed with: ") << std::hex
+      << GetLastError() << std::endl;
+    return FALSE;
   }
-  FlushFileBuffers(__pipe);
-  DisconnectNamedPipe(__pipe);
-  CloseHandle(__pipe);
-  
-  HeapFree(__heap, 0, __message);
-  return 0;
+
+  DWORD __err = GetLastError();
+
+  switch (__err) {
+    case ERROR_IO_PENDING:
+      __pendingIO = TRUE;
+      break;
+    case ERROR_PIPE_CONNECTED:
+      if (SetEvent(__lpOverlapped->hEvent)) { break; }
+    default: {
+      __err = GetLastError();
+      std::tout << TEXT("ConnectNamedPipe failed with: ") << std::hex << __err
+        << std::endl;
+      return FALSE;
+    }
+  }
+
+  return __pendingIO;
+}
+
+void
+MyProgram::
+Monitor::_DisconnectAndReconnect(DWORD __idx) {
+  if (!DisconnectNamedPipe(_pipes[__idx]._pipe)) {
+    std::tout << TEXT("DisconnectNamedPipe failed with: ") << GetLastError()
+      << std::endl;
+  } else {
+    std::tout << TEXT("Disconnected") << std::endl;
+  }
+
+  _pipes[__idx]._pendingIO = this->_ConnectToNewClient(_pipes[__idx]._pipe,
+    &_pipes[__idx]._overlap);
+
+  _pipes[__idx]._state = _pipes[__idx]._pendingIO ? CONNECTING_STATE
+    : READING_STATE;
+}
+
+void
+MyProgram::Monitor::_ServerOperate() {
+
+  DWORD __wait = 0;
+  DWORD __cbRet = 0;
+  DWORD __err = ERROR_SUCCESS;
+  BOOL __success = TRUE;
+
+  while (true) {
+    __wait = WaitForMultipleObjects(
+      _events.size(),
+      _events.data(),
+      FALSE,
+      INFINITE
+    );
+
+    DWORD __idx = __wait - WAIT_OBJECT_0;
+    if (__idx < 0 || size_t(__idx) + 1 > _events.size()) {
+      std::tout << TEXT("Index out of range: ") << __idx << std::endl;
+      return;
+    }
+
+    if (_pipes[__idx]._pendingIO) {
+      __success = GetOverlappedResult(
+        _pipes[__idx]._pipe,
+        &_pipes[__idx]._overlap,
+        &__cbRet,
+        FALSE
+      );
+
+      switch (_pipes[__idx]._state) {
+        case CONNECTING_STATE:
+          if (!__success) {
+            std::tout << TEXT("Error: ") << GetLastError() << std::endl;
+            return;
+          }
+          _pipes[__idx]._state = READING_STATE;
+          break;
+        case READING_STATE:
+          if (!__success || __cbRet == 0) {
+            this->_DisconnectAndReconnect(__idx);
+            continue;
+          }
+          _pipes[__idx]._cbRead = __cbRet;
+          break;
+        default: {
+          std::tout << TEXT("Invalid pipe state") << std::endl;
+          return; 
+        }
+      }
+    }
+    switch (_pipes[__idx]._state) {
+      case READING_STATE:
+        __success = ReadFile(
+          _pipes[__idx]._pipe,
+          _pipes[__idx]._reqBuff,
+          PIPE_BUFFER_SIZE * sizeof(TCHAR),
+          &_pipes[__idx]._cbRead,
+          &_pipes[__idx]._overlap
+        );
+
+        if (__success && _pipes[__idx]._cbRead != 0) {
+          _pipes[__idx]._pendingIO = FALSE;
+          std::tout << _pipes[__idx]._reqBuff << std::endl;
+          continue;
+        }
+        __err = GetLastError();
+        if (!__success && __err == ERROR_IO_PENDING) {
+          _pipes[__idx]._pendingIO = TRUE;
+          continue;
+        }
+        this->_DisconnectAndReconnect(__idx);
+        break;
+      default: {
+        std::tout << TEXT("Invalid pipe mode") << std::endl;
+        return;
+      }
+    }
+  }
 }
