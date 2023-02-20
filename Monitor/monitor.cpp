@@ -259,19 +259,24 @@ Monitor::_CreateThreadedPipes() {
       std::tout << TEXT("CreateNamedPipe failed with: ") << std::hex
         << GetLastError() << std::endl;
       goto Cleanup;
+    } else {
+      std::tout << TEXT("Named pipe sucessfully created for PID") << __el.first
+        << std::endl;
     }
 
-    this->_InjectPid(__el.first,
-      TEXT("C:\\Users\\Richelieu\\source\\repos\\Monitor\\x64\\Release\\showlibs.dll"));
-
-    std::tout << TEXT("Waiting for connection") << std::endl;
+    if (!this->_InjectPid(__el.first,
+      TEXT("C:\\Users\\Richelieu\\source\\repos\\Monitor\\x64\\Release\\showlibs.dll"))) {
+      std::tout << TEXT("Hooking library injection failed") << std::endl;
+    }
+    else {
+      std::tout << TEXT("Hooking library injection success");
+    }
 
     __connected = ConnectNamedPipe(__pipe, NULL) ? true
       : (GetLastError() == ERROR_PIPE_CONNECTED);
 
-    std::tout << TEXT("Connected") << std::endl;
-
     if (__connected) {
+      std::tout << TEXT("Pipe connection success") << std::endl;
       __thread = CreateThread(
         NULL,
         0,
@@ -286,7 +291,10 @@ Monitor::_CreateThreadedPipes() {
       } else {
         __vt.push_back(__thread);
       }
-    } else { CloseHandle(__pipe); }
+    } else {
+      std::tout << TEXT("Pipe connection failed with: ") << std::hex <<
+        GetLastError() << std::endl;
+      CloseHandle(__pipe); }
   }
   if (__vt.size()) {
     WaitForMultipleObjects(
