@@ -5,7 +5,6 @@
 #include <strsafe.h>
 
 #include "../include/shared.h"
-#include "../include/types.h"
 #include "monitor.h"
 
 #pragma comment(lib, "advapi32.lib")
@@ -255,12 +254,16 @@ Monitor::_CreateThreadedPipes() {
     _pipes[i]._overlap.hEvent = _events[i];
     _pipes[i]._overlap.Offset = 0;
     _pipes[i]._overlap.OffsetHigh = 0;
+    _pipes[i]._pid = __el.first;
+
+    std::tstring __pipeName(PIPE_NAME);
+    __pipeName += std::to_tstring(__el.first);
 
     _pipes[i]._pipe = CreateNamedPipe(
-      PIPE_NAME,
+      __pipeName.data(),
       PIPE_ACCESS_DUPLEX | FILE_FLAG_OVERLAPPED,
       PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT,
-      _mp.size(),
+      PIPE_UNLIMITED_INSTANCES,
       PIPE_BUFFER_SIZE * sizeof(TCHAR),
       PIPE_BUFFER_SIZE * sizeof(TCHAR),
       PIPE_TIMEOUT,
@@ -277,19 +280,21 @@ Monitor::_CreateThreadedPipes() {
 
     _pipes[i]._pendingIO = _ConnectToNewClient(_pipes[i]._pipe,
       &_pipes[i]._overlap);
-    
+
     if (!this->_InjectPid(__el.first,
       TEXT("C:\\Users\\Richelieu\\source\\repos\\Monitor\\x64\\Release\\showlibs.dll"))) {
-      std::tout << TEXT("Hooking library injection failed") << std::endl;
+      std::tout << TEXT("Hooking library injection failed for PID: ")
+        << __el.first << std::endl;
     }
     else {
-      std::tout << TEXT("Hooking library injection success") << std::endl;
+      std::tout << TEXT("Hooking library injection success for PID: ")
+        << __el.first << std::endl;
     }
 
-    _pipes[i]._state = _pipes[i]._pendingIO ? CONNECTING_STATE : READING_STATE;
+    _pipes[i]._state = _pipes[i]._pendingIO ? CONNECTING_STATE : OPERATING_STATE;
   }
-
   this->_ServerOperate();
+  
 Cleanup:
   if (__pEveryoneSID) { FreeSid(__pEveryoneSID); }
   if (__pAdminSID) { FreeSid(__pAdminSID); }
@@ -320,6 +325,12 @@ Monitor::_ConnectToNewClient(HANDLE __pipe, LPOVERLAPPED __lpOverlapped) {
       break;
     case ERROR_PIPE_CONNECTED:
       if (SetEvent(__lpOverlapped->hEvent)) { break; }
+      else {
+        __err = GetLastError();
+        std::tout << TEXT("SetEvent failed with: ") << std::hex << __err
+          << std::endl;
+        return FALSE;
+      }
     default: {
       __err = GetLastError();
       std::tout << TEXT("ConnectNamedPipe failed with: ") << std::hex << __err
@@ -327,25 +338,18 @@ Monitor::_ConnectToNewClient(HANDLE __pipe, LPOVERLAPPED __lpOverlapped) {
       return FALSE;
     }
   }
-
   return __pendingIO;
 }
 
 void
 MyProgram::
-Monitor::_DisconnectAndReconnect(DWORD __idx) {
-  if (!DisconnectNamedPipe(_pipes[__idx]._pipe)) {
+Monitor::_Disconnect(DWORD __idx) {
+ if (!DisconnectNamedPipe(_pipes[__idx]._pipe)) {
     std::tout << TEXT("DisconnectNamedPipe failed with: ") << GetLastError()
       << std::endl;
   } else {
     std::tout << TEXT("Disconnected") << std::endl;
   }
-
-  _pipes[__idx]._pendingIO = this->_ConnectToNewClient(_pipes[__idx]._pipe,
-    &_pipes[__idx]._overlap);
-
-  _pipes[__idx]._state = _pipes[__idx]._pendingIO ? CONNECTING_STATE
-    : READING_STATE;
 }
 
 void
@@ -384,11 +388,16 @@ MyProgram::Monitor::_ServerOperate() {
             std::tout << TEXT("Error: ") << GetLastError() << std::endl;
             return;
           }
-          _pipes[__idx]._state = READING_STATE;
+
+          __success = this->_SendInit(__idx);
+          if (!__success) { this->_Disconnect(__idx); }
+
+          _pipes[__idx]._state = OPERATING_STATE;
           break;
-        case READING_STATE:
+
+        case OPERATING_STATE:
           if (!__success || __cbRet == 0) {
-            this->_DisconnectAndReconnect(__idx);
+            this->_Disconnect(__idx);
             continue;
           }
           _pipes[__idx]._cbRead = __cbRet;
@@ -400,7 +409,8 @@ MyProgram::Monitor::_ServerOperate() {
       }
     }
     switch (_pipes[__idx]._state) {
-      case READING_STATE:
+      case OPERATING_STATE:
+
         __success = ReadFile(
           _pipes[__idx]._pipe,
           _pipes[__idx]._reqBuff,
@@ -419,7 +429,7 @@ MyProgram::Monitor::_ServerOperate() {
           _pipes[__idx]._pendingIO = TRUE;
           continue;
         }
-        this->_DisconnectAndReconnect(__idx);
+        this->_Disconnect(__idx);
         break;
       default: {
         std::tout << TEXT("Invalid pipe mode") << std::endl;
@@ -427,4 +437,102 @@ MyProgram::Monitor::_ServerOperate() {
       }
     }
   }
+}
+
+BOOL
+MyProgram::
+Monitor::_SendInit(DWORD __idx) {
+  DWORD __size = 0;
+  DWORD __cbWritten = 0;
+  BOOL __success = FALSE;
+
+  // Func names
+  const std::vector<std::tstring>& __funcNames =
+    _mp[_pipes[__idx]._pid]._funcNames;
+
+  __size = __funcNames.size();
+  std::tout << TEXT("Sending: ") << __size << std::endl;
+  __success = WriteFile(
+    _pipes[__idx]._pipe,
+    &__size,
+    sizeof(DWORD),
+    &__cbWritten,
+    NULL
+  );
+
+  std::tout << TEXT("Sent: ") << __size << std::endl;
+  if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
+  
+  for (const auto& __str : __funcNames) {
+    DWORD __strLen = __str.length();
+    std::tout << TEXT("Sending: ") << __strLen << std::endl;
+    __success = WriteFile(
+      _pipes[__idx]._pipe,
+      &__strLen,
+      sizeof(DWORD),
+      &__cbWritten,
+      NULL
+    );
+    std::tout << TEXT("Sent: ") << __strLen << std::endl;
+    if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
+
+    std::tout << TEXT("Sending: ") << __str.data() << std::endl;
+    __success = WriteFile(
+      _pipes[__idx]._pipe,
+      __str.data(),
+      __strLen * sizeof(TCHAR),
+      &__cbWritten,
+      NULL
+    );
+    std::tout << TEXT("Sent: ") << __str.data() << std::endl;
+    if (!__success && __cbWritten != __strLen * sizeof(TCHAR)) {
+      return __success;
+    }
+  }
+
+  // Hide names
+  const std::vector<std::tstring>& __hideFilenames =
+    _mp[_pipes[__idx]._pid]._hideFilenames;
+
+  __size = __hideFilenames.size();
+  std::tout << TEXT("Sending: ") << __size << std::endl;
+  __success = WriteFile(
+    _pipes[__idx]._pipe,
+    &__size,
+    sizeof(DWORD),
+    &__cbWritten,
+    NULL
+  );
+
+  std::tout << TEXT("Sent: ") << __size << std::endl;
+  if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
+  
+  for (const auto& __str : __hideFilenames) {
+    DWORD __strLen = __str.length();
+    std::tout << TEXT("Sending: ") << __strLen << std::endl;
+    __success = WriteFile(
+      _pipes[__idx]._pipe,
+      &__strLen,
+      sizeof(DWORD),
+      &__cbWritten,
+      NULL
+    );
+    std::tout << TEXT("Sent: ") << __strLen << std::endl;
+    if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
+
+    std::tout << TEXT("Sending: ") << __str.data() << std::endl;
+    __success = WriteFile(
+      _pipes[__idx]._pipe,
+      __str.data(),
+      __strLen * sizeof(TCHAR),
+      &__cbWritten,
+      NULL
+    );
+    std::tout << TEXT("Sent: ") << __str.data() << std::endl;
+    if (!__success && __cbWritten != __strLen * sizeof(TCHAR)) {
+      return __success;
+    }
+  }
+
+  return __success;
 }

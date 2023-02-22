@@ -26,9 +26,6 @@
     <ClInclude Include="monitor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\shared.h">
       <Filter>Header Files</Filter>
     </ClInclude>

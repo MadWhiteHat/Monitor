@@ -149,7 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\shared.h" />
-    <ClInclude Include="..\include\types.h" />
     <ClInclude Include="monitor.h" />
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,6 @@
 #include <unordered_map>
 #include <vector>
 
-#include "../include/types.h"
 #include "../include/shared.h"
 
 namespace MyProgram {
@@ -47,13 +46,9 @@ private:
 
   void _CreateThreadedPipes();
   BOOL _ConnectToNewClient(HANDLE __pipe, LPOVERLAPPED __lpOverlapped);
-  void _DisconnectAndReconnect(DWORD __idx);
+  void _Disconnect(DWORD __idx);
   void _ServerOperate();
-
-  struct Tracking {
-    std::vector<std::tstring> _funcNames;
-    std::vector<std::tstring> _hideFilenames;
-  };
+  BOOL _SendInit(DWORD __idx);
 
   // pid, what to track
   std::unordered_map<DWORD, Tracking> _mp;
