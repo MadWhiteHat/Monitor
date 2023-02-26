@@ -1,21 +1,21 @@
 #ifndef _SHARED_H
 #define _SHARED_H
 
-#include "types.h"
 #include <vector>
 
-#define PIPE_NAME TEXT("\\\\.\\pipe\\monitor")
-#define PIPE_BUFFER_SIZE 2048
+#define PIPE_NAME "\\\\.\\pipe\\monitor"
+#define PIPE_BUFFER_SIZE 4096
 #define PIPE_TIMEOUT 5000
 #define CONNECTING_STATE 0
 #define OPERATING_STATE 1
+#define DISCONNECTED_STATE 2
 
 typedef struct {
   OVERLAPPED _overlap;
   HANDLE _pipe;
-  TCHAR _reqBuff[PIPE_BUFFER_SIZE];
+  CHAR _reqBuff[PIPE_BUFFER_SIZE];
   DWORD _cbRead;
-  TCHAR _replyBuff[PIPE_BUFFER_SIZE];
+  CHAR _replyBuff[PIPE_BUFFER_SIZE];
   DWORD _cbToWrite;
   DWORD _state;
   DWORD _pid;
@@ -23,8 +23,9 @@ typedef struct {
 } PIPEINST, *LPPIPEINST;
 
 struct Tracking {
-  std::vector<std::tstring> _funcNames;
-  std::vector<std::tstring> _hideFilenames;
+  std::vector<std::string> _funcNames;
+  std::vector<std::string> _hideFilenamesA;
+  std::vector<std::wstring> _hideFilenamesW;
 };
 
 #endif _SHARED_H

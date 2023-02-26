@@ -2,25 +2,24 @@
 #define _HOOKER_H
 
 #include "framework.h"
+#include "hook_functions.h"
+#include <easyhook.h>
 
-namespace MyProgram {
+extern "C" {
 
-class Hooker {
- public:
-  Hooker();
-  BOOL Run();
-  ~Hooker();
+BOOL _Init();
+BOOL _Run();
+void _Deinit();
 
- private:
-   void _DisconnectPipe();
+ void _DisconnectPipe();
+ BOOL _AddHook(const std::string& __funcName);
+ BOOL _ParseInit();
 
-   BOOL _ConnectPipe();
-   BOOL _RecvInit();
+ BOOL _ConnectPipe();
+ BOOL _RecvInit();
+ 
+void _SendInfo(LPCSTR __funcName);
 
-   PIPEINST _pipeInst;
-   Tracking _track;
-};
-
-} // namespace MyProgram
+}
 
 #endif // _HOOKER_H

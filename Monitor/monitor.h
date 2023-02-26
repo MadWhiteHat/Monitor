@@ -10,25 +10,25 @@
 
 namespace MyProgram {
 
-extern "C" {
-  DWORD WINAPI InstanceThread(LPVOID __pipe);
-}
-
 class Monitor {
  public:
-  Monitor(const std::vector<std::tstring>& __args);
+  Monitor(const std::vector<std::string>& __args);
   void Run();
   
   void Print() {
     for (const auto& __el : _mp) {
-      std::tout << TEXT("Pid: ") << __el.first << std::endl;
-      std::tout << TEXT("\tFunctions:") << std::endl;
+      std::cout << "Pid: " << __el.first << std::endl;
+      std::cout << "\tFunctions:" << std::endl;
       for (const auto& __name : __el.second._funcNames) {
-        std::tout << TEXT("\t\t") << __name << std::endl;
+        std::cout << "\t\t" << __name << std::endl;
       }
-      std::tout << TEXT("\tHide:") << std::endl;
-      for (const auto& __name : __el.second._hideFilenames) {
-        std::tout << TEXT("\t\t") << __name << std::endl;
+      std::cout << "\tHideA:" << std::endl;
+      for (const auto& __name : __el.second._hideFilenamesA) {
+        std::cout << "\t\t" << __name << std::endl;
+      }
+      std::cout << "\tHideW:" << std::endl;
+      for (const auto& __name : __el.second._hideFilenamesW) {
+        std::wcout << "\t\t" << __name << std::endl;
       }
     }
   }
@@ -36,13 +36,12 @@ class Monitor {
 
 private:
 
-  bool _InjectAll(const std::tstring& __injLib);
-  bool _InjectPid(DWORD __pid, const std::tstring& __injLib);
+  BOOL _InjectPid(DWORD __pid, const std::wstring& __injLib);
 
-  DWORD _AddPid(const std::tstring& __pidStr);
-  DWORD _GetProcIdByName(const std::tstring& __pidStr);
-  void _AddFunc(DWORD __pid, const std::tstring& __funcName);
-  void _AddFilename(DWORD __pid, const std::tstring& __filename);
+  DWORD _AddPid(const std::string& __pidStr);
+  DWORD _GetProcIdByName(const std::string& __pidStr);
+  void _AddFunc(DWORD __pid, const std::string& __funcName);
+  void _AddFilename(DWORD __pid, const std::string& __filename);
 
   void _CreateThreadedPipes();
   BOOL _ConnectToNewClient(HANDLE __pipe, LPOVERLAPPED __lpOverlapped);
@@ -54,7 +53,7 @@ private:
   std::unordered_map<DWORD, Tracking> _mp;
   std::vector<PIPEINST> _pipes;
   std::vector<HANDLE> _events;
-  bool _isGood = false;
+  BOOL _isGood = FALSE;
 };
 
 } // namespace MyProgram

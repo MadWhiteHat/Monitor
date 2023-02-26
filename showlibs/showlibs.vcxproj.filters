@@ -24,6 +24,9 @@
     <ClInclude Include="hooker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="hook_functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -32,5 +35,8 @@
     <ClCompile Include="hooker.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
