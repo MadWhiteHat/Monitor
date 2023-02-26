@@ -11,6 +11,7 @@
 #pragma comment(lib, "advapi32.lib")
 
 #define _CRT_SECURE_NO_WARNINGS
+#define DLL_PATH_X64 L"..\\x64\\Release\\showlibs.dll"
 
 void
 MyProgram::
@@ -51,7 +52,8 @@ Monitor::Monitor(const std::vector<std::string>& __args) {
 BOOL
 MyProgram::
 Monitor::_InjectPid(DWORD __pid, const std::wstring& __injLib) {
-  
+
+  DWORD __type = INJECT_DLL;
   NTSTATUS __res = 0;
   __res = RhInjectLibrary(
     __pid,
@@ -59,8 +61,8 @@ Monitor::_InjectPid(DWORD __pid, const std::wstring& __injLib) {
     EASYHOOK_INJECT_DEFAULT,
     NULL,
     const_cast<WCHAR*>(__injLib.data()),
-    NULL,
-    0
+    &__type,
+    sizeof(__type)
   );
 
   if (__res != 0) {
@@ -226,8 +228,7 @@ Monitor::_CreateThreadedPipes() {
     _pipes[i]._pendingIO = _ConnectToNewClient(_pipes[i]._pipe,
       &_pipes[i]._overlap);
 
-    if (!this->_InjectPid(__el.first,
-      L"..\\x64\\Release\\showlibs.dll")) {
+    if (!this->_InjectPid(__el.first, DLL_PATH_X64)) {
       std::cout << "Hooking library injection failed for PID: "
         << __el.first << std::endl;
     }
@@ -413,7 +414,6 @@ Monitor::_SendInit(DWORD __idx) {
     _mp[_pipes[__idx]._pid]._funcNames;
 
   __size = __funcNames.size();
-  std::cout << "Sending: " << __size << std::endl;
   __success = WriteFile(
     _pipes[__idx]._pipe,
     &__size,
@@ -422,12 +422,10 @@ Monitor::_SendInit(DWORD __idx) {
     NULL
   );
 
-  std::cout << "Sent: " << __size << std::endl;
   if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
   
   for (const auto& __str : __funcNames) {
     DWORD __strLen = __str.length();
-    std::cout << "Sending: " << __strLen << std::endl;
     __success = WriteFile(
       _pipes[__idx]._pipe,
       &__strLen,
@@ -435,10 +433,8 @@ Monitor::_SendInit(DWORD __idx) {
       &__cbWritten,
       NULL
     );
-    std::cout << "Sent: " << __strLen << std::endl;
     if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
 
-    std::cout << "Sending: " << __str.data() << std::endl;
     __success = WriteFile(
       _pipes[__idx]._pipe,
       __str.data(),
@@ -446,7 +442,6 @@ Monitor::_SendInit(DWORD __idx) {
       &__cbWritten,
       NULL
     );
-    std::cout << "Sent: " << __str.data() << std::endl;
     if (!__success && __cbWritten != __strLen) {
       return __success;
     }
@@ -457,7 +452,6 @@ Monitor::_SendInit(DWORD __idx) {
     _mp[_pipes[__idx]._pid]._hideFilenamesA;
 
   __size = __hideFilenamesA.size();
-  std::cout << "Sending: " << __size << std::endl;
   __success = WriteFile(
     _pipes[__idx]._pipe,
     &__size,
@@ -466,12 +460,10 @@ Monitor::_SendInit(DWORD __idx) {
     NULL
   );
 
-  std::cout << "Sent: " << __size << std::endl;
   if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
   
   for (const auto& __str : __hideFilenamesA) {
     DWORD __strLen = __str.length();
-    std::cout << "Sending: " << __strLen << std::endl;
     __success = WriteFile(
       _pipes[__idx]._pipe,
       &__strLen,
@@ -479,10 +471,8 @@ Monitor::_SendInit(DWORD __idx) {
       &__cbWritten,
       NULL
     );
-    std::cout << "Sent: " << __strLen << std::endl;
     if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
 
-    std::cout << "Sending: " << __str.data() << std::endl;
     __success = WriteFile(
       _pipes[__idx]._pipe,
       __str.data(),
@@ -490,7 +480,6 @@ Monitor::_SendInit(DWORD __idx) {
       &__cbWritten,
       NULL
     );
-    std::cout << "Sent: " << __str.data() << std::endl;
     if (!__success && __cbWritten != __strLen) {
       return __success;
     }
@@ -500,7 +489,6 @@ Monitor::_SendInit(DWORD __idx) {
     _mp[_pipes[__idx]._pid]._hideFilenamesW;
 
   __size = __hideFilenamesW.size();
-  std::cout << "Sending: " << __size << std::endl;
   __success = WriteFile(
     _pipes[__idx]._pipe,
     &__size,
@@ -509,12 +497,10 @@ Monitor::_SendInit(DWORD __idx) {
     NULL
   );
 
-  std::cout << "Sent: " << __size << std::endl;
   if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
   
   for (const auto& __str : __hideFilenamesW) {
     DWORD __strLen = __str.length();
-    std::cout << "Sending: " << __strLen << std::endl;
     __success = WriteFile(
       _pipes[__idx]._pipe,
       &__strLen,
@@ -522,10 +508,8 @@ Monitor::_SendInit(DWORD __idx) {
       &__cbWritten,
       NULL
     );
-    std::cout << "Sent: " << __strLen << std::endl;
     if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
 
-    std::wcout << "Sending: " << __str.data() << std::endl;
     __success = WriteFile(
       _pipes[__idx]._pipe,
       __str.data(),
@@ -533,7 +517,6 @@ Monitor::_SendInit(DWORD __idx) {
       &__cbWritten,
       NULL
     );
-    std::wcout << "Sent: " << __str.data() << std::endl;
     if (!__success && __cbWritten != __strLen * sizeof(WCHAR)) {
       return __success;
     }

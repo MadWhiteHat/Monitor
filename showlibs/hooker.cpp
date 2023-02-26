@@ -6,7 +6,6 @@
 #include <initializer_list>
 
 PIPEINST _pipeInst;
-std::vector<HOOK_TRACE_INFO> _hooks;
 Tracking _track;
 HMODULE _hKernel = NULL;
 
@@ -3240,7 +3239,11 @@ BOOL _Init() {
   return (_hKernel == NULL) ? FALSE : TRUE;
 }
 
-void _Deinit() { _DisconnectPipe(); }
+void _Deinit() {
+  _DisconnectPipe();
+  LhUninstallAllHooks();
+  LhWaitForPendingRemovals();
+}
 
 BOOL _Run() {
   if (!_ConnectPipe()) { return FALSE; }
@@ -3410,7 +3413,7 @@ BOOL _ParseInit() {
 
 BOOL _AddHook(const std::string& __funcName) {
 
-  _hooks.push_back(HOOK_TRACE_INFO{ NULL });
+  HOOK_TRACE_INFO _hHook = { NULL };
   FARPROC __baseFunc = _funcMap[__funcName];
   FARPROC __hookFunc = _funcHooksMap[__funcName];
   NTSTATUS __res = 0;
@@ -3418,11 +3421,11 @@ BOOL _AddHook(const std::string& __funcName) {
     __baseFunc,
     __hookFunc,
     NULL,
-    &(_hooks.back())
+    &_hHook
   );
   if (FAILED(__res)) { return FALSE; }
   ULONG __aclEntries[1] = { 0 };
-  if (FAILED(LhSetExclusiveACL(__aclEntries, 1, &(_hooks.back())))) { return FALSE; }
+  if (FAILED(LhSetExclusiveACL(__aclEntries, 1, &_hHook))) { return FALSE; }
 
   return TRUE;
 }
@@ -3873,9 +3876,8 @@ HANDLE _MyCreateFileA(
   if (__baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   
-  if (!_CheckA(__lpFileName)) { return INVALID_HANDLE_VALUE; }
+  if (_CheckA(__lpFileName)) { return INVALID_HANDLE_VALUE; }
 
-  std::cout << "Here" << std::endl;
   return __baseFunc(__lpFileName, __dwDesiredAccess, __dwSharedMode,
     __lpSecurityAttributes, __dwCreationDisposition, __dwFlagsAndAttributes,
     __hTemplateFile);

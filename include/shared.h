@@ -10,6 +10,9 @@
 #define OPERATING_STATE 1
 #define DISCONNECTED_STATE 2
 
+#define INJECT_DLL DWORD(0)
+#define EJECT_DLL DWORD(1)
+
 typedef struct {
   OVERLAPPED _overlap;
   HANDLE _pipe;
