@@ -352,11 +352,6 @@ MyProgram::Monitor::_ServerOperate() {
           _pipes[__idx]._cbRead = __cbRet;
           break;
         case DISCONNECTED_STATE:
-          __count = 0;
-          for (const auto& __el : _pipes) {
-            if (__el._state == DISCONNECTED_STATE) { ++__count; }
-          }
-          if (__count == _pipes.size()) { return; }
           break;
         default: {
           std::cout << "Invalid pipe state" << std::endl;
@@ -388,11 +383,6 @@ MyProgram::Monitor::_ServerOperate() {
         this->_Disconnect(__idx);
         break;
       case DISCONNECTED_STATE:
-        __count = 0;
-        for (const auto& __el : _pipes) {
-          if (__el._state == DISCONNECTED_STATE) { ++__count; }
-        }
-        if (__count == _pipes.size()) { return; }
         break;
       default: {
         std::cout << "Invalid pipe mode" << std::endl;
