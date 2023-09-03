@@ -18,6 +18,26 @@ void
 MyProgram::
 Monitor::Run() { this->_CreateThreadedPipes(); }
 
+void
+MyProgram::
+Monitor::Print() {
+  for (const auto& __el : _mp) {
+    std::cout << "Pid: " << __el.first << "\n\tFunctions:\n";
+    for (const auto& __name : __el.second._funcNames) {
+      std::cout << "\t\t" << __name.first << " Verbose: "
+        << ((__name.second) ? "True" : "False") << '\n';
+    }
+    std::cout << "\tHideA:\n";
+    for (const auto& __name : __el.second._hideFilenamesA) {
+      std::cout << "\t\t" << __name << '\n';
+    }
+    std::cout << "\tHideW:\n";
+    for (const auto& __name : __el.second._hideFilenamesW) {
+      std::wcout << "\t\t" << __name << '\n';
+    }
+  }
+}
+
 MyProgram::
 Monitor::Monitor(const std::vector<std::string>& __args) {
   enum { PID, FUNC, HIDE };

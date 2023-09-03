@@ -5,6 +5,9 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <initializer_list>
+
+#include <windows.h>
 
 #include "../include/shared.h"
 
@@ -14,26 +17,8 @@ class Monitor {
  public:
   Monitor(const std::vector<std::string>& __args);
   void Run();
-  
-  void Print() {
-    for (const auto& __el : _mp) {
-      std::cout << "Pid: " << __el.first << std::endl;
-      std::cout << "\tFunctions:" << std::endl;
-      for (const auto& __name : __el.second._funcNames) {
-        std::cout << "\t\t" << __name << std::endl;
-      }
-      std::cout << "\tHideA:" << std::endl;
-      for (const auto& __name : __el.second._hideFilenamesA) {
-        std::cout << "\t\t" << __name << std::endl;
-      }
-      std::cout << "\tHideW:" << std::endl;
-      for (const auto& __name : __el.second._hideFilenamesW) {
-        std::wcout << "\t\t" << __name << std::endl;
-      }
-    }
-  }
 
-
+  void Print();
 private:
 
   BOOL _InjectPid(DWORD __pid, const std::wstring& __injLib);
@@ -41,6 +26,7 @@ private:
   DWORD _AddPid(const std::string& __pidStr);
   DWORD _GetProcIdByName(const std::string& __pidStr);
   void _AddFunc(DWORD __pid, const std::string& __funcName);
+  void _AddImplFuncs(DWORD __pid);
   void _AddFilename(DWORD __pid, const std::string& __filename);
 
   void _CreateThreadedPipes();
@@ -54,6 +40,15 @@ private:
   std::vector<PIPEINST> _pipes;
   std::vector<HANDLE> _events;
   BOOL _isGood = FALSE;
+};
+
+const std::initializer_list<std::string> _hideFuncNames = {
+  "FindFirstFileA",
+  "FindFirstFileW",
+  "FindNextFileA",
+  "FindNextFileW",
+  "CreateFileA",
+  "CreateFileW"
 };
 
 } // namespace MyProgram
