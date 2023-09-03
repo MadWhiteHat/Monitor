@@ -1,7 +1,9 @@
 #ifndef _SHARED_H
 #define _SHARED_H
 
+#include <iostream>
 #include <vector>
+#include <unordered_map>
 
 #define PIPE_NAME "\\\\.\\pipe\\monitor"
 #define PIPE_BUFFER_SIZE 4096
@@ -26,7 +28,7 @@ typedef struct {
 } PIPEINST, *LPPIPEINST;
 
 struct Tracking {
-  std::vector<std::string> _funcNames;
+  std::unordered_map<std::string, BOOL> _funcNames;
   std::vector<std::string> _hideFilenamesA;
   std::vector<std::wstring> _hideFilenamesW;
 };

@@ -1746,9 +1746,9 @@ std::unordered_map<std::string, FARPROC> _funcHooksMap = {
   "CheckTokenMembershipEx",
   "ClearCommBreak",
   "ClearCommError",
-  "CloseConsoleHandle",
-  "CloseHandle",
-  "ClosePackageInfo",
+  "CloseConsoleHandle", */
+  { "CloseHandle", (FARPROC)_MyCloseHandle },
+  /*"ClosePackageInfo",
   "ClosePrivateNamespace",
   "CloseProfileUserMapping",
   "ClosePseudoConsole",
@@ -3301,6 +3301,8 @@ BOOL _RecvInit() {
   for (DWORD __idx = 0; __idx < __size; ++__idx) {
     ZeroMemory(_pipeInst._reqBuff, PIPE_BUFFER_SIZE * sizeof(TCHAR));
     DWORD __strLen = 0;
+    BOOL __verbose = FALSE;
+
     __success = ReadFile(
       _pipeInst._pipe,
       &__strLen,
@@ -3321,7 +3323,20 @@ BOOL _RecvInit() {
 
     if (!__success) { return FALSE; }
 
-    _track._funcNames.emplace_back(_pipeInst._reqBuff, __strLen);
+    __success = ReadFile(
+      _pipeInst._pipe,
+      &__verbose,
+      sizeof(BOOL),
+      &_pipeInst._cbRead,
+      NULL
+    );
+
+    if (!__success) { return FALSE; }
+
+    _track._funcNames.emplace(
+      std::string(_pipeInst._reqBuff, __strLen),
+      __verbose
+    );
   }
 
   // Hide filenames
@@ -3396,6 +3411,7 @@ BOOL _RecvInit() {
       reinterpret_cast<WCHAR*>(_pipeInst._reqBuff), __strLen
     );
   }
+
   return TRUE;
 }
 
@@ -3406,7 +3422,7 @@ void _DisconnectPipe() {
 BOOL _ParseInit() { 
   BOOL __res = TRUE;
   for (const auto& __el : _track._funcNames) {
-    __res &= _AddHook(__el);
+    __res &= _AddHook(__el.first);
   }
   return __res;
 }
@@ -3430,7 +3446,7 @@ BOOL _AddHook(const std::string& __funcName) {
   return TRUE;
 }
 
-void _SendInfo(LPCSTR __funcName) {
+void _SendInfo(std::string __funcName) {
   DWORD __cbWritten = 0;
   BOOL __success = FALSE;
   SYSTEMTIME __time;
@@ -3438,9 +3454,9 @@ void _SendInfo(LPCSTR __funcName) {
   StringCchPrintfA(_pipeInst._replyBuff, PIPE_BUFFER_SIZE,
     "PID: %d %02d/%02d/%02d %02d:%02d:%02d call %s",
     _pipeInst._pid, __time.wDay, __time.wMonth, __time.wYear % 100,
-    __time.wHour, __time.wMinute, __time.wSecond, __funcName);
+    __time.wHour, __time.wMinute, __time.wSecond, __funcName.data());
 
-  _pipeInst._cbToWrite = strlen(_pipeInst._replyBuff) + 1;
+  _pipeInst._cbToWrite = DWORD(strlen(_pipeInst._replyBuff)) + 1;
   __success = WriteFile(
     _pipeInst._pipe,
     _pipeInst._replyBuff,
@@ -3459,8 +3475,13 @@ void _SendInfo(LPCSTR __funcName) {
 
 void _MyAcquireSRWLockExclusive(PSRWLOCK __SRWLock) {
   using func_type = void(*)(PSRWLOCK);
-  _SendInfo("AcquireSRWLockExclusive");
-  auto __baseFuncAddr = _funcMap["AcquireSRWLockExclusive"];
+  std::string __funcName("AcquireSRWLockExclusive");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__SRWLock);
@@ -3468,8 +3489,13 @@ void _MyAcquireSRWLockExclusive(PSRWLOCK __SRWLock) {
 
 void _MyAcquireSRWLockShared(PSRWLOCK __SRWLock) {
   using func_type = void(*)(PSRWLOCK);
-  _SendInfo("AcquireSRWLockShared");
-  auto __baseFuncAddr = _funcMap["AcquireSRWLockShared"];
+  std::string __funcName("AcquireSRWLockShared");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__SRWLock);
@@ -3477,8 +3503,13 @@ void _MyAcquireSRWLockShared(PSRWLOCK __SRWLock) {
 
 BOOL _MyActivateActCtx(HANDLE __hActCtx, ULONG_PTR* __lpCookie) {
   using func_type = BOOL(*)(HANDLE, ULONG_PTR*);
-  _SendInfo("ActivateActCtx");
-  auto __baseFuncAddr = _funcMap["ActivateActCtx"];
+  std::string __funcName("ActivateActCtx");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__hActCtx, __lpCookie);
@@ -3486,8 +3517,13 @@ BOOL _MyActivateActCtx(HANDLE __hActCtx, ULONG_PTR* __lpCookie) {
 
 ATOM _MyAddAtomA(LPCSTR __lpString) {
   using func_type = ATOM(*)(LPCSTR);
-  _SendInfo("AddAtomA");
-  auto __baseFuncAddr = _funcMap["AddAtomA"];
+  std::string __funcName("AddAtomA");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return 0; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__lpString);
@@ -3495,18 +3531,27 @@ ATOM _MyAddAtomA(LPCSTR __lpString) {
 
 ATOM _MyAddAtomW(LPCWSTR __lpString) {
   using func_type = ATOM(*)(LPCWSTR);
-  _SendInfo("AddAtomW");
-  auto __baseFuncAddr = _funcMap["AddAtomW"];
+  std::string __funcName("AddAtomW");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return 0; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__lpString);
 }
 
-BOOL WINAPI _MyAddConsoleAliasA(LPCSTR __Source, LPCSTR __Target,
-  LPCSTR __ExeName) {
+BOOL WINAPI _MyAddConsoleAliasA(LPCSTR __Source, LPCSTR __Target, LPCSTR __ExeName) {
   using func_type = BOOL(WINAPI*)(LPCSTR, LPCSTR, LPCSTR);
-  _SendInfo("AddConsoleAliasA");
-  auto __baseFuncAddr = _funcMap["AddConsoleAliasA"];
+  std::string __funcName("AddConsoleAliasA");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__Source, __Target, __ExeName);
@@ -3515,8 +3560,13 @@ BOOL WINAPI _MyAddConsoleAliasA(LPCSTR __Source, LPCSTR __Target,
 BOOL WINAPI _MyAddConsoleAliasW(LPCWSTR __Source, LPCWSTR __Target,
   LPCWSTR __ExeName) {
   using func_type = BOOL(WINAPI*)(LPCWSTR, LPCWSTR, LPCWSTR);
-  _SendInfo("AddConsoleAliasW");
-  auto __baseFuncAddr = _funcMap["AddConsoleAliasW"];
+  std::string __funcName("AddConsoleAliasW");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__Source, __Target, __ExeName);
@@ -3524,8 +3574,13 @@ BOOL WINAPI _MyAddConsoleAliasW(LPCWSTR __Source, LPCWSTR __Target,
 
 DLL_DIRECTORY_COOKIE _MyAddDllDirectory(PCWSTR __NewDirectory) {
   using func_type = DLL_DIRECTORY_COOKIE(*)(PCWSTR);
-  _SendInfo("AddDllDirectory");
-  auto __baseFuncAddr = _funcMap["AddDllDirectory"];
+  std::string __funcName("AddDllDirectory");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return 0; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__NewDirectory);
@@ -3534,8 +3589,13 @@ DLL_DIRECTORY_COOKIE _MyAddDllDirectory(PCWSTR __NewDirectory) {
 BOOL _MyAddIntegrityLabelToBoundaryDescriptor(HANDLE* __BoundaryDescriptor ,
   PSID __IntegrityLabel) {
   using func_type = BOOL(*)(HANDLE*, PSID);
-  _SendInfo("AddIntegrityLabelToBoundaryDescriptor");
-  auto __baseFuncAddr = _funcMap["AddIntegrityLabelToBoundaryDescriptor"];
+  std::string __funcName("AddIntegrityLabelToBoundaryDescriptor");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return 0; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__BoundaryDescriptor, __IntegrityLabel);
@@ -3544,8 +3604,13 @@ BOOL _MyAddIntegrityLabelToBoundaryDescriptor(HANDLE* __BoundaryDescriptor ,
 DWORD _MyAddLocalAlternateComputerNameA(LPCSTR __lpDnsFQHostName,
   ULONG __ulFlag) {
   using func_type = DWORD(*)(LPCSTR, ULONG);
-  _SendInfo("AddLocalAlternateComputerNameA");
-  auto __baseFuncAddr = _funcMap["AddLocalAlternateComputerNameA"];
+  std::string __funcName("AddLocalAlternateComputerNameA");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__lpDnsFQHostName, __ulFlag);
@@ -3554,8 +3619,13 @@ DWORD _MyAddLocalAlternateComputerNameA(LPCSTR __lpDnsFQHostName,
 DWORD _MyAddLocalAlternateComputerNameW(LPCWSTR __lpDnsFQHostName,
   ULONG __ulFlag) {
   using func_type = DWORD(*)(LPCWSTR, ULONG);
-  _SendInfo("AddLocalAlternateComputerNameW");
-  auto __baseFuncAddr = _funcMap["AddLocalAlternateComputerNameW"];
+  std::string __funcName("AddLocalAlternateComputerNameW");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__lpDnsFQHostName, __ulFlag);
@@ -3563,8 +3633,13 @@ DWORD _MyAddLocalAlternateComputerNameW(LPCWSTR __lpDnsFQHostName,
 
 void _MyAddRefActCtx(HANDLE __hActCtx) {
   using func_type = void(*)(HANDLE);
-  _SendInfo("AddRefActCtx");
-  auto __baseFuncAddr = _funcMap["AddRefActCtx"];
+  std::string __funcName("AddRefActCtx");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__hActCtx);
@@ -3580,8 +3655,13 @@ BOOL _MyAddResourceAttributeAce(
   PDWORD __pReturnLength) {
   using func_type = BOOL(*)(PACL, DWORD, DWORD, DWORD, PSID,
     PCLAIM_SECURITY_ATTRIBUTES_INFORMATION, PDWORD);
-  _SendInfo("AddResourceAttributeAce");
-  auto __baseFuncAddr = _funcMap["AddResourceAttributeAce"];
+  std::string __funcName("AddResourceAttributeAce");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__pAcl ,__dwAceRevision, __AceFlags, __AccessMask, __pSid,
@@ -3590,8 +3670,13 @@ BOOL _MyAddResourceAttributeAce(
 
 BOOL _MyAddSecureMemoryCacheCallback(PSECURE_MEMORY_CACHE_CALLBACK __pfnCallBack) {
   using func_type = BOOL(*)(PSECURE_MEMORY_CACHE_CALLBACK);
-  _SendInfo("AddSecureMemoryCacheCallback");
-  auto __baseFuncAddr = _funcMap["AddSecureMemoryCacheCallback"];
+  std::string __funcName("AddSecureMemoryCacheCallback");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__pfnCallBack);
@@ -3600,8 +3685,13 @@ BOOL _MyAddSecureMemoryCacheCallback(PSECURE_MEMORY_CACHE_CALLBACK __pfnCallBack
 BOOL _MyAddSIDToBoundaryDescriptor(HANDLE* __BoundaryDescriptor,
   PSID __RequireSid) {
   using func_type = BOOL(*)(HANDLE*, PSID);
-  _SendInfo("AddSIDToBoundaryDescriptor");
-  auto __baseFuncAddr = _funcMap["AddSIDToBoundaryDescriptor"];
+  std::string __funcName("AddSIDToBoundaryDescriptor");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__BoundaryDescriptor, __RequireSid);
@@ -3610,8 +3700,13 @@ BOOL _MyAddSIDToBoundaryDescriptor(HANDLE* __BoundaryDescriptor,
 PVOID _MyAddVectoredContinueHandler(ULONG __First,
   PVECTORED_EXCEPTION_HANDLER __Handler) {
   using func_type = PVOID(*)(ULONG, PVECTORED_EXCEPTION_HANDLER);
-  _SendInfo("AddVectoredContinueHandler");
-  auto __baseFuncAddr = _funcMap["AddVectoredContinueHandler"];
+  std::string __funcName("AddVectoredContinueHandler");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return NULL; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__First, __Handler);
@@ -3620,8 +3715,13 @@ PVOID _MyAddVectoredContinueHandler(ULONG __First,
 PVOID _MyAddVectoredExceptionHandler(ULONG __First,
   PVECTORED_EXCEPTION_HANDLER __Handler) {
   using func_type = PVOID(*)(ULONG, PVECTORED_EXCEPTION_HANDLER);
-  _SendInfo("AddVectoredExceptionHandler");
-  auto __baseFuncAddr = _funcMap["AddVectoredExceptionHandler"];
+  std::string __funcName("AddVectoredExceptionHandler");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return NULL; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__First, __Handler);
@@ -3630,8 +3730,13 @@ PVOID _MyAddVectoredExceptionHandler(ULONG __First,
 BOOL _MyAllocateUserPhysicalPages(HANDLE __hProcess,
   PULONG_PTR __NumberOfPages, PULONG_PTR __PageArray) {
   using func_type = BOOL(*)(HANDLE, PULONG_PTR, PULONG_PTR);
-  _SendInfo("AllocateUserPhysicalPages");
-  auto __baseFuncAddr = _funcMap["AllocateUserPhysicalPages"];
+  std::string __funcName("AllocateUserPhysicalPages");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return NULL; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__hProcess, __NumberOfPages, __PageArray);
@@ -3640,8 +3745,13 @@ BOOL _MyAllocateUserPhysicalPages(HANDLE __hProcess,
 BOOL _MyAllocateUserPhysicalPagesNuma(HANDLE __hProcess,
   PULONG_PTR __NumberOfPages, PULONG_PTR __PageArray, DWORD __nndPreferred) {
   using func_type = BOOL(*)(HANDLE, PULONG_PTR, PULONG_PTR, DWORD);
-  _SendInfo("AllocateUserPhysicalPagesNuma");
-  auto __baseFuncAddr = _funcMap["AllocateUserPhysicalPagesNuma"];
+  std::string __funcName("AllocateUserPhysicalPagesNuma");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return NULL; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__hProcess, __NumberOfPages, __PageArray, __nndPreferred);
@@ -3649,8 +3759,13 @@ BOOL _MyAllocateUserPhysicalPagesNuma(HANDLE __hProcess,
 
 BOOL WINAPI _MyAllocConsole() {
   using func_type = BOOL(WINAPI*)();
-  _SendInfo("AllocConsole");
-  auto __baseFuncAddr = _funcMap["AllocConsole"];
+  std::string __funcName("AllocConsole");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return NULL; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc();
@@ -3658,8 +3773,13 @@ BOOL WINAPI _MyAllocConsole() {
 
 void _MyApplicationRecoveryFinished(BOOL __bSuccess) {
   using func_type = void(*)(BOOL);
-  _SendInfo("ApplicationRecoveryFinished");
-  auto __baseFuncAddr = _funcMap["ApplicationRecoveryFinished"];
+  std::string __funcName("ApplicationRecoveryFinished");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__bSuccess);
@@ -3667,8 +3787,13 @@ void _MyApplicationRecoveryFinished(BOOL __bSuccess) {
 
 HRESULT _MyApplicationRecoveryInProgress(PBOOL __pbCancelled) {
   using func_type = HRESULT(*)(PBOOL);
-  _SendInfo("ApplicationRecoveryInProgress");
-  auto __baseFuncAddr = _funcMap["ApplicationRecoveryInProgress"];
+  std::string __funcName("ApplicationRecoveryInProgress");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return E_FAIL; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__pbCancelled);
@@ -3677,8 +3802,13 @@ HRESULT _MyApplicationRecoveryInProgress(PBOOL __pbCancelled) {
 LONG _MyAppPolicyGetClrCompat(HANDLE __processToken,
   AppPolicyClrCompat* __policy) {
   using func_type = LONG(*)(HANDLE, AppPolicyClrCompat*);
-  _SendInfo("AppPolicyGetClrCompat");
-  auto __baseFuncAddr = _funcMap["AppPolicyGetClrCompat"];
+  std::string __funcName("AppPolicyGetClrCompat");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__processToken, __policy);
@@ -3687,8 +3817,13 @@ LONG _MyAppPolicyGetClrCompat(HANDLE __processToken,
 LONG _MyAppPolicyGetMediaFoundationCodecLoading(HANDLE __processToken,
   AppPolicyMediaFoundationCodecLoading* __policy) {
   using func_type = LONG(*)(HANDLE, AppPolicyMediaFoundationCodecLoading*);
-  _SendInfo("AppPolicyGetMediaFoundationCodecLoading");
-  auto __baseFuncAddr = _funcMap["AppPolicyGetMediaFoundationCodecLoading"];
+  std::string __funcName("AppPolicyGetMediaFoundationCodecLoading");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__processToken, __policy);
@@ -3697,8 +3832,13 @@ LONG _MyAppPolicyGetMediaFoundationCodecLoading(HANDLE __processToken,
 LONG _MyAppPolicyGetProcessTerminationMethod(HANDLE __processToken,
   AppPolicyProcessTerminationMethod* __policy) {
   using func_type = LONG(*)(HANDLE, AppPolicyProcessTerminationMethod*);
-  _SendInfo("AppPolicyGetProcessTerminationMethod");
-  auto __baseFuncAddr = _funcMap["AppPolicyGetProcessTerminationMethod"];
+  std::string __funcName("AppPolicyGetProcessTerminationMethod");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__processToken, __policy);
@@ -3707,8 +3847,13 @@ LONG _MyAppPolicyGetProcessTerminationMethod(HANDLE __processToken,
 LONG _MyAppPolicyGetThreadInitializationType(HANDLE __processToken,
   AppPolicyThreadInitializationType* __policy) {
   using func_type = LONG(*)(HANDLE, AppPolicyThreadInitializationType*);
-  _SendInfo("AppPolicyGetThreadInitializationType");
-  auto __baseFuncAddr = _funcMap["AppPolicyGetThreadInitializationType"];
+  std::string __funcName("AppPolicyGetThreadInitializationType");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__processToken, __policy);
@@ -3717,8 +3862,13 @@ LONG _MyAppPolicyGetThreadInitializationType(HANDLE __processToken,
 LONG _MyAppPolicyGetWindowingModel(HANDLE __processToken,
   AppPolicyWindowingModel* __policy) {
   using func_type = LONG(*)(HANDLE, AppPolicyWindowingModel*);
-  _SendInfo("AppPolicyGetWindowingModel");
-  auto __baseFuncAddr = _funcMap["AppPolicyGetWindowingModel"];
+  std::string __funcName("AppPolicyGetWindowingModel");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__processToken, __policy);
@@ -3726,8 +3876,13 @@ LONG _MyAppPolicyGetWindowingModel(HANDLE __processToken,
 
 BOOL _MyAreFileApisANSI() {
   using func_type = BOOL(*)();
-  _SendInfo("AreFileApisANSI");
-  auto __baseFuncAddr = _funcMap["AreFileApisANSI"];
+  std::string __funcName("AreFileApisANSI");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc();
@@ -3735,8 +3890,13 @@ BOOL _MyAreFileApisANSI() {
 
 BOOL _MyAssignProcessToJobObject(HANDLE __hJob, HANDLE __hProcess) {
   using func_type = BOOL(*)(HANDLE, HANDLE);
-  _SendInfo("AssignProcessToJobObject");
-  auto __baseFuncAddr = _funcMap["AssignProcessToJobObject"];
+  std::string __funcName("AssignProcessToJobObject");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__hJob, __hProcess);
@@ -3744,8 +3904,13 @@ BOOL _MyAssignProcessToJobObject(HANDLE __hJob, HANDLE __hProcess) {
 
 BOOL WINAPI _MyAttachConsole(DWORD __dwProcessId) {
   using func_type = BOOL(WINAPI*)(DWORD);
-  _SendInfo("AttachConsole");
-  auto __baseFuncAddr = _funcMap["AttachConsole"];
+  std::string __funcName("AttachConsole");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__dwProcessId);
@@ -3761,8 +3926,13 @@ BOOL _MyBackupRead(
   LPVOID* __lpContext) {
   using func_type = BOOL(*)(HANDLE, LPBYTE, DWORD, LPDWORD, BOOL, BOOL,
     LPVOID*);
-  _SendInfo("BackupRead");
-  auto __baseFuncAddr = _funcMap["BackupRead"];
+  std::string __funcName("BackupRead");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__hFile, __lpBuffer, __nNumberOfBytesToRead,
@@ -3777,8 +3947,13 @@ BOOL _MyBackupSeek(
   LPDWORD __lpdwHighByteSeeked,
   LPVOID* __lpContext) {
   using func_type = BOOL(*)(HANDLE, DWORD, DWORD, LPDWORD, LPDWORD, LPVOID*);
-  _SendInfo("BackupSeek");
-  auto __baseFuncAddr = _funcMap["BackupSeek"];
+  std::string __funcName("BackupSeek");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__hFile, __dwLowBytesToSeek, __dwHighBytesToSeek,
@@ -3794,8 +3969,13 @@ BOOL _MyBackupWrite(
   BOOL __bProcessSecurity,
   LPVOID* __lpContext) {
   using func_type = BOOL(*)(HANDLE, LPBYTE, DWORD, LPDWORD, BOOL, BOOL, LPVOID*);
-  _SendInfo("BackupWrite");
-  auto __baseFuncAddr = _funcMap["BackupWrite"];
+  std::string __funcName("BackupWrite");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__hFile, __lpBuffer, __nNumberOfBytesToWrite,
@@ -3805,8 +3985,13 @@ BOOL _MyBackupWrite(
 HANDLE _MyFindFirstFileA(LPCSTR __lpFileName,
   LPWIN32_FIND_DATAA __lpFindFileData) {
   using func_type = HANDLE(*)(LPCSTR, LPWIN32_FIND_DATAA);
-  _SendInfo("FindFirstFileA");
-  auto __baseFuncAddr = _funcMap["FindFirstFileA"];
+  std::string __funcName("FindFirstFileA");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
 
@@ -3819,8 +4004,13 @@ HANDLE _MyFindFirstFileA(LPCSTR __lpFileName,
 HANDLE _MyFindFirstFileW(LPCWSTR __lpFileName,
   LPWIN32_FIND_DATAW __lpFindFileData) {
   using func_type = HANDLE(*)(LPCWSTR, LPWIN32_FIND_DATAW);
-  _SendInfo("FindFirstFileW");
-  auto __baseFuncAddr = _funcMap["FindFirstFileW"];
+  std::string __funcName("FindFirstFileA");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
 
@@ -3833,8 +4023,13 @@ HANDLE _MyFindFirstFileW(LPCWSTR __lpFileName,
 
 BOOL _MyFindNextFileA(HANDLE __hFindFile, LPWIN32_FIND_DATAA __lpFindFileData) {
   using func_type = BOOL(*)(HANDLE, LPWIN32_FIND_DATAA);
-  _SendInfo("FindNextFileA");
-  auto __baseFuncAddr = _funcMap["FindNextFileA"];
+  std::string __funcName("FindNextFileA");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   
@@ -3847,8 +4042,13 @@ BOOL _MyFindNextFileA(HANDLE __hFindFile, LPWIN32_FIND_DATAA __lpFindFileData) {
 }
 BOOL _MyFindNextFileW(HANDLE __hFindFile, LPWIN32_FIND_DATAW __lpFindFileData) {
   using func_type = BOOL(*)(HANDLE, LPWIN32_FIND_DATAW);
-  _SendInfo("FindNextFileW");
-  auto __baseFuncAddr = _funcMap["FindNextFileW"];
+  std::string __funcName("FindNextFileW");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   
@@ -3871,13 +4071,18 @@ HANDLE _MyCreateFileA(
   HANDLE __hTemplateFile) {
   using func_type = HANDLE(*)(LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES,
     DWORD, DWORD, HANDLE);
-  _SendInfo("CreateFileA");
-  auto __baseFuncAddr = _funcMap["CreateFileA"];
+  std::string __funcName("CreateFileA");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  if (_CheckA(__lpFileName)) { return INVALID_HANDLE_VALUE; }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   
-  if (_CheckA(__lpFileName)) { return INVALID_HANDLE_VALUE; }
-
   return __baseFunc(__lpFileName, __dwDesiredAccess, __dwSharedMode,
     __lpSecurityAttributes, __dwCreationDisposition, __dwFlagsAndAttributes,
     __hTemplateFile);
@@ -3893,12 +4098,17 @@ HANDLE _MyCreateFileW(
   HANDLE __hTemplateFile) {
   using func_type = HANDLE(*)(LPCWSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES,
     DWORD, DWORD, HANDLE);
-  _SendInfo("CreateFileW");
-  auto __baseFuncAddr = _funcMap["CreateFileW"];
+  std::string __funcName("CreateFileW");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  if (_CheckW(__lpFileName)) { return INVALID_HANDLE_VALUE; }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
-  
-  if (!_CheckW(__lpFileName)) { return INVALID_HANDLE_VALUE; }
 
   return __baseFunc(__lpFileName, __dwDesiredAccess, __dwSharedMode,
     __lpSecurityAttributes, __dwCreationDisposition, __dwFlagsAndAttributes,
@@ -3907,11 +4117,30 @@ HANDLE _MyCreateFileW(
 
 BOOL _MyBeep(DWORD __dwFreq, DWORD __dwDuration) {
   using func_type = BOOL(WINAPI*)(DWORD, DWORD);
-  _SendInfo("Beep");
-  auto __baseFuncAddr = _funcMap["Beep"];
+  std::string __funcName("Beep");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
   if (__baseFuncAddr == NULL) { return FALSE; }
   func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
   return __baseFunc(__dwFreq, __dwDuration);
+}
+
+BOOL _MyCloseHandle(HANDLE __hObject) {
+  using func_type = BOOL(*)(HANDLE);
+  std::string __funcName("CloseHandle");
+
+  if (_track._funcNames.count(__funcName) && _track._funcNames[__funcName]) {
+    _SendInfo(__funcName);
+  }
+
+  auto __baseFuncAddr = _funcMap[__funcName];
+  if (__baseFuncAddr == NULL) { return FALSE; }
+  func_type __baseFunc = reinterpret_cast<func_type>(__baseFuncAddr);
+  return __baseFunc(__hObject);
 }
 
 BOOL _CheckA(LPCSTR __lpFileName) {

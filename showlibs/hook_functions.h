@@ -51,6 +51,17 @@ BOOL _MyFindNextFileW(HANDLE, LPWIN32_FIND_DATAW);
 HANDLE _MyCreateFileA(LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
 HANDLE _MyCreateFileW(LPCWSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
 
+BOOL _MyCloseHandle(HANDLE __hObject);
+
+__kernel_entry NTSTATUS _MyNtOpenFile(
+  PHANDLE __FileHandle,
+  ACCESS_MASK __DesiresAccess,
+  POBJECT_ATTRIBUTES __ObjectAttributes,
+  PIO_STATUS_BLOCK __IoStatusBlock,
+  ULONG __ShareAccess,
+  ULONG __OpenOptions
+);
+
 BOOL _MyBeep(DWORD, DWORD);
 
 BOOL _CheckA(LPCSTR);

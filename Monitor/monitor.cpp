@@ -1,9 +1,10 @@
+#include <iostream>
 #include <string>
+#include <easyhook.h>
 #include <windows.h>
 #include <tlhelp32.h>
 #include <aclapi.h>
 #include <strsafe.h>
-#include <easyhook.h>
 
 #include "../include/shared.h"
 #include "monitor.h"
@@ -15,9 +16,7 @@
 
 void
 MyProgram::
-Monitor::Run() {
-  this->_CreateThreadedPipes();
-}
+Monitor::Run() { this->_CreateThreadedPipes(); }
 
 MyProgram::
 Monitor::Monitor(const std::vector<std::string>& __args) {
@@ -45,6 +44,14 @@ Monitor::Monitor(const std::vector<std::string>& __args) {
     else if (__mode == HIDE) { this->_AddFilename(__currPid, __elem); }
     __command.erase(__command.begin());
   }
+
+  for (const auto& __proc : _mp) {
+    if (!__proc.second._hideFilenamesA.empty()
+      || !__proc.second._hideFilenamesW.empty()) {
+      _AddImplFuncs(__proc.first);
+    }
+  }
+
   _pipes.resize(_mp.size());
   _events.resize(_mp.size());
 }
@@ -117,7 +124,15 @@ Monitor::_GetProcIdByName(const std::string& __pidStr) {
 void
 MyProgram::
 Monitor::_AddFunc(DWORD __pid, const std::string& __funcName) {
-  _mp[__pid]._funcNames.push_back(__funcName);
+  _mp[__pid]._funcNames.emplace(__funcName, TRUE);
+}
+
+void
+MyProgram::
+Monitor::_AddImplFuncs(DWORD __pid) {
+  for (const auto& __funcName : _hideFuncNames) {
+    _mp[__pid]._funcNames.try_emplace(__funcName, FALSE);
+  }
 }
 
 void
@@ -310,7 +325,7 @@ MyProgram::Monitor::_ServerOperate() {
 
   while (TRUE) {
     __wait = WaitForMultipleObjects(
-      _events.size(),
+      DWORD(_events.size()),
       _events.data(),
       FALSE,
       INFINITE
@@ -400,10 +415,10 @@ Monitor::_SendInit(DWORD __idx) {
   BOOL __success = FALSE;
 
   // Func names
-  const std::vector<std::string>& __funcNames =
+  const std::unordered_map<std::string, BOOL>& __funcNames =
     _mp[_pipes[__idx]._pid]._funcNames;
 
-  __size = __funcNames.size();
+  __size = DWORD(__funcNames.size());
   __success = WriteFile(
     _pipes[__idx]._pipe,
     &__size,
@@ -414,8 +429,9 @@ Monitor::_SendInit(DWORD __idx) {
 
   if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
   
-  for (const auto& __str : __funcNames) {
-    DWORD __strLen = __str.length();
+  for (const auto& __el : __funcNames) {
+    DWORD __strLen = DWORD(__el.first.length());
+
     __success = WriteFile(
       _pipes[__idx]._pipe,
       &__strLen,
@@ -427,21 +443,28 @@ Monitor::_SendInit(DWORD __idx) {
 
     __success = WriteFile(
       _pipes[__idx]._pipe,
-      __str.data(),
+      __el.first.data(),
       __strLen,
       &__cbWritten,
       NULL
     );
-    if (!__success && __cbWritten != __strLen) {
-      return __success;
-    }
+    if (!__success && __cbWritten != __strLen) { return __success; }
+
+    __success = WriteFile(
+      _pipes[__idx]._pipe,
+      &__el.second,
+      sizeof(BOOL),
+      &__cbWritten,
+      NULL
+    );
+    if (!__success && __cbWritten != sizeof(BOOL)) { return __success; }
   }
 
   // Hide names
   const std::vector<std::string>& __hideFilenamesA =
     _mp[_pipes[__idx]._pid]._hideFilenamesA;
 
-  __size = __hideFilenamesA.size();
+  __size = DWORD(__hideFilenamesA.size());
   __success = WriteFile(
     _pipes[__idx]._pipe,
     &__size,
@@ -453,7 +476,7 @@ Monitor::_SendInit(DWORD __idx) {
   if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
   
   for (const auto& __str : __hideFilenamesA) {
-    DWORD __strLen = __str.length();
+    DWORD __strLen = DWORD(__str.length());
     __success = WriteFile(
       _pipes[__idx]._pipe,
       &__strLen,
@@ -478,7 +501,7 @@ Monitor::_SendInit(DWORD __idx) {
   const std::vector<std::wstring>& __hideFilenamesW =
     _mp[_pipes[__idx]._pid]._hideFilenamesW;
 
-  __size = __hideFilenamesW.size();
+  __size = DWORD(__hideFilenamesW.size());
   __success = WriteFile(
     _pipes[__idx]._pipe,
     &__size,
@@ -490,7 +513,7 @@ Monitor::_SendInit(DWORD __idx) {
   if (!__success && __cbWritten != sizeof(DWORD)) { return __success; }
   
   for (const auto& __str : __hideFilenamesW) {
-    DWORD __strLen = __str.length();
+    DWORD __strLen = DWORD(__str.length());
     __success = WriteFile(
       _pipes[__idx]._pipe,
       &__strLen,
