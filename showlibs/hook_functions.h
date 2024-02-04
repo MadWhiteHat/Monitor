@@ -4,67 +4,200 @@
 #include "framework.h"
 #include <appmodel.h>
 
-void _MyAcquireSRWLockExclusive(PSRWLOCK);
-void _MyAcquireSRWLockShared(PSRWLOCK);
-BOOL _MyActivateActCtx(HANDLE, ULONG_PTR*);
-ATOM _MyAddAtomA(LPCSTR);
-ATOM _MyAddAtomW(LPCWSTR);
-BOOL WINAPI _MyAddConsoleAliasA(LPCSTR, LPCSTR, LPCSTR);
-BOOL WINAPI _MyAddConsoleAliasW(LPCWSTR, LPCWSTR, LPCWSTR);
-DLL_DIRECTORY_COOKIE _MyAddDllDirectory(PCWSTR);
-BOOL _MyAddIntegrityLabelToBoundaryDescriptor(HANDLE*, PSID);
-DWORD _MyAddLocalAlternateComputerNameA(LPCSTR, ULONG);
-DWORD _MyAddLocalAlternateComputerNameW(LPCWSTR, ULONG);
-void _MyAddRefActCtx(HANDLE);
-BOOL _MyAddResourceAttributeAce(PACL, DWORD, DWORD, DWORD, PSID,
-  PCLAIM_SECURITY_ATTRIBUTES_INFORMATION, PDWORD);
-BOOL _MyAddSecureMemoryCacheCallback(PSECURE_MEMORY_CACHE_CALLBACK);
-BOOL _MyAddSIDToBoundaryDescriptor(HANDLE*, PSID);
-PVOID _MyAddVectoredContinueHandler(ULONG, PVECTORED_EXCEPTION_HANDLER);
-PVOID _MyAddVectoredExceptionHandler(ULONG, PVECTORED_EXCEPTION_HANDLER);
-BOOL _MyAllocateUserPhysicalPages(HANDLE, PULONG_PTR, PULONG_PTR);
-BOOL _MyAllocateUserPhysicalPagesNuma(HANDLE, PULONG_PTR, PULONG_PTR, DWORD);
-BOOL WINAPI _MyAllocConsole();
-void _MyApplicationRecoveryFinished(BOOL);
-HRESULT _MyApplicationRecoveryInProgress(PBOOL);
-LONG _MyAppPolicyGetClrCompat(HANDLE, AppPolicyClrCompat*);
-LONG _MyAppPolicyGetMediaFoundationCodecLoading(HANDLE,
-  AppPolicyMediaFoundationCodecLoading*);
-LONG _MyAppPolicyGetProcessTerminationMethod(HANDLE,
-  AppPolicyProcessTerminationMethod*);
-LONG _MyAppPolicyGetThreadInitializationType(HANDLE,
-  AppPolicyThreadInitializationType*);
-LONG _MyAppPolicyGetWindowingModel(HANDLE, AppPolicyWindowingModel*);
-BOOL _MyAreFileApisANSI();
-BOOL _MyAssignProcessToJobObject(HANDLE, HANDLE);
-BOOL WINAPI _MyAttachConsole(DWORD);
-BOOL _MyBackupRead(HANDLE, LPBYTE, DWORD, LPDWORD, BOOL, BOOL, LPVOID*);
-BOOL _MyBackupSeek(HANDLE, DWORD, DWORD, LPDWORD, LPDWORD, LPVOID*);
-BOOL _MyBackupWrite(HANDLE, LPBYTE, DWORD, LPDWORD, BOOL, BOOL, LPVOID*);
+VOID WINAPI MyAcquireSRWLockExclusive(PSRWLOCK SRWLock);
 
-HANDLE _MyFindFirstFileA(LPCSTR, LPWIN32_FIND_DATAA);
-HANDLE _MyFindFirstFileW(LPCWSTR, LPWIN32_FIND_DATAW);
+VOID WINAPI MyAcquireSRWLockShared(PSRWLOCK SRWLock);
 
-BOOL _MyFindNextFileA(HANDLE, LPWIN32_FIND_DATAA);
-BOOL _MyFindNextFileW(HANDLE, LPWIN32_FIND_DATAW);
+BOOL WINAPI MyActivateActCtx(HANDLE hActCtx, ULONG_PTR* lpCookie);
 
-HANDLE _MyCreateFileA(LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
-HANDLE _MyCreateFileW(LPCWSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
+ATOM WINAPI MyAddAtomA(LPCSTR lpString);
 
-BOOL _MyCloseHandle(HANDLE __hObject);
+ATOM WINAPI MyAddAtomW(LPCWSTR lpString);
 
-__kernel_entry NTSTATUS _MyNtOpenFile(
-  PHANDLE __FileHandle,
-  ACCESS_MASK __DesiresAccess,
-  POBJECT_ATTRIBUTES __ObjectAttributes,
-  PIO_STATUS_BLOCK __IoStatusBlock,
-  ULONG __ShareAccess,
-  ULONG __OpenOptions
+BOOL WINAPI MyAddConsoleAliasA(LPSTR Source, LPSTR Target, LPSTR ExeName);
+
+BOOL WINAPI MyAddConsoleAliasW(LPWSTR Source, LPWSTR Target, LPWSTR ExeName);
+
+DLL_DIRECTORY_COOKIE WINAPI MyAddDllDirectory(PCWSTR NewDirectory);
+
+BOOL MyAddIntegrityLabelToBoundaryDescriptor(
+  HANDLE* BoundaryDescriptor, PSID IntegrityLabel
 );
 
-BOOL _MyBeep(DWORD, DWORD);
+DWORD MyAddLocalAlternateComputerNameA(LPCSTR lpDnsFQHostName, ULONG ulFlag);
+
+DWORD MyAddLocalAlternateComputerNameW(LPCWSTR lpDnsFQHostName, ULONG ulFlag);
+
+VOID MyAddRefActCtx(HANDLE hActCtx);
+
+BOOL MyAddResourceAttributeAce(
+  PACL pAcl,
+  DWORD dwAceRevision,
+  DWORD AceFlags,
+  DWORD AccessMask,
+  PSID pSid,
+  PCLAIM_SECURITY_ATTRIBUTES_INFORMATION pAttributeInfo,
+  PDWORD pReturnLength
+);
+
+BOOL MyAddSecureMemoryCacheCallback(PSECURE_MEMORY_CACHE_CALLBACK pfnCallBack);
+
+BOOL MyAddSIDToBoundaryDescriptor(HANDLE* BoundaryDescriptor, PSID RequireSid);
+
+PVOID MyAddVectoredContinueHandler(
+  ULONG First, PVECTORED_EXCEPTION_HANDLER Handler
+);
+
+PVOID MyAddVectoredExceptionHandler(
+  ULONG First, PVECTORED_EXCEPTION_HANDLER Handler
+);
+
+BOOL MyAllocateUserPhysicalPages(
+  HANDLE hProcess, PULONG_PTR NumberOfPages, PULONG_PTR PageArray
+);
+
+BOOL MyAllocateUserPhysicalPagesNuma(
+  HANDLE hProcess,
+  PULONG_PTR NumberOfPages,
+  PULONG_PTR PageArray,
+  DWORD nndPreferred
+);
+
+BOOL WINAPI MyAllocConsole();
+
+VOID MyApplicationRecoveryFinished(BOOL bSuccess);
+
+HRESULT MyApplicationRecoveryInProgress(PBOOL pbCancelled);
+
+LONG MyAppPolicyGetClrCompat(HANDLE processToken, AppPolicyClrCompat* policy);
+
+LONG MyAppPolicyGetMediaFoundationCodecLoading(
+  HANDLE processToken, AppPolicyMediaFoundationCodecLoading* policy
+);
+
+LONG MyAppPolicyGetProcessTerminationMethod(
+  HANDLE processToken, AppPolicyProcessTerminationMethod* policy
+);
+
+LONG MyAppPolicyGetThreadInitializationType(
+  HANDLE processToken, AppPolicyThreadInitializationType* policy
+);
+
+LONG MyAppPolicyGetWindowingModel(
+  HANDLE processToken, AppPolicyWindowingModel* policy
+);
+
+BOOL MyAreFileApisANSI();
+
+BOOL MyAssignProcessToJobObject(HANDLE hJob, HANDLE hProcess);
+
+BOOL WINAPI MyAttachConsole(DWORD dwProcessId);
+
+BOOL MyBackupRead(
+  HANDLE hFile,
+  LPBYTE lpBuffer,
+  DWORD nNumberOfBytesToRead,
+  LPDWORD lpNumberOfBytesRead,
+  BOOL bAbort,
+  BOOL bProcessSecurity,
+  LPVOID* lpContext
+);
+
+BOOL MyBackupSeek(
+  HANDLE hFile,
+  DWORD dwLowBytesToSeek,
+  DWORD dwHighBytesToSeek,
+  LPDWORD lpdwLowByteSeeked,
+  LPDWORD lpdwHighByteSeeked,
+  LPVOID* lpContext
+);
+
+BOOL MyBackupWrite(
+  HANDLE hFile,
+  LPBYTE lpBuffer,
+  DWORD nNumberOfBytesToWrite,
+  LPDWORD lpNumberOfBytesWritten,
+  BOOL bAbort,
+  BOOL bProcessSecurity,
+  LPVOID* lpContext
+);
+
+BOOL WINAPI MyBaseFlushAppcompatCache();
+
+BOOL MyBeep(DWORD, DWORD);
+
+HANDLE MyBeginUpdateResourceA(LPCSTR pFileName, BOOL bDeleteExistingResources);
+
+HANDLE MyBeginUpdateResourceW(
+  LPCWSTR pFileName, BOOL bDeleteExistingResources
+);
+
+BOOL MyBindIoCompletionCallback(
+  HANDLE FilehHandle,
+  LPOVERLAPPED_COMPLETION_ROUTINE Function,
+  ULONG Flags
+);
+
+BOOL MyBuildCommDCBA(LPCSTR lpDef, LPDCB lpDCB);
+
+BOOL MyBuildCommDCBAndTimeoutsA(
+  LPCSTR lpDef, LPDCB lpDCB, LPCOMMTIMEOUTS lpCommTimeouts
+);
+
+BOOL MyBuildCommDCBAndTimeoutsW(
+  LPCWSTR lpDef, LPDCB lpDCB, LPCOMMTIMEOUTS lpCommTimeouts
+);
+
+BOOL MyBuildCommDCBW(LPCWSTR lpDef, LPDCB lpDCB);
+
+BOOL MyCallbackMayRunLong(PTP_CALLBACK_INSTANCE pci);
+
+BOOL MyCallNamedPipeA(
+  LPCSTR  lpNamedPipeName,
+  LPVOID  lpInBuffer,
+  DWORD   nInBufferSize,
+  LPVOID  lpOutBuffer,
+  DWORD   nOutBufferSize,
+  LPDWORD lpBytesRead,
+  DWORD   nTimeOut
+);
+
+BOOL MyCallNamedPipeW(
+  LPCWSTR  lpNamedPipeName,
+  LPVOID  lpInBuffer,
+  DWORD   nInBufferSize,
+  LPVOID  lpOutBuffer,
+  DWORD   nOutBufferSize,
+  LPDWORD lpBytesRead,
+  DWORD   nTimeOut
+);
+
+BOOL WINAPI MyCancelIo(HANDLE hFile);
+
+BOOL WINAPI MyCancelIoEx(HANDLE hFile, LPOVERLAPPED lpOverlapped);
+
+///
+
+BOOL MyCloseHandle(HANDLE hObject);
+
+HANDLE MyFindFirstFileA(LPCSTR, LPWIN32_FIND_DATAA);
+
+HANDLE MyFindFirstFileW(LPCWSTR, LPWIN32_FIND_DATAW);
+
+BOOL MyFindNextFileA(HANDLE, LPWIN32_FIND_DATAA);
+
+BOOL MyFindNextFileW(HANDLE, LPWIN32_FIND_DATAW);
+
+HANDLE MyCreateFileA(
+  LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE
+);
+
+HANDLE MyCreateFileW(
+  LPCWSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE
+);
 
 BOOL _CheckA(LPCSTR);
+
 BOOL _CheckW(LPCWSTR);
 
 #endif // _HOOK_FUNCTIONS_H
