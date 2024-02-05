@@ -1899,6 +1899,7 @@ std::unordered_map<std::string, FARPROC> _funcHooksMap = {
     "CreatePipe",
     reinterpret_cast<FARPROC>(MyCreatePipe),
   },
+  /*
   {
     "CreatePrivateNamespaceA",
     reinterpret_cast<FARPROC>(MyCreatePrivateNamespaceA),
@@ -6719,6 +6720,7 @@ std::unordered_map<std::string, FARPROC> _funcHooksMap = {
     "timeGetTime",
     reinterpret_cast<FARPROC>(MytimeGetTime),
   }
+  */
 };
 
 std::unordered_map<std::string, FARPROC> _funcMap;
@@ -7934,7 +7936,7 @@ BOOL MyFindNextFileW(HANDLE hFindFile, LPWIN32_FIND_DATAW lpFindFileData) {
   return FALSE;
 }
 
-HANDLE MyCreateFileA(
+HANDLE WINAPI MyCreateFileA(
   LPCSTR lpFileName,
   DWORD dwDesiredAccess,
   DWORD dwSharedMode,
@@ -7961,7 +7963,7 @@ HANDLE MyCreateFileA(
     hTemplateFile);
 }
 
-HANDLE MyCreateFileW(
+HANDLE WINAPI MyCreateFileW(
   LPCWSTR lpFileName,
   DWORD dwDesiredAccess,
   DWORD dwSharedMode,

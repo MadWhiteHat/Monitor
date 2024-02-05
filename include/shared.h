@@ -5,6 +5,8 @@
 #include <vector>
 #include <unordered_map>
 
+#include <windef.h>
+
 #define PIPE_NAME "\\\\.\\pipe\\monitor"
 #define PIPE_BUFFER_SIZE 4096
 #define PIPE_TIMEOUT 5000
