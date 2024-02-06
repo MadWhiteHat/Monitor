@@ -7,31 +7,61 @@
 #include <appmodel.h>
 #include <windowsceip.h>
 
-void WINAPI MyAcquireSRWLockExclusive(PSRWLOCK SRWLock);
-
-void WINAPI MyAcquireSRWLockShared(PSRWLOCK SRWLock);
-
-BOOL WINAPI MyActivateActCtx(HANDLE hActCtx, ULONG_PTR* lpCookie);
-
-ATOM WINAPI MyAddAtomA(LPCSTR lpString);
-
-ATOM WINAPI MyAddAtomW(LPCWSTR lpString);
-
-BOOL WINAPI MyAddConsoleAliasA(LPSTR Source, LPSTR Target, LPSTR ExeName);
-
-BOOL WINAPI MyAddConsoleAliasW(LPWSTR Source, LPWSTR Target, LPWSTR ExeName);
-
-DLL_DIRECTORY_COOKIE WINAPI MyAddDllDirectory(PCWSTR NewDirectory);
-
-BOOL MyAddIntegrityLabelToBoundaryDescriptor(
-  HANDLE* BoundaryDescriptor, PSID IntegrityLabel
+void WINAPI MyAcquireSRWLockExclusive(
+  PSRWLOCK SRWLock
 );
 
-DWORD MyAddLocalAlternateComputerNameA(LPCSTR lpDnsFQHostName, ULONG ulFlag);
+void WINAPI MyAcquireSRWLockShared(
+  PSRWLOCK SRWLock
+);
 
-DWORD MyAddLocalAlternateComputerNameW(LPCWSTR lpDnsFQHostName, ULONG ulFlag);
+BOOL WINAPI MyActivateActCtx(
+  HANDLE hActCtx,
+  ULONG_PTR* lpCookie
+);
 
-void MyAddRefActCtx(HANDLE hActCtx);
+ATOM WINAPI MyAddAtomA(
+  LPCSTR lpString
+);
+
+ATOM WINAPI MyAddAtomW(
+  LPCWSTR lpString
+);
+
+BOOL WINAPI MyAddConsoleAliasA(
+  LPSTR Source,
+  LPSTR Target,
+  LPSTR ExeName
+);
+
+BOOL WINAPI MyAddConsoleAliasW(
+  LPWSTR Source,
+  LPWSTR Target,
+  LPWSTR ExeName
+);
+
+DLL_DIRECTORY_COOKIE WINAPI MyAddDllDirectory(
+  PCWSTR NewDirectory
+);
+
+BOOL MyAddIntegrityLabelToBoundaryDescriptor(
+  HANDLE* BoundaryDescriptor,
+  PSID IntegrityLabel
+);
+
+DWORD MyAddLocalAlternateComputerNameA(
+  LPCSTR lpDnsFQHostName,
+  ULONG ulFlag
+);
+
+DWORD MyAddLocalAlternateComputerNameW(
+  LPCWSTR lpDnsFQHostName,
+  ULONG ulFlag
+);
+
+void MyAddRefActCtx(
+  HANDLE hActCtx
+);
 
 BOOL MyAddResourceAttributeAce(
   PACL pAcl,
@@ -43,20 +73,29 @@ BOOL MyAddResourceAttributeAce(
   PDWORD pReturnLength
 );
 
-BOOL MyAddSecureMemoryCacheCallback(PSECURE_MEMORY_CACHE_CALLBACK pfnCallBack);
+BOOL MyAddSecureMemoryCacheCallback(
+  PSECURE_MEMORY_CACHE_CALLBACK pfnCallBack
+);
 
-BOOL MyAddSIDToBoundaryDescriptor(HANDLE* BoundaryDescriptor, PSID RequireSid);
+BOOL MyAddSIDToBoundaryDescriptor(
+  HANDLE* BoundaryDescriptor,
+  PSID RequireSid
+);
 
 PVOID MyAddVectoredContinueHandler(
-  ULONG First, PVECTORED_EXCEPTION_HANDLER Handler
+  ULONG First,
+  PVECTORED_EXCEPTION_HANDLER Handler
 );
 
 PVOID MyAddVectoredExceptionHandler(
-  ULONG First, PVECTORED_EXCEPTION_HANDLER Handler
+  ULONG First,
+  PVECTORED_EXCEPTION_HANDLER Handler
 );
 
 BOOL MyAllocateUserPhysicalPages(
-  HANDLE hProcess, PULONG_PTR NumberOfPages, PULONG_PTR PageArray
+  HANDLE hProcess,
+  PULONG_PTR NumberOfPages,
+  PULONG_PTR PageArray
 );
 
 BOOL MyAllocateUserPhysicalPagesNuma(
@@ -68,33 +107,49 @@ BOOL MyAllocateUserPhysicalPagesNuma(
 
 BOOL WINAPI MyAllocConsole();
 
-void MyApplicationRecoveryFinished(BOOL bSuccess);
+void MyApplicationRecoveryFinished(
+  BOOL bSuccess
+);
 
-HRESULT MyApplicationRecoveryInProgress(PBOOL pbCancelled);
+HRESULT MyApplicationRecoveryInProgress(
+  PBOOL pbCancelled
+);
 
-LONG MyAppPolicyGetClrCompat(HANDLE processToken, AppPolicyClrCompat* policy);
+LONG MyAppPolicyGetClrCompat(
+  HANDLE processToken,
+  AppPolicyClrCompat* policy
+);
 
 LONG MyAppPolicyGetMediaFoundationCodecLoading(
-  HANDLE processToken, AppPolicyMediaFoundationCodecLoading* policy
+  HANDLE processToken,
+  AppPolicyMediaFoundationCodecLoading* policy
 );
 
 LONG MyAppPolicyGetProcessTerminationMethod(
-  HANDLE processToken, AppPolicyProcessTerminationMethod* policy
+  HANDLE processToken,
+  AppPolicyProcessTerminationMethod* policy
 );
 
 LONG MyAppPolicyGetThreadInitializationType(
-  HANDLE processToken, AppPolicyThreadInitializationType* policy
+  HANDLE processToken,
+  AppPolicyThreadInitializationType* policy
 );
 
 LONG MyAppPolicyGetWindowingModel(
-  HANDLE processToken, AppPolicyWindowingModel* policy
+  HANDLE processToken,
+  AppPolicyWindowingModel* policy
 );
 
 BOOL MyAreFileApisANSI();
 
-BOOL MyAssignProcessToJobObject(HANDLE hJob, HANDLE hProcess);
+BOOL MyAssignProcessToJobObject(
+  HANDLE hJob,
+  HANDLE hProcess
+);
 
-BOOL WINAPI MyAttachConsole(DWORD dwProcessId);
+BOOL WINAPI MyAttachConsole(
+  DWORD dwProcessId
+);
 
 BOOL MyBackupRead(
   HANDLE hFile,
@@ -127,12 +182,19 @@ BOOL MyBackupWrite(
 
 BOOL WINAPI MyBaseFlushAppcompatCache();
 
-BOOL MyBeep(DWORD, DWORD);
+BOOL MyBeep(
+  DWORD dwFreq,
+  DWORD dwDuration
+);
 
-HANDLE MyBeginUpdateResourceA(LPCSTR pFileName, BOOL bDeleteExistingResources);
+HANDLE MyBeginUpdateResourceA(
+  LPCSTR pFileName,
+  BOOL bDeleteExistingResources
+);
 
 HANDLE MyBeginUpdateResourceW(
-  LPCWSTR pFileName, BOOL bDeleteExistingResources
+  LPCWSTR pFileName,
+  BOOL bDeleteExistingResources
 );
 
 BOOL MyBindIoCompletionCallback(
@@ -141,19 +203,31 @@ BOOL MyBindIoCompletionCallback(
   ULONG Flags
 );
 
-BOOL MyBuildCommDCBA(LPCSTR lpDef, LPDCB lpDCB);
+BOOL MyBuildCommDCBA(
+  LPCSTR lpDef,
+  LPDCB lpDCB
+);
 
 BOOL MyBuildCommDCBAndTimeoutsA(
-  LPCSTR lpDef, LPDCB lpDCB, LPCOMMTIMEOUTS lpCommTimeouts
+  LPCSTR lpDef,
+  LPDCB lpDCB,
+  LPCOMMTIMEOUTS lpCommTimeouts
 );
 
 BOOL MyBuildCommDCBAndTimeoutsW(
-  LPCWSTR lpDef, LPDCB lpDCB, LPCOMMTIMEOUTS lpCommTimeouts
+  LPCWSTR lpDef,
+  LPDCB lpDCB,
+  LPCOMMTIMEOUTS lpCommTimeouts
 );
 
-BOOL MyBuildCommDCBW(LPCWSTR lpDef, LPDCB lpDCB);
+BOOL MyBuildCommDCBW(
+  LPCWSTR lpDef,
+  LPDCB lpDCB
+);
 
-BOOL MyCallbackMayRunLong(PTP_CALLBACK_INSTANCE pci);
+BOOL MyCallbackMayRunLong(
+  PTP_CALLBACK_INSTANCE pci
+);
 
 BOOL MyCallNamedPipeA(
   LPCSTR  lpNamedPipeName,
@@ -175,20 +249,34 @@ BOOL MyCallNamedPipeW(
   DWORD   nTimeOut
 );
 
-BOOL WINAPI MyCancelIo(HANDLE hFile);
+BOOL WINAPI MyCancelIo(
+  HANDLE hFile
+);
 
-BOOL WINAPI MyCancelIoEx(HANDLE hFile, LPOVERLAPPED lpOverlapped);
+BOOL WINAPI MyCancelIoEx(
+  HANDLE hFile,
+  LPOVERLAPPED lpOverlapped
+);
 
-BOOL WINAPI MyCancelSynchronousIo(HANDLE hThread);
+BOOL WINAPI MyCancelSynchronousIo(
+  HANDLE hThread
+);
 
-void WINAPI MyCancelThreadpoolIo(PTP_IO pio);
+void WINAPI MyCancelThreadpoolIo(
+  PTP_IO pio
+);
 
-BOOL WINAPI MyCancelWaitableTimer(HANDLE hTimer);
+BOOL WINAPI MyCancelWaitableTimer(
+  HANDLE hTimer
+);
 
 BOOL WINAPI MyCeipIsOptedIn();
 
 BOOL WINAPI MyChangeTimerQueueTimer(
-  HANDLE TimeerQueue, HANDLE Timer, ULONG DueTime, ULONG Period
+  HANDLE TimeerQueue,
+  HANDLE Timer,
+  ULONG DueTime,
+  ULONG Period
 );
 
 BOOL WINAPI MyCheckNameLegalDOS8Dot3A(
@@ -208,51 +296,95 @@ BOOL WINAPI MyCheckNameLegalDOS8Dot3W(
 );
 
 BOOL WINAPI MyCheckRemoteDebuggerPresent(
-  HANDLE hProcess, PBOOL pbDebuggerPresent
+  HANDLE hProcess,
+  PBOOL pbDebuggerPresent
 );
 
 BOOL WINAPI MyCheckTokenCapability(
-  HANDLE TokenHandle, PSID CapabilitySidToCheck, PBOOL HasCapability
+  HANDLE TokenHandle,
+  PSID CapabilitySidToCheck,
+  PBOOL HasCapability
 );
 
 BOOL WINAPI MyCheckTokenMembershipEx(
-  HANDLE TokenHandle, PSID SidToCheck, DWORD Flags, PBOOL IsMember
+  HANDLE TokenHandle,
+  PSID SidToCheck,
+  DWORD Flags,
+  PBOOL IsMember
 );
 
-BOOL WINAPI MyClearCommBreak(HANDLE hFile);
+BOOL WINAPI MyClearCommBreak(
+  HANDLE hFile
+);
 
-BOOL WINAPI MyClearCommError(HANDLE hFile, LPDWORD lpErrors, LPCOMSTAT lpStat);
+BOOL WINAPI MyClearCommError(
+  HANDLE hFile,
+  LPDWORD lpErrors,
+  LPCOMSTAT lpStat
+);
 
-BOOL MyCloseHandle(HANDLE hObject);
+BOOL MyCloseHandle(
+  HANDLE hObject
+);
 
-LONG WINAPI MyClosePackageInfo(PACKAGE_INFO_REFERENCE packageInfoReference);
+LONG WINAPI MyClosePackageInfo(
+  PACKAGE_INFO_REFERENCE packageInfoReference
+);
 
-BOOLEAN WINAPI MyClosePrivateNamespace(HANDLE Handle, ULONG Flags);
+BOOLEAN WINAPI MyClosePrivateNamespace(
+  HANDLE Handle,
+  ULONG Flags
+);
 
-void WINAPI MyClosePseudoConsole(HPCON hPC);
+void WINAPI MyClosePseudoConsole(
+  HPCON hPC
+);
 
-void WINAPI MyCloseThreadpool(PTP_POOL ptpp);
+void WINAPI MyCloseThreadpool(
+  PTP_POOL ptpp
+);
 
-void WINAPI MyCloseThreadpoolCleanupGroup(PTP_CLEANUP_GROUP ptpcg);
+void WINAPI MyCloseThreadpoolCleanupGroup(
+  PTP_CLEANUP_GROUP ptpcg
+);
 
 void WINAPI MyCloseThreadpoolCleanupGroupMembers(
-  PTP_CLEANUP_GROUP ptpcg, BOOL fCancelPendingCallbacks, PVOID pvCleanupContext
+  PTP_CLEANUP_GROUP ptpcg,
+  BOOL fCancelPendingCallbacks,
+  PVOID pvCleanupContext
 );
 
-void WINAPI MyCloseThreadpoolIo(PTP_IO pio);
+void WINAPI MyCloseThreadpoolIo(
+  PTP_IO pio
+);
 
-void WINAPI MyCloseThreadpoolTimer(PTP_TIMER pti);
+void WINAPI MyCloseThreadpoolTimer(
+  PTP_TIMER pti
+);
 
-void WINAPI MyCloseThreadpoolWait(PTP_WAIT pwa);
+void WINAPI MyCloseThreadpoolWait(
+  PTP_WAIT pwa
+);
 
-void WINAPI MyCloseThreadpoolWork(PTP_WORK pwk);
+void WINAPI MyCloseThreadpoolWork(
+  PTP_WORK pwk
+);
 
-BOOL WINAPI MyCommConfigDialogA(LPCSTR lpszName, HWND hWnd, LPCOMMCONFIG lpCC);
+BOOL WINAPI MyCommConfigDialogA(
+  LPCSTR lpszName,
+  HWND hWnd,
+  LPCOMMCONFIG lpCC
+);
 
-BOOL WINAPI MyCommConfigDialogW(LPCWSTR lpszName, HWND hWnd, LPCOMMCONFIG lpCC);
+BOOL WINAPI MyCommConfigDialogW(
+  LPCWSTR lpszName,
+  HWND hWnd,
+  LPCOMMCONFIG lpCC
+);
 
 LONG WINAPI MyCompareFileTime(
-  const FILETIME* lpFileTime1, const FILETIME* lpFileTime2
+  const FILETIME* lpFileTime1,
+  const FILETIME* lpFileTime2
 );
 
 int WINAPI MyCompareStringA(
@@ -293,22 +425,36 @@ int WINAPI MyCompareStringW(
   int cchCount2
 );
 
-BOOL WINAPI MyConnectNamedPipe(HANDLE hNamedPipe, LPOVERLAPPED lpOverlapped);
-
-BOOL WINAPI MyContinueDebugEvent(
-  DWORD dwProcessId, DWORD dwThreadId, DWORD dwContinueStatus
+BOOL WINAPI MyConnectNamedPipe(
+  HANDLE hNamedPipe,
+  LPOVERLAPPED lpOverlapped
 );
 
-LCID WINAPI MyConvertDefaultLocale(LCID Locale);
+BOOL WINAPI MyContinueDebugEvent(
+  DWORD dwProcessId,
+  DWORD dwThreadId,
+  DWORD dwContinueStatus
+);
+
+LCID WINAPI MyConvertDefaultLocale(
+  LCID Locale
+);
 
 BOOL WINAPI MyConvertFiberToThread();
 
-LPVOID WINAPI MyConvertThreadToFiber(LPVOID lpParameter);
+LPVOID WINAPI MyConvertThreadToFiber(
+  LPVOID lpParameter
+);
 
-LPVOID WINAPI MyConvertThreadToFiberEx(LPVOID lpParameter, DWORD dwFlags);
+LPVOID WINAPI MyConvertThreadToFiberEx(
+  LPVOID lpParameter,
+  DWORD dwFlags
+);
 
 BOOL WINAPI MyCopyContext(
-  PCONTEXT Destination, DWORD ContextFlags, PCONTEXT Source
+  PCONTEXT Destination,
+  DWORD ContextFlags,
+  PCONTEXT Source
 );
 
 HRESULT WINAPI MyCopyFile2(
@@ -318,7 +464,9 @@ HRESULT WINAPI MyCopyFile2(
 );
 
 BOOL WINAPI MyCopyFileA(
-  LPCSTR lpExistingFileName, LPCSTR lpNewFileName, BOOL bFailExists
+  LPCSTR lpExistingFileName,
+  LPCSTR lpNewFileName,
+  BOOL bFailExists
 );
 
 BOOL WINAPI MyCopyFileExA(
@@ -360,16 +508,28 @@ BOOL WINAPI MyCopyFileTransactedW(
 );
 
 BOOL WINAPI MyCopyFileW(
-  LPCWSTR lpExistingFileName, LPCWSTR lpNewFileName, BOOL bFailExists
+  LPCWSTR lpExistingFileName,
+  LPCWSTR lpNewFileName,
+  BOOL bFailExists
 );
 
-HANDLE WINAPI MyCreateActCtxA(PCACTCTXA pActCtx);
+HANDLE WINAPI MyCreateActCtxA(
+  PCACTCTXA pActCtx
+);
 
-HANDLE WINAPI MyCreateActCtxW(PCACTCTXW pActCtx);
+HANDLE WINAPI MyCreateActCtxW(
+  PCACTCTXW pActCtx
+);
 
-HANDLE WINAPI MyCreateBoundaryDescriptorA(LPCSTR Name, ULONG Flags);
+HANDLE WINAPI MyCreateBoundaryDescriptorA(
+  LPCSTR Name,
+  ULONG Flags
+);
 
-HANDLE WINAPI MyCreateBoundaryDescriptorW(LPCWSTR Name, ULONG Flags);
+HANDLE WINAPI MyCreateBoundaryDescriptorW(
+  LPCWSTR Name,
+  ULONG Flags
+);
 
 HANDLE WINAPI MyCreateConsoleScreenBuffer(
   DWORD dwDesiredAccess,
@@ -380,7 +540,8 @@ HANDLE WINAPI MyCreateConsoleScreenBuffer(
 );
 
 BOOL WINAPI MyCreateDirectoryA(
-  LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes
+  LPCSTR lpPathName,
+  LPSECURITY_ATTRIBUTES lpSecurityAttributes
 );
 
 BOOL WINAPI MyCreateDirectoryExA(
@@ -410,7 +571,8 @@ BOOL WINAPI MyCreateDirectoryTransactedW(
 );
 
 BOOL WINAPI MyCreateDirectoryW(
-  LPCWSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes
+  LPCWSTR lpPathName,
+  LPSECURITY_ATTRIBUTES lpSecurityAttributes
 );
 
 LPVOID WINAPI MyCreateEnclave(
@@ -453,7 +615,9 @@ HANDLE WINAPI MyCreateEventW(
 );
 
 LPVOID WINAPI MyCreateFiber(
-  SIZE_T dwStackSize, LPFIBER_START_ROUTINE lpStartAddress, LPVOID lpParameter
+  SIZE_T dwStackSize,
+  LPFIBER_START_ROUTINE lpStartAddress,
+  LPVOID lpParameter
 );
 
 LPVOID WINAPI MyCreateFiberEx(
@@ -678,6 +842,279 @@ BOOL WINAPI MyCreatePipe(
   PHANDLE hWritePipe,
   LPSECURITY_ATTRIBUTES lpPipeAttributes,
   DWORD nSize
+);
+
+HANDLE WINAPI MyCreatePrivateNamespaceA(
+  LPSECURITY_ATTRIBUTES lpPrivateNamespaceAttributes,
+  LPVOID lpBoundaryDescriptor,
+  LPCSTR lpAliasPrefix
+);
+
+HANDLE WINAPI MyCreatePrivateNamespaceW(
+  LPSECURITY_ATTRIBUTES lpPrivateNamespaceAttributes,
+  LPVOID lpBoundaryDescriptor,
+  LPCWSTR lpAliasPrefix
+);
+
+BOOL WINAPI MyCreateProcessA(
+  LPCSTR lpApplicationName,
+  LPSTR lpCommandLine,
+  LPSECURITY_ATTRIBUTES lpProcessAttributes,
+  LPSECURITY_ATTRIBUTES lpThreadAttributes,
+  BOOL bInheritHandle,
+  DWORD dwCreationFlags,
+  LPVOID lpEnvironment,
+  LPCSTR lpCurrentDirectory,
+  LPSTARTUPINFOA lpStartupInfo,
+  LPPROCESS_INFORMATION lpProcessInformation
+);
+
+BOOL WINAPI MyCreateProcessAsUserA(
+  HANDLE hToken,
+  LPCSTR lpApplicationName,
+  LPSTR lpCommandLine,
+  LPSECURITY_ATTRIBUTES lpProcessAttributes,
+  LPSECURITY_ATTRIBUTES lpThreadAttributes,
+  BOOL bInheritHandle,
+  DWORD dwCreationFlags,
+  LPVOID lpEnvironment,
+  LPCSTR lpCurrentDirectory,
+  LPSTARTUPINFOA lpStartupInfo,
+  LPPROCESS_INFORMATION lpProcessInformation
+);
+
+BOOL WINAPI MyCreateProcessAsUserW(
+  HANDLE hToken,
+  LPCWSTR lpApplicationName,
+  LPWSTR lpCommandLine,
+  LPSECURITY_ATTRIBUTES lpProcessAttributes,
+  LPSECURITY_ATTRIBUTES lpThreadAttributes,
+  BOOL bInheritHandle,
+  DWORD dwCreationFlags,
+  LPVOID lpEnvironment,
+  LPCWSTR lpCurrentDirectory,
+  LPSTARTUPINFOW lpStartupInfo,
+  LPPROCESS_INFORMATION lpProcessInformation
+);
+
+BOOL WINAPI MyCreateProcessW(
+  LPCWSTR lpApplicationName,
+  LPWSTR lpCommandLine,
+  LPSECURITY_ATTRIBUTES lpProcessAttributes,
+  LPSECURITY_ATTRIBUTES lpThreadAttributes,
+  BOOL bInheritHandle,
+  DWORD dwCreationFlags,
+  LPVOID lpEnvironment,
+  LPCWSTR lpCurrentDirectory,
+  LPSTARTUPINFOW lpStartupInfo,
+  LPPROCESS_INFORMATION lpProcessInformation
+);
+
+HRESULT WINAPI MyCreatePseudoConsole(
+  COORD size,
+  HANDLE hInput,
+  HANDLE hOutput,
+  DWORD dwFlags,
+  HPCON* phPC
+);
+
+HANDLE WINAPI MyCreateRemoteThread(
+  HANDLE hProcess,
+  LPSECURITY_ATTRIBUTES lpThreadAttributes,
+  SIZE_T dwStackSize,
+  LPTHREAD_START_ROUTINE lpStartAdress,
+  LPVOID lpParameter,
+  DWORD dwCreationFlags,
+  LPDWORD lpThreadId
+);
+
+HANDLE WINAPI MyCreateRemoteThreadEx(
+  HANDLE hProcess,
+  LPSECURITY_ATTRIBUTES lpThreadAttributes,
+  SIZE_T dwStackSize,
+  LPTHREAD_START_ROUTINE lpStartAddress,
+  LPVOID lpParameter,
+  DWORD dwCreationFlags,
+  LPPROC_THREAD_ATTRIBUTE_LIST lpAttributeList,
+  LPDWORD lpThreadId
+);
+
+HANDLE WINAPI MyCreateSemaphoreA(
+  LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,
+  LONG lInitialCount,
+  LONG lMaximumCount,
+  LPCSTR lpName
+);
+
+HANDLE WINAPI MyCreateSemaphoreExA(
+  LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,
+  LONG lInitialCount,
+  LONG lMaximumCount,
+  LPCSTR lpName,
+  DWORD dwFlags,
+  DWORD dwDesiredAccess
+);
+
+HANDLE WINAPI MyCreateSemaphoreExW(
+  LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,
+  LONG lInitialCount,
+  LONG lMaximumCount,
+  LPCWSTR lpName,
+  DWORD dwFlags,
+  DWORD dwDesiredAccess
+);
+
+HANDLE WINAPI MyCreateSemaphoreW(
+  LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,
+  LONG lInitialCount,
+  LONG lMaximumCount,
+  LPCWSTR lpName
+);
+
+BOOLEAN WINAPI MyCreateSymbolicLinkA(
+  LPCSTR lpSymlinkFileName,
+  LPCSTR lpTargetileName,
+  DWORD dwFlags
+);
+
+BOOLEAN WINAPI MyCreateSymbolicLinkTransactedA(
+  LPCSTR lpSymlinkFileName,
+  LPCSTR lpTargetFileName,
+  DWORD dwFlags,
+  HANDLE hTransaction
+);
+
+BOOLEAN WINAPI MyCreateSymbolicLinkTransactedW(
+  LPCWSTR lpSymlinkFileName,
+  LPCWSTR lpTargetFileName,
+  DWORD dwFlags,
+  HANDLE hTransaction
+);
+
+BOOLEAN WINAPI MyCreateSymbolicLinkW(
+  LPCWSTR lpSymlinkFileName,
+  LPCWSTR lpTargetileName,
+  DWORD dwFlags
+);
+
+DWORD WINAPI MyCreateTapePartition(
+  HANDLE hDevice,
+  DWORD dwPartitionMethod,
+  DWORD dwCount,
+  DWORD dwSize
+);
+
+HANDLE WINAPI MyCreateThread(
+  LPSECURITY_ATTRIBUTES lpThreadAttributes,
+  SIZE_T dwStackSize,
+  LPTHREAD_START_ROUTINE lpStartAddress,
+  __drv_aliasesMem LPVOID lpParameter,
+  DWORD dwCreationFlags,
+  LPDWORD lpThreadId
+);
+
+PTP_POOL WINAPI MyCreateThreadpool(
+  PVOID reserved
+);
+
+PTP_CLEANUP_GROUP WINAPI MyCreateThreadpoolCleanupGroup();
+
+PTP_IO WINAPI MyCreateThreadpoolIo(
+  HANDLE fl,
+  PTP_WIN32_IO_CALLBACK pfnio,
+  PVOID pv,
+  PTP_CALLBACK_ENVIRON pcbe
+);
+
+PTP_TIMER WINAPI MyCreateThreadpoolTimer(
+  PTP_TIMER_CALLBACK pfnti,
+  PVOID pv,
+  PTP_CALLBACK_ENVIRON pcbe
+);
+
+PTP_WAIT WINAPI MyCreateThreadpoolWait(
+  PTP_WAIT_CALLBACK pfnwa,
+  PVOID pv,
+  PTP_CALLBACK_ENVIRON pcbe
+);
+
+PTP_WAIT WINAPI MyCreateThreadpoolWork(
+  PTP_WORK_CALLBACK pfnwk,
+  PVOID pv,
+  PTP_CALLBACK_ENVIRON pcbe
+);
+
+HANDLE WINAPI MyCreateTimerQueue();
+
+BOOL WINAPI MyCreateTimerQueueTimer(
+  PHANDLE phNewTimer,
+  HANDLE TimerQueue,
+  WAITORTIMERCALLBACK Callback,
+  PVOID Parameter,
+  DWORD DueTime,
+  DWORD Period,
+  ULONG Flags
+);
+
+HANDLE WINAPI MyCreateToolhelp32Snapshot(
+  DWORD dwFlags,
+  DWORD th32ProcessID
+);
+
+BOOL WINAPI MyCreateUmsCompletionList(
+  PUMS_COMPLETION_LIST* UmsCompletionList
+);
+
+BOOL WINAPI MyCreateUmsThreadContext(
+  PUMS_CONTEXT* lpUmsThread
+);
+
+HANDLE WINAPI MyCreateWaitableTimerExW(
+  LPSECURITY_ATTRIBUTES lpTimerAttributes,
+  LPCWSTR lpTimerName,
+  DWORD dwFlags,
+  DWORD dwDesiredAccess
+);
+
+HANDLE WINAPI MyCreateWaitableTimerW(
+  LPSECURITY_ATTRIBUTES lpTimerAttributes,
+  BOOL bManualReset,
+  LPCWSTR lpTimerName
+);
+
+BOOL WINAPI MyDeactivateActCtx(
+  DWORD dwFlags,
+  ULONG_PTR ulCookie
+);
+
+void WINAPI MyDebugBreak();
+
+BOOL WINAPI MyDebugBreakProcess(
+  HANDLE hProcess
+);
+
+BOOL WINAPI MyDebugSetProcessKillOnExit(
+  BOOL KillOnExit
+);
+
+PVOID WINAPI MyDecodePointer(
+  PVOID Ptr
+);
+
+PVOID WINAPI MyDecodeSystemPointer(
+  PVOID Ptr
+);
+
+BOOL WINAPI MyDefineDosDeviceA(
+  DWORD dwFlags,
+  LPCSTR lpDeviceName,
+  LPCSTR lpTargetPath
+);
+
+BOOL WINAPI MyDefineDosDeviceW(
+  DWORD dwFlags,
+  LPCWSTR lpDeviceName,
+  LPCWSTR lpTargetPath
 );
 
 ///

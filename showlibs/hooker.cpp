@@ -1899,7 +1899,6 @@ std::unordered_map<std::string, FARPROC> _funcHooksMap = {
     "CreatePipe",
     reinterpret_cast<FARPROC>(MyCreatePipe),
   },
-  /*
   {
     "CreatePrivateNamespaceA",
     reinterpret_cast<FARPROC>(MyCreatePrivateNamespaceA),
@@ -2021,14 +2020,6 @@ std::unordered_map<std::string, FARPROC> _funcHooksMap = {
     reinterpret_cast<FARPROC>(MyCreateUmsThreadContext),
   },
   {
-    "CreateWaitableTimerA",
-    reinterpret_cast<FARPROC>(MyCreateWaitableTimerA),
-  },
-  {
-    "CreateWaitableTimerExA",
-    reinterpret_cast<FARPROC>(MyCreateWaitableTimerExA),
-  },
-  {
     "CreateWaitableTimerExW",
     reinterpret_cast<FARPROC>(MyCreateWaitableTimerExW),
   },
@@ -2068,6 +2059,7 @@ std::unordered_map<std::string, FARPROC> _funcHooksMap = {
     "DefineDosDeviceW",
     reinterpret_cast<FARPROC>(MyDefineDosDeviceW),
   },
+  /*
   {
     "DelayLoadFailureHook",
     reinterpret_cast<FARPROC>(MyDelayLoadFailureHook),
