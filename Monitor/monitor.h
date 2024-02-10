@@ -36,7 +36,7 @@ private:
   BOOL _SendInit(DWORD __idx);
 
   // pid, what to track
-  std::unordered_map<DWORD, Tracking> _mp;
+  std::unordered_map<DWORD, TRACKING> _mp;
   std::vector<PIPEINST> _pipes;
   std::vector<HANDLE> _events;
   BOOL _isGood = FALSE;

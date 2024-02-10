@@ -108,7 +108,7 @@ Monitor::_AddPid(const std::string& __pidStr) {
   catch (...) {}
 
   if (__pid == 0) { __pid = this->_GetProcIdByName(__pidStr); }
-  if (__pid != 0 && !_mp.count(__pid)) { _mp[__pid] = Tracking(); }
+  if (__pid != 0 && !_mp.count(__pid)) { _mp[__pid] = TRACKING(); }
   
   return (__pid == 0) ? -1 : __pid;
 }

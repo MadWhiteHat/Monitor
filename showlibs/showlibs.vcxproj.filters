@@ -21,15 +21,18 @@
     <ClInclude Include="..\include\shared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hooker.h">
+    <ClInclude Include="hook_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hook_functions.h">
+    <ClInclude Include="hooker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hook_functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="hooker.cpp">

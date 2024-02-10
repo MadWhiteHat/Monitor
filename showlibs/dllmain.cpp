@@ -3,7 +3,10 @@
 #include "framework.h"
 #include "hooker.h"
 
-extern "C" void __declspec(dllexport) __stdcall NativeInjectionEntryPoint(REMOTE_ENTRY_INFO*);
+#include <easyhook.h>
+
+extern "C" void
+__declspec(dllexport) __stdcall NativeInjectionEntryPoint(REMOTE_ENTRY_INFO*);
 
 void __stdcall NativeInjectionEntryPoint(REMOTE_ENTRY_INFO* __inRemoteInfo) {
   DWORD __mode = *(reinterpret_cast<DWORD*>(__inRemoteInfo->UserData));

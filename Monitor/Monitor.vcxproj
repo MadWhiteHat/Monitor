@@ -134,7 +134,6 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PreprocessToFile>false</PreprocessToFile>
       <AdditionalIncludeDirectories>$(SolutionDir)\EasyHook\NetFX4.0</AdditionalIncludeDirectories>
-      <CallingConvention>Cdecl</CallingConvention>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

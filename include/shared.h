@@ -29,7 +29,7 @@ typedef struct {
   BOOL _pendingIO;
 } PIPEINST, *LPPIPEINST;
 
-struct Tracking {
+struct TRACKING {
   std::unordered_map<std::string, BOOL> _funcNames;
   std::vector<std::string> _hideFilenamesA;
   std::vector<std::wstring> _hideFilenamesW;

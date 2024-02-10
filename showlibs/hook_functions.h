@@ -5,7 +5,6 @@
 
 #include <windef.h>
 #include <appmodel.h>
-#include <windowsceip.h>
 
 void WINAPI MyAcquireSRWLockExclusive(
   PSRWLOCK SRWLock
@@ -44,26 +43,16 @@ DLL_DIRECTORY_COOKIE WINAPI MyAddDllDirectory(
   PCWSTR NewDirectory
 );
 
-BOOL MyAddIntegrityLabelToBoundaryDescriptor(
+BOOL WINAPI MyAddIntegrityLabelToBoundaryDescriptor(
   HANDLE* BoundaryDescriptor,
   PSID IntegrityLabel
 );
 
-DWORD MyAddLocalAlternateComputerNameA(
-  LPCSTR lpDnsFQHostName,
-  ULONG ulFlag
-);
-
-DWORD MyAddLocalAlternateComputerNameW(
-  LPCWSTR lpDnsFQHostName,
-  ULONG ulFlag
-);
-
-void MyAddRefActCtx(
+void WINAPI MyAddRefActCtx(
   HANDLE hActCtx
 );
 
-BOOL MyAddResourceAttributeAce(
+BOOL WINAPI MyAddResourceAttributeAce(
   PACL pAcl,
   DWORD dwAceRevision,
   DWORD AceFlags,
@@ -73,32 +62,32 @@ BOOL MyAddResourceAttributeAce(
   PDWORD pReturnLength
 );
 
-BOOL MyAddSecureMemoryCacheCallback(
+BOOL WINAPI MyAddSecureMemoryCacheCallback(
   PSECURE_MEMORY_CACHE_CALLBACK pfnCallBack
 );
 
-BOOL MyAddSIDToBoundaryDescriptor(
+BOOL WINAPI MyAddSIDToBoundaryDescriptor(
   HANDLE* BoundaryDescriptor,
   PSID RequireSid
 );
 
-PVOID MyAddVectoredContinueHandler(
+PVOID WINAPI MyAddVectoredContinueHandler(
   ULONG First,
   PVECTORED_EXCEPTION_HANDLER Handler
 );
 
-PVOID MyAddVectoredExceptionHandler(
+PVOID WINAPI MyAddVectoredExceptionHandler(
   ULONG First,
   PVECTORED_EXCEPTION_HANDLER Handler
 );
 
-BOOL MyAllocateUserPhysicalPages(
+BOOL WINAPI MyAllocateUserPhysicalPages(
   HANDLE hProcess,
   PULONG_PTR NumberOfPages,
   PULONG_PTR PageArray
 );
 
-BOOL MyAllocateUserPhysicalPagesNuma(
+BOOL WINAPI MyAllocateUserPhysicalPagesNuma(
   HANDLE hProcess,
   PULONG_PTR NumberOfPages,
   PULONG_PTR PageArray,
@@ -107,42 +96,42 @@ BOOL MyAllocateUserPhysicalPagesNuma(
 
 BOOL WINAPI MyAllocConsole();
 
-void MyApplicationRecoveryFinished(
+void WINAPI MyApplicationRecoveryFinished(
   BOOL bSuccess
 );
 
-HRESULT MyApplicationRecoveryInProgress(
+HRESULT WINAPI MyApplicationRecoveryInProgress(
   PBOOL pbCancelled
 );
 
-LONG MyAppPolicyGetClrCompat(
+LONG WINAPI MyAppPolicyGetClrCompat(
   HANDLE processToken,
   AppPolicyClrCompat* policy
 );
 
-LONG MyAppPolicyGetMediaFoundationCodecLoading(
+LONG WINAPI MyAppPolicyGetMediaFoundationCodecLoading(
   HANDLE processToken,
   AppPolicyMediaFoundationCodecLoading* policy
 );
 
-LONG MyAppPolicyGetProcessTerminationMethod(
+LONG WINAPI MyAppPolicyGetProcessTerminationMethod(
   HANDLE processToken,
   AppPolicyProcessTerminationMethod* policy
 );
 
-LONG MyAppPolicyGetThreadInitializationType(
+LONG WINAPI MyAppPolicyGetThreadInitializationType(
   HANDLE processToken,
   AppPolicyThreadInitializationType* policy
 );
 
-LONG MyAppPolicyGetWindowingModel(
+LONG WINAPI MyAppPolicyGetWindowingModel(
   HANDLE processToken,
   AppPolicyWindowingModel* policy
 );
 
-BOOL MyAreFileApisANSI();
+BOOL WINAPI MyAreFileApisANSI();
 
-BOOL MyAssignProcessToJobObject(
+BOOL WINAPI MyAssignProcessToJobObject(
   HANDLE hJob,
   HANDLE hProcess
 );
@@ -151,7 +140,7 @@ BOOL WINAPI MyAttachConsole(
   DWORD dwProcessId
 );
 
-BOOL MyBackupRead(
+BOOL WINAPI MyBackupRead(
   HANDLE hFile,
   LPBYTE lpBuffer,
   DWORD nNumberOfBytesToRead,
@@ -161,7 +150,7 @@ BOOL MyBackupRead(
   LPVOID* lpContext
 );
 
-BOOL MyBackupSeek(
+BOOL WINAPI MyBackupSeek(
   HANDLE hFile,
   DWORD dwLowBytesToSeek,
   DWORD dwHighBytesToSeek,
@@ -170,7 +159,7 @@ BOOL MyBackupSeek(
   LPVOID* lpContext
 );
 
-BOOL MyBackupWrite(
+BOOL WINAPI MyBackupWrite(
   HANDLE hFile,
   LPBYTE lpBuffer,
   DWORD nNumberOfBytesToWrite,
@@ -180,56 +169,54 @@ BOOL MyBackupWrite(
   LPVOID* lpContext
 );
 
-BOOL WINAPI MyBaseFlushAppcompatCache();
-
-BOOL MyBeep(
+BOOL WINAPI MyBeep(
   DWORD dwFreq,
   DWORD dwDuration
 );
 
-HANDLE MyBeginUpdateResourceA(
+HANDLE WINAPI MyBeginUpdateResourceA(
   LPCSTR pFileName,
   BOOL bDeleteExistingResources
 );
 
-HANDLE MyBeginUpdateResourceW(
+HANDLE WINAPI MyBeginUpdateResourceW(
   LPCWSTR pFileName,
   BOOL bDeleteExistingResources
 );
 
-BOOL MyBindIoCompletionCallback(
+BOOL WINAPI MyBindIoCompletionCallback(
   HANDLE FilehHandle,
   LPOVERLAPPED_COMPLETION_ROUTINE Function,
   ULONG Flags
 );
 
-BOOL MyBuildCommDCBA(
+BOOL WINAPI MyBuildCommDCBA(
   LPCSTR lpDef,
   LPDCB lpDCB
 );
 
-BOOL MyBuildCommDCBAndTimeoutsA(
+BOOL WINAPI MyBuildCommDCBAndTimeoutsA(
   LPCSTR lpDef,
   LPDCB lpDCB,
   LPCOMMTIMEOUTS lpCommTimeouts
 );
 
-BOOL MyBuildCommDCBAndTimeoutsW(
+BOOL WINAPI MyBuildCommDCBAndTimeoutsW(
   LPCWSTR lpDef,
   LPDCB lpDCB,
   LPCOMMTIMEOUTS lpCommTimeouts
 );
 
-BOOL MyBuildCommDCBW(
+BOOL WINAPI MyBuildCommDCBW(
   LPCWSTR lpDef,
   LPDCB lpDCB
 );
 
-BOOL MyCallbackMayRunLong(
+BOOL WINAPI MyCallbackMayRunLong(
   PTP_CALLBACK_INSTANCE pci
 );
 
-BOOL MyCallNamedPipeA(
+BOOL WINAPI MyCallNamedPipeA(
   LPCSTR  lpNamedPipeName,
   LPVOID  lpInBuffer,
   DWORD   nInBufferSize,
@@ -239,7 +226,7 @@ BOOL MyCallNamedPipeA(
   DWORD   nTimeOut
 );
 
-BOOL MyCallNamedPipeW(
+BOOL WINAPI MyCallNamedPipeW(
   LPCWSTR  lpNamedPipeName,
   LPVOID  lpInBuffer,
   DWORD   nInBufferSize,
@@ -273,7 +260,7 @@ BOOL WINAPI MyCancelWaitableTimer(
 BOOL WINAPI MyCeipIsOptedIn();
 
 BOOL WINAPI MyChangeTimerQueueTimer(
-  HANDLE TimeerQueue,
+  HANDLE TimerQueue,
   HANDLE Timer,
   ULONG DueTime,
   ULONG Period
@@ -323,7 +310,7 @@ BOOL WINAPI MyClearCommError(
   LPCOMSTAT lpStat
 );
 
-BOOL MyCloseHandle(
+BOOL WINAPI MyCloseHandle(
   HANDLE hObject
 );
 
@@ -973,7 +960,7 @@ HANDLE WINAPI MyCreateSemaphoreW(
 
 BOOLEAN WINAPI MyCreateSymbolicLinkA(
   LPCSTR lpSymlinkFileName,
-  LPCSTR lpTargetileName,
+  LPCSTR lpTargetFileName,
   DWORD dwFlags
 );
 
@@ -993,7 +980,7 @@ BOOLEAN WINAPI MyCreateSymbolicLinkTransactedW(
 
 BOOLEAN WINAPI MyCreateSymbolicLinkW(
   LPCWSTR lpSymlinkFileName,
-  LPCWSTR lpTargetileName,
+  LPCWSTR lpTargetFileName,
   DWORD dwFlags
 );
 
@@ -1038,7 +1025,7 @@ PTP_WAIT WINAPI MyCreateThreadpoolWait(
   PTP_CALLBACK_ENVIRON pcbe
 );
 
-PTP_WAIT WINAPI MyCreateThreadpoolWork(
+PTP_WORK WINAPI MyCreateThreadpoolWork(
   PTP_WORK_CALLBACK pfnwk,
   PVOID pv,
   PTP_CALLBACK_ENVIRON pcbe
@@ -1115,6 +1102,113 @@ BOOL WINAPI MyDefineDosDeviceW(
   DWORD dwFlags,
   LPCWSTR lpDeviceName,
   LPCWSTR lpTargetPath
+);
+
+ATOM WINAPI MyDeleteAtom(
+  ATOM nAtom
+);
+
+void WINAPI MyDeleteBoundaryDescriptor(
+  HANDLE BoundaryDescriptor
+);
+
+void WINAPI MyDeleteCriticalSection(
+  LPCRITICAL_SECTION lpCriticalSection
+);
+
+void WINAPI MyDeleteFiber(
+  LPVOID lpFiber
+);
+
+BOOL WINAPI MyDeleteFileA(
+  LPCSTR lpFileName
+);
+
+BOOL WINAPI MyDeleteFileTransactedA(
+  LPCSTR lpFileName,
+  HANDLE hTransactoin
+);
+
+BOOL WINAPI MyDeleteFileTransactedW(
+  LPCWSTR lpFileName,
+  HANDLE hTransactoin
+);
+
+BOOL WINAPI MyDeleteFileW(
+  LPCWSTR lpFileName
+);
+
+void WINAPI MyDeleteProcThreadAttributeList(
+  LPPROC_THREAD_ATTRIBUTE_LIST lpAttributeList
+);
+
+BOOL WINAPI MyDeleteSynchronizationBarrier(
+  LPSYNCHRONIZATION_BARRIER lpBarrier
+);
+
+BOOL WINAPI MyDeleteTimerQueue(
+  HANDLE TimerQueue
+);
+
+BOOL WINAPI MyDeleteTimerQueueEx(
+  HANDLE TimerQueue,
+  HANDLE CompletionEvent
+);
+
+BOOL WINAPI MyDeleteTimerQueueTimer(
+  HANDLE TimerQueue,
+  HANDLE Timer,
+  HANDLE CompletionEvent
+);
+
+BOOL WINAPI MyDeleteUmsCompletionList(
+  PUMS_COMPLETION_LIST UmsCompletionList
+);
+
+BOOL WINAPI MyDeleteUmsThreadContext(
+  PUMS_CONTEXT UmsThread
+);
+
+BOOL WINAPI MyDeleteVolumeMountPointA(
+  LPCSTR lpszVolumeMountPoint
+);
+
+BOOL WINAPI MyDeleteVolumeMountPointW(
+  LPCWSTR lpszVolumeMountPoint
+);
+
+BOOL WINAPI MyDequeueUmsCompletionListItems(
+  PUMS_COMPLETION_LIST UmsCompletionContext,
+  DWORD WaitTime,
+  PUMS_CONTEXT* UmsThreadList
+);
+
+BOOL WINAPI MyDeviceIoControl(
+  HANDLE hDevice,
+  DWORD dwIoControlCode,
+  LPVOID lpInBuffer,
+  DWORD nInBufferSize,
+  LPVOID lpOutBuffer,
+  DWORD nOutBufferSize,
+  LPDWORD lpBytesReturned,
+  LPOVERLAPPED lpOverlapped
+);
+
+BOOL WINAPI MyDisableThreadLibraryCalls(
+  HMODULE hLibModule
+);
+
+DWORD WINAPI MyDisableThreadProfiling(
+  HANDLE PerformanceDataHandle
+);
+
+void WINAPI MyDisassociateCurrentThreadFromCallback(
+  PTP_CALLBACK_INSTANCE pci
+);
+
+DWORD WINAPI MyDiscardVirtualMemory(
+  PVOID VirtualAddress,
+  SIZE_T Size
 );
 
 ///
