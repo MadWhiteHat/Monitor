@@ -13,7 +13,7 @@ void WINAPI MyAcquireSRWLockExclusive(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AcquireSRWLockExclusive");
+  static const std::string funcName(__func__ + 2);
 
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -36,7 +36,7 @@ void WINAPI MyAcquireSRWLockShared(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AcquireSRWLockShared");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -60,7 +60,7 @@ BOOL WINAPI MyActivateActCtx(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ActivateActCtx");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -83,7 +83,7 @@ ATOM WINAPI MyAddAtomA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddAtomA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -106,7 +106,7 @@ ATOM WINAPI MyAddAtomW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddAtomW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -131,7 +131,7 @@ BOOL WINAPI MyAddConsoleAliasA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddConsoleAliasA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -156,7 +156,7 @@ BOOL WINAPI MyAddConsoleAliasW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddConsoleAliasW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -179,7 +179,7 @@ DLL_DIRECTORY_COOKIE WINAPI MyAddDllDirectory(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddDllDirectory");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -200,7 +200,7 @@ BOOL WINAPI MyAddIntegrityLabelToBoundaryDescriptor(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddIntegrityLabelToBoundaryDescriptor");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -223,7 +223,7 @@ void WINAPI MyAddRefActCtx(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddRefActCtx");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -252,7 +252,7 @@ BOOL WINAPI MyAddResourceAttributeAce(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddResourceAttributeAce");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -278,7 +278,7 @@ BOOL WINAPI MyAddSecureMemoryCacheCallback(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddSecureMemoryCacheCallback");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -302,7 +302,7 @@ BOOL WINAPI MyAddSIDToBoundaryDescriptor(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddSIDToBoundaryDescriptor");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -326,7 +326,7 @@ PVOID WINAPI MyAddVectoredContinueHandler(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddVectoredContinueHandler");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -350,7 +350,7 @@ PVOID WINAPI MyAddVectoredExceptionHandler(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AddVectoredExceptionHandler");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -375,7 +375,7 @@ BOOL WINAPI MyAllocateUserPhysicalPages(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AllocateUserPhysicalPages");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -401,7 +401,7 @@ BOOL WINAPI MyAllocateUserPhysicalPagesNuma(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AllocateUserPhysicalPagesNuma");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -422,7 +422,7 @@ BOOL WINAPI MyAllocConsole() {
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AllocConsole");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -445,7 +445,7 @@ void WINAPI MyApplicationRecoveryFinished(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ApplicationRecoveryFinished");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -468,7 +468,7 @@ HRESULT WINAPI MyApplicationRecoveryInProgress(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ApplicationRecoveryInProgress");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -492,7 +492,7 @@ LONG WINAPI MyAppPolicyGetClrCompat(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AppPolicyGetClrCompat");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -516,7 +516,7 @@ LONG WINAPI MyAppPolicyGetMediaFoundationCodecLoading(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AppPolicyGetMediaFoundationCodecLoading");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -540,7 +540,7 @@ LONG WINAPI MyAppPolicyGetProcessTerminationMethod(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AppPolicyGetProcessTerminationMethod");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -564,7 +564,7 @@ LONG WINAPI MyAppPolicyGetThreadInitializationType(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AppPolicyGetThreadInitializationType");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -588,7 +588,7 @@ LONG WINAPI MyAppPolicyGetWindowingModel(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AppPolicyGetWindowingModel");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -609,7 +609,7 @@ BOOL WINAPI MyAreFileApisANSI() {
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AreFileApisANSI");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -633,7 +633,7 @@ BOOL WINAPI MyAssignProcessToJobObject(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AssignProcessToJobObject");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -656,7 +656,7 @@ BOOL WINAPI MyAttachConsole(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("AttachConsole");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -685,7 +685,7 @@ BOOL WINAPI MyBackupRead(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("BackupRead");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -716,7 +716,7 @@ BOOL WINAPI MyBackupSeek(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("BackupSeek");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -748,7 +748,7 @@ BOOL WINAPI MyBackupWrite(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("BackupWrite");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -775,7 +775,7 @@ BOOL WINAPI MyBeep(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("Beep");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -799,7 +799,7 @@ HANDLE WINAPI MyBeginUpdateResourceA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("BeginUpdateResourceA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -823,7 +823,7 @@ HANDLE WINAPI MyBeginUpdateResourceW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("BeginUpdateResourceW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -848,7 +848,7 @@ BOOL WINAPI MyBindIoCompletionCallback(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("BindIoCompletionCallback");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -872,7 +872,7 @@ BOOL WINAPI MyBuildCommDCBA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("BuildCommDCBA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -897,7 +897,7 @@ BOOL WINAPI MyBuildCommDCBAndTimeoutsA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("BuildCommDCBAndTimeoutsA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -922,7 +922,7 @@ BOOL WINAPI MyBuildCommDCBAndTimeoutsW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("BuildCommDCBAndTimeoutsW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -946,7 +946,7 @@ BOOL WINAPI MyBuildCommDCBW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("BuildCommDCBW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -969,7 +969,7 @@ BOOL WINAPI MyCallbackMayRunLong(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CallbackMayRunLong");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -998,7 +998,7 @@ BOOL WINAPI MyCallNamedPipeA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CallNamedPipeA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1030,7 +1030,7 @@ BOOL WINAPI MyCallNamedPipeW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CallNamedPipeW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1056,7 +1056,7 @@ BOOL WINAPI MyCancelIo(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CancelIo");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1080,7 +1080,7 @@ BOOL WINAPI MyCancelIoEx(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CancelIoEx");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1103,7 +1103,7 @@ BOOL WINAPI MyCancelSynchronousIo(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CancelSynchronousIo");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1126,7 +1126,7 @@ void WINAPI MyCancelThreadpoolIo(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CancelThreadpoolIo");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1149,7 +1149,7 @@ BOOL WINAPI MyCancelWaitableTimer(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CancelWaitableTimer");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1170,7 +1170,7 @@ BOOL WINAPI MyCeipIsOptedIn() {
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CeipIsOptedIn");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1196,7 +1196,7 @@ BOOL WINAPI MyChangeTimerQueueTimer(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ChangeTimerQueueTimer");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1223,7 +1223,7 @@ BOOL WINAPI MyCheckNameLegalDOS8Dot3A(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CheckNameLegalDOS8Dot3A");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1252,7 +1252,7 @@ BOOL WINAPI MyCheckNameLegalDOS8Dot3W(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CheckNameLegalDOS8Dot3W");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1278,7 +1278,7 @@ BOOL WINAPI MyCheckRemoteDebuggerPresent(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CheckRemoteDebuggerPresent");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1304,7 +1304,7 @@ BOOL WINAPI MyCheckTokenCapability(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CheckTokenCapability");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1330,7 +1330,7 @@ BOOL WINAPI MyCheckTokenMembershipEx(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CheckTokenMembershipEx");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1353,7 +1353,7 @@ BOOL WINAPI MyClearCommBreak(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ClearCommBreak");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1378,7 +1378,7 @@ BOOL WINAPI MyClearCommError(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ClearCommError");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1401,7 +1401,7 @@ BOOL MyCloseHandle(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CloseHandle");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1424,7 +1424,7 @@ LONG WINAPI MyClosePackageInfo(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ClosePackageInfo");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1448,7 +1448,7 @@ BOOLEAN WINAPI MyClosePrivateNamespace(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ClosePrivateNamespace");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1471,7 +1471,7 @@ void WINAPI MyClosePseudoConsole(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ClosePseudoConsole");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1495,7 +1495,7 @@ void WINAPI MyCloseThreadpool(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CloseThreadpool");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1518,7 +1518,7 @@ void WINAPI MyCloseThreadpoolCleanupGroup(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CloseThreadpoolCleanupGroup");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1543,7 +1543,7 @@ void WINAPI MyCloseThreadpoolCleanupGroupMembers(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CloseThreadpoolCleanupGroupMembers");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1566,7 +1566,7 @@ void WINAPI MyCloseThreadpoolIo(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CloseThreadpoolIo");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1589,7 +1589,7 @@ void WINAPI MyCloseThreadpoolTimer(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CloseThreadpoolTimer");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1612,7 +1612,7 @@ void WINAPI MyCloseThreadpoolWait(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CloseThreadpoolWait");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1635,7 +1635,7 @@ void WINAPI MyCloseThreadpoolWork(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CloseThreadpoolWork");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1660,7 +1660,7 @@ BOOL WINAPI MyCommConfigDialogA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CommConfigDialogA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1685,7 +1685,7 @@ BOOL WINAPI MyCommConfigDialogW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CommConfigDialogW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1709,7 +1709,7 @@ LONG WINAPI MyCompareFileTime(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CompareFileTime");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1737,7 +1737,7 @@ int WINAPI MyCompareStringA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CompareStringA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1770,7 +1770,7 @@ int WINAPI MyCompareStringEx(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CompareStringEx");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1800,7 +1800,7 @@ int WINAPI MyCompareStringOrdinal(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CompareStringOrdinal");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1828,7 +1828,7 @@ int WINAPI MyCompareStringW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CompareStringW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1854,7 +1854,7 @@ BOOL WINAPI MyConnectNamedPipe(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ConnectNamedPipe");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1879,7 +1879,7 @@ BOOL WINAPI MyContinueDebugEvent(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ContinueDebugEvent");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1902,7 +1902,7 @@ LCID WINAPI MyConvertDefaultLocale(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ConvertDefaultLocale");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1923,7 +1923,7 @@ BOOL WINAPI MyConvertFiberToThread() {
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ConvertFiberToThread");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1946,7 +1946,7 @@ LPVOID WINAPI MyConvertThreadToFiber(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ConvertThreadToFiber");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1970,7 +1970,7 @@ LPVOID WINAPI MyConvertThreadToFiberEx(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("ConvertThreadToFiberEx");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -1995,7 +1995,7 @@ BOOL WINAPI MyCopyContext(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CopyContext");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2020,7 +2020,7 @@ HRESULT WINAPI MyCopyFile2(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CopyFile2");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2048,7 +2048,7 @@ BOOL WINAPI MyCopyFileA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CopyFileA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2076,7 +2076,7 @@ BOOL WINAPI MyCopyFileExA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CopyFileExA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2107,7 +2107,7 @@ BOOL WINAPI MyCopyFileExW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CopyFileExW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2139,7 +2139,7 @@ BOOL WINAPI MyCopyFileTransactedA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CopyFileTransactedA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2171,7 +2171,7 @@ BOOL WINAPI MyCopyFileTransactedW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CopyFileTransactedW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2199,7 +2199,7 @@ BOOL WINAPI MyCopyFileW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CopyFileW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2222,7 +2222,7 @@ HANDLE WINAPI MyCreateActCtxA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateActCtxA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2245,7 +2245,7 @@ HANDLE WINAPI MyCreateActCtxW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateActCtxW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2269,7 +2269,7 @@ HANDLE WINAPI MyCreateBoundaryDescriptorA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateBoundaryDescriptorA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2293,7 +2293,7 @@ HANDLE WINAPI MyCreateBoundaryDescriptorW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateBoundaryDescriptorW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2320,7 +2320,7 @@ HANDLE WINAPI MyCreateConsoleScreenBuffer(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateConsoleScreenBuffer");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2346,7 +2346,7 @@ BOOL WINAPI MyCreateDirectoryA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateDirectoryA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2371,7 +2371,7 @@ BOOL WINAPI MyCreateDirectoryExA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateDirectoryExA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2397,7 +2397,7 @@ BOOL WINAPI MyCreateDirectoryExW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateDirectoryExW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2423,7 +2423,7 @@ BOOL WINAPI MyCreateDirectoryTransactedA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateDirectoryTransactedA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2451,7 +2451,7 @@ BOOL WINAPI MyCreateDirectoryTransactedW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateDirectoryTransactedW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2478,7 +2478,7 @@ BOOL WINAPI MyCreateDirectoryW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateDirectoryW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2508,7 +2508,7 @@ LPVOID WINAPI MyCreateEnclave(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateEnclave");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2538,7 +2538,7 @@ HANDLE WINAPI MyCreateEventA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateEventA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2564,7 +2564,7 @@ HANDLE WINAPI MyCreateEventExA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateEventExA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2590,7 +2590,7 @@ HANDLE WINAPI MyCreateEventExW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateEventExW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2617,7 +2617,7 @@ HANDLE WINAPI MyCreateEventW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateEventW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2642,7 +2642,7 @@ LPVOID WINAPI MyCreateFiber(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFiber");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2669,7 +2669,7 @@ LPVOID WINAPI MyCreateFiberEx(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFiberEx");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2698,7 +2698,7 @@ HANDLE WINAPI MyCreateFile2(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFile2");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2730,7 +2730,7 @@ HANDLE WINAPI MyCreateFileA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFileA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2763,7 +2763,7 @@ HANDLE WINAPI MyCreateFileMappingA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFileMappingA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2793,7 +2793,7 @@ HANDLE WINAPI MyCreateFileMappingFromApp(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFileMappingFromApp");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2824,7 +2824,7 @@ HANDLE WINAPI MyCreateFileMappingNumaA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFileMappingNumaA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2856,7 +2856,7 @@ HANDLE WINAPI MyCreateFileMappingNumaW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFileMappingNumaW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2887,7 +2887,7 @@ HANDLE WINAPI MyCreateFileMappingW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFileMappingW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2922,7 +2922,7 @@ HANDLE WINAPI MyCreateFileTransactedA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFileTransactedA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2958,7 +2958,7 @@ HANDLE WINAPI MyCreateFileTransactedW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFileTransactedW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -2991,7 +2991,7 @@ HANDLE WINAPI MyCreateFileW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateFileW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3021,7 +3021,7 @@ BOOL WINAPI MyCreateHardLinkA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateHardLinkA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3047,7 +3047,7 @@ BOOL WINAPI MyCreateHardLinkTransactedA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateHardLinkTransactedA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3075,7 +3075,7 @@ BOOL WINAPI MyCreateHardLinkTransactedW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateHardLinkTransactedW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3102,7 +3102,7 @@ BOOL WINAPI MyCreateHardLinkW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateHardLinkW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3128,7 +3128,7 @@ HANDLE WINAPI MyCreateIoCompletionPort(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateIoCompletionPort");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3154,7 +3154,7 @@ HANDLE WINAPI MyCreateJobObjectA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateJobObjectA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3178,7 +3178,7 @@ HANDLE WINAPI MyCreateJobObjectW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateJobObjectW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3204,7 +3204,7 @@ HANDLE WINAPI MyCreateMailslotA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateMailslotA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3230,7 +3230,7 @@ HANDLE WINAPI MyCreateMailslotW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateMailslotW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3253,7 +3253,7 @@ HANDLE WINAPI MyCreateMemoryResourceNotification(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateMemoryResourceNotification");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3278,7 +3278,7 @@ HANDLE WINAPI MyCreateMutexA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateMutexA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3304,7 +3304,7 @@ HANDLE WINAPI MyCreateMutexExA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateMutexExA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3330,7 +3330,7 @@ HANDLE WINAPI MyCreateMutexExW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateMutexExW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3355,7 +3355,7 @@ HANDLE WINAPI MyCreateMutexW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateMutexW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3385,7 +3385,7 @@ HANDLE WINAPI MyCreateNamedPipeA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateNamedPipeA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3418,7 +3418,7 @@ HANDLE WINAPI MyCreateNamedPipeW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateNamedPipeW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3447,7 +3447,7 @@ BOOL WINAPI MyCreatePipe(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreatePipe");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3472,7 +3472,7 @@ HANDLE WINAPI MyCreatePrivateNamespaceA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreatePrivateNamespaceA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3499,7 +3499,7 @@ HANDLE WINAPI MyCreatePrivateNamespaceW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreatePrivateNamespaceW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3533,7 +3533,7 @@ BOOL WINAPI MyCreateProcessA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateProcessA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3570,7 +3570,7 @@ BOOL WINAPI MyCreateProcessAsUserA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateProcessAsUserA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3607,7 +3607,7 @@ BOOL WINAPI MyCreateProcessAsUserW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateProcessAsUserW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3643,7 +3643,7 @@ BOOL WINAPI MyCreateProcessW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateProcessW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3674,7 +3674,7 @@ HRESULT WINAPI MyCreatePseudoConsole(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreatePseudoConsole");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3705,7 +3705,7 @@ HANDLE WINAPI MyCreateRemoteThread(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateRemoteThread");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3738,7 +3738,7 @@ HANDLE WINAPI MyCreateRemoteThreadEx(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateRemoteThreadEx");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3767,7 +3767,7 @@ HANDLE WINAPI MyCreateSemaphoreA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateSemaphoreA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3795,7 +3795,7 @@ HANDLE WINAPI MyCreateSemaphoreExA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateSemaphoreExA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3826,7 +3826,7 @@ HANDLE WINAPI MyCreateSemaphoreExW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateSemaphoreExW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3855,7 +3855,7 @@ HANDLE WINAPI MyCreateSemaphoreW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateSemaphoreW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3880,7 +3880,7 @@ BOOLEAN WINAPI MyCreateSymbolicLinkA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateSymbolicLinkA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3906,7 +3906,7 @@ BOOLEAN WINAPI MyCreateSymbolicLinkTransactedA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateSymbolicLinkTransactedA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3932,7 +3932,7 @@ BOOLEAN WINAPI MyCreateSymbolicLinkTransactedW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateSymbolicLinkTransactedW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3957,7 +3957,7 @@ BOOLEAN WINAPI MyCreateSymbolicLinkW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateSymbolicLinkW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -3983,7 +3983,7 @@ DWORD WINAPI MyCreateTapePartition(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateTapePartition");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4011,7 +4011,7 @@ HANDLE WINAPI MyCreateThread(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateThread");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4037,7 +4037,7 @@ PTP_POOL WINAPI MyCreateThreadpool(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateThreadpool");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4058,7 +4058,7 @@ PTP_CLEANUP_GROUP WINAPI MyCreateThreadpoolCleanupGroup() {
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateThreadpoolCleanupGroup");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4084,7 +4084,7 @@ PTP_IO WINAPI MyCreateThreadpoolIo(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateThreadpoolIo");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4109,7 +4109,7 @@ PTP_TIMER WINAPI MyCreateThreadpoolTimer(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateThreadpoolTimer");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4134,7 +4134,7 @@ PTP_WAIT WINAPI MyCreateThreadpoolWait(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateThreadpoolWait");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4159,7 +4159,7 @@ PTP_WORK WINAPI MyCreateThreadpoolWork(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateThreadpoolWork");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4180,7 +4180,7 @@ HANDLE WINAPI MyCreateTimerQueue() {
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateTimerQueue");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4209,7 +4209,7 @@ BOOL WINAPI MyCreateTimerQueueTimer(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateTimerQueueTimer");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4235,7 +4235,7 @@ HANDLE WINAPI MyCreateToolhelp32Snapshot(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateToolhelp32Snapshot");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4258,7 +4258,7 @@ BOOL WINAPI MyCreateUmsCompletionList(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateUmsCompletionList");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4281,7 +4281,7 @@ BOOL WINAPI MyCreateUmsThreadContext(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateUmsThreadContext");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4307,7 +4307,7 @@ HANDLE WINAPI MyCreateWaitableTimerExW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateWaitableTimerExW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4332,7 +4332,7 @@ HANDLE WINAPI MyCreateWaitableTimerW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("CreateWaitableTimerW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4356,7 +4356,7 @@ BOOL WINAPI MyDeactivateActCtx(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeactivateActCtx");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4377,7 +4377,7 @@ void WINAPI MyDebugBreak() {
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DebugBreak");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4400,7 +4400,7 @@ BOOL WINAPI MyDebugBreakProcess(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DebugBreakProcess");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4423,7 +4423,7 @@ BOOL WINAPI MyDebugSetProcessKillOnExit(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DebugSetProcessKillOnExit");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4446,7 +4446,7 @@ PVOID WINAPI MyDecodePointer(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DecodePointer");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4469,7 +4469,7 @@ PVOID WINAPI MyDecodeSystemPointer(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DecodeSystemPointer");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4494,7 +4494,7 @@ BOOL WINAPI MyDefineDosDeviceA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DefineDosDeviceA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4519,7 +4519,7 @@ BOOL WINAPI MyDefineDosDeviceW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DefineDosDeviceW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4542,7 +4542,7 @@ ATOM WINAPI MyDeleteAtom(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteAtom");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4565,7 +4565,7 @@ void WINAPI MyDeleteBoundaryDescriptor(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteBoundaryDescriptor");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4588,7 +4588,7 @@ void WINAPI MyDeleteCriticalSection(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteCriticalSection");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4611,7 +4611,7 @@ void WINAPI MyDeleteFiber(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteFiber");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4634,7 +4634,7 @@ BOOL WINAPI MyDeleteFileA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteFileA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4658,7 +4658,7 @@ BOOL WINAPI MyDeleteFileTransactedA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteFileTransactedA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4682,7 +4682,7 @@ BOOL WINAPI MyDeleteFileTransactedW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteFileTransactedW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4705,7 +4705,7 @@ BOOL WINAPI MyDeleteFileW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteFileW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4728,7 +4728,7 @@ void WINAPI MyDeleteProcThreadAttributeList(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteProcThreadAttributeList");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4751,7 +4751,7 @@ BOOL WINAPI MyDeleteSynchronizationBarrier(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteSynchronizationBarrier");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4774,7 +4774,7 @@ BOOL WINAPI MyDeleteTimerQueue(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteTimerQueue");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4798,7 +4798,7 @@ BOOL WINAPI MyDeleteTimerQueueEx(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteTimerQueueEx");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4823,7 +4823,7 @@ BOOL WINAPI MyDeleteTimerQueueTimer(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteTimerQueueTimer");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4846,7 +4846,7 @@ BOOL WINAPI MyDeleteUmsCompletionList(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteUmsCompletionList");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4869,7 +4869,7 @@ BOOL WINAPI MyDeleteUmsThreadContext(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteUmsThreadContext");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4892,7 +4892,7 @@ BOOL WINAPI MyDeleteVolumeMountPointA(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteVolumeMountPointA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4915,7 +4915,7 @@ BOOL WINAPI MyDeleteVolumeMountPointW(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeleteVolumeMountPointW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4940,7 +4940,7 @@ BOOL WINAPI MyDequeueUmsCompletionListItems(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DequeueUmsCompletionListItems");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4970,7 +4970,7 @@ BOOL WINAPI MyDeviceIoControl(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DeviceIoControl");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -4996,7 +4996,7 @@ BOOL WINAPI MyDisableThreadLibraryCalls(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DisableThreadLibraryCalls");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -5019,7 +5019,7 @@ DWORD WINAPI MyDisableThreadProfiling(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DisableThreadProfiling");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -5042,7 +5042,7 @@ void WINAPI MyDisassociateCurrentThreadFromCallback(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DisassociateCurrentThreadFromCallback");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -5066,7 +5066,7 @@ DWORD WINAPI MyDiscardVirtualMemory(
 
   static_assert(std::is_same_v<real_type, func_type>);
 
-  static const std::string funcName("DiscardVirtualMemory");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -5197,7 +5197,7 @@ HANDLE MyFindFirstFileW(LPCWSTR lpFileName,
 
 BOOL MyFindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
   using func_type = BOOL(*)(HANDLE, LPWIN32_FIND_DATAA);
-  static const std::string funcName("FindNextFileA");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
@@ -5216,7 +5216,7 @@ BOOL MyFindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 }
 BOOL MyFindNextFileW(HANDLE hFindFile, LPWIN32_FIND_DATAW lpFindFileData) {
   using func_type = BOOL(*)(HANDLE, LPWIN32_FIND_DATAW);
-  static const std::string funcName("FindNextFileW");
+  static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
