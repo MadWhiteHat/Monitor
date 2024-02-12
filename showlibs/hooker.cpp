@@ -6941,18 +6941,10 @@ void _SendInfo(std::string funcName) {
   StringCchPrintfA(_pipeInst._replyBuff, PIPE_BUFFER_SIZE,
     "PID: %d %02d/%02d/%02d %02d:%02d:%02d call %s",
     _pipeInst._pid, time.wDay, time.wMonth, time.wYear % 100,
-    time.wHour, time.wMinute, time.wSecond, funcName.data());
-
-  _pipeInst._cbToWrite =
-    DWORD(strlen(_pipeInst._replyBuff)) + 1;
-
-  success = WriteFile(
-    _pipeInst._pipe,
-    _pipeInst._replyBuff,
-    _pipeInst._cbToWrite,
-    &cbWritten,
-    NULL
+    time.wHour, time.wMinute, time.wSecond, funcName.data()
   );
+
+  _pipeInst._cbToWrite = DWORD(strlen(_pipeInst._replyBuff)) + 1;
 
   success = WriteFile(
     _pipeInst._pipe,
