@@ -4947,11 +4947,9 @@ BOOL WINAPI MyDequeueUmsCompletionListItems(
   }
 
   static auto baseFuncAddr = _funcMap[funcName];
-
   if (baseFuncAddr == NULL) { return FALSE; }
 
   static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
   return baseFunc(UmsCompletionContext, WaitTime, UmsThreadList);
 }
 
@@ -4977,11 +4975,9 @@ BOOL WINAPI MyDeviceIoControl(
   }
 
   static auto baseFuncAddr = _funcMap[funcName];
-
   if (baseFuncAddr == NULL) { return FALSE; }
 
   static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
   return baseFunc(
     hDevice, dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer,
     nOutBufferSize, lpBytesReturned, lpOverlapped
@@ -5003,11 +4999,9 @@ BOOL WINAPI MyDisableThreadLibraryCalls(
   }
 
   static auto baseFuncAddr = _funcMap[funcName];
-
   if (baseFuncAddr == NULL) { return FALSE; }
 
   static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
   return baseFunc(hLibModule);
 }
 
@@ -5026,11 +5020,9 @@ DWORD WINAPI MyDisableThreadProfiling(
   }
 
   static auto baseFuncAddr = _funcMap[funcName];
-
   if (baseFuncAddr == NULL) { return ERROR_INVALID_FUNCTION; }
 
   static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
   return baseFunc(PerformanceDataHandle);
 }
 
@@ -5049,11 +5041,9 @@ void WINAPI MyDisassociateCurrentThreadFromCallback(
   }
 
   static auto baseFuncAddr = _funcMap[funcName];
-
   if (baseFuncAddr == NULL) { return; }
 
   static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
   return baseFunc(pci);
 }
 
@@ -5073,40 +5063,46 @@ DWORD WINAPI MyDiscardVirtualMemory(
   }
 
   static auto baseFuncAddr = _funcMap[funcName];
-
   if (baseFuncAddr == NULL) { return ERROR_INVALID_FUNCTION; }
 
   static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
   return baseFunc(VirtualAddress, Size);
 }
 
 /// Here
 
-HANDLE MyFindFirstFileA(LPCSTR lpFileName,
-  LPWIN32_FIND_DATAA lpFindFileData) {
-  using func_first_type = HANDLE(*)(LPCSTR, LPWIN32_FIND_DATAA);
-  using func_next_type = BOOL(*)(HANDLE, LPWIN32_FIND_DATAA);
-  using func_close_type = BOOL(*)(HANDLE);
+HANDLE WINAPI MyFindFirstFileA(
+  LPCSTR lpFileName,
+  LPWIN32_FIND_DATAA lpFindFileData
+) {
+  using func_type = decltype(&FindFirstFileA);
+  using real_type = decltype(&MyFindFirstFileA);
 
-  static const std::string funcFirstName("FindFirstFileA");
+  static_assert(std::is_same_v<real_type, func_type>);
+
+  using func_next_type = decltype(&FindNextFileA);
+  using func_close_type = decltype(&FindClose);
+
+  static const std::string funcFirstName(__func__ + 2);
   static const std::string funcNextName("FindNextFileA");
   static const std::string funcCloseName("FindClose");
   
   HANDLE hFile = INVALID_HANDLE_VALUE;
 
-  auto baseFirstFuncAddr = _funcMap[funcFirstName];
+  static auto baseFirstFuncAddr = _funcMap[funcFirstName];
   if (baseFirstFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-  func_first_type baseFirstFunc =
-    reinterpret_cast<func_first_type>(baseFirstFuncAddr);
 
-  auto baseNextFuncAddr = _funcMap[funcNextName];
+  func_type baseFirstFunc = reinterpret_cast<func_type>(baseFirstFuncAddr);
+
+  static auto baseNextFuncAddr = _funcMap[funcNextName];
   if (baseNextFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
+
   func_next_type baseNextFunc =
     reinterpret_cast<func_next_type>(baseNextFuncAddr);
   
-  auto baseCloseFuncAddr = _funcMap[funcCloseName];
+  static auto baseCloseFuncAddr = _funcMap[funcCloseName];
   if (baseCloseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
+
   func_close_type baseCloseFunc =
     reinterpret_cast<func_close_type>(baseCloseFuncAddr);
 
@@ -5136,33 +5132,42 @@ HANDLE MyFindFirstFileA(LPCSTR lpFileName,
   baseCloseFunc(hFile);
   std::memset(lpFindFileData, 0x00, sizeof(*lpFindFileData));
   SetLastError(ERROR_FILE_NOT_FOUND);
+
   return INVALID_HANDLE_VALUE;
 }
 
-HANDLE MyFindFirstFileW(LPCWSTR lpFileName,
-  LPWIN32_FIND_DATAW lpFindFileData) {
-  using func_first_type = HANDLE(*)(LPCWSTR, LPWIN32_FIND_DATAW);
-  using func_next_type = BOOL(*)(HANDLE, LPWIN32_FIND_DATAW);
-  using func_close_type = BOOL(*)(HANDLE);
+HANDLE WINAPI MyFindFirstFileW(
+  LPCWSTR lpFileName,
+  LPWIN32_FIND_DATAW lpFindFileData
+) {
+  using func_type = decltype(&FindFirstFileW);
+  using real_type = decltype(&MyFindFirstFileW);
 
-  static const std::string funcFirstName("FindFirstFileW");
+  static_assert(std::is_same_v<real_type, func_type>);
+
+  using func_next_type = decltype(&FindNextFileW);
+  using func_close_type = decltype(&FindClose);
+
+  static const std::string funcFirstName(__func__ + 2);
   static const std::string funcNextName("FindNextFileW");
   static const std::string funcCloseName("FindClose");
   
   HANDLE hFile = INVALID_HANDLE_VALUE;
 
-  auto baseFirstFuncAddr = _funcMap[funcFirstName];
+  static auto baseFirstFuncAddr = _funcMap[funcFirstName];
   if (baseFirstFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-  func_first_type baseFirstFunc =
-    reinterpret_cast<func_first_type>(baseFirstFuncAddr);
 
-  auto baseNextFuncAddr = _funcMap[funcNextName];
+  func_type baseFirstFunc = reinterpret_cast<func_type>(baseFirstFuncAddr);
+
+  static auto baseNextFuncAddr = _funcMap[funcNextName];
   if (baseNextFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
+
   func_next_type baseNextFunc =
     reinterpret_cast<func_next_type>(baseNextFuncAddr);
   
-  auto baseCloseFuncAddr = _funcMap[funcCloseName];
+  static auto baseCloseFuncAddr = _funcMap[funcCloseName];
   if (baseCloseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
+
   func_close_type baseCloseFunc =
     reinterpret_cast<func_close_type>(baseCloseFuncAddr);
 
@@ -5192,11 +5197,19 @@ HANDLE MyFindFirstFileW(LPCWSTR lpFileName,
   baseCloseFunc(hFile);
   std::memset(lpFindFileData, 0x00, sizeof(*lpFindFileData));
   SetLastError(ERROR_FILE_NOT_FOUND);
+
   return INVALID_HANDLE_VALUE;
 }
 
-BOOL MyFindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
-  using func_type = BOOL(*)(HANDLE, LPWIN32_FIND_DATAA);
+BOOL WINAPI MyFindNextFileA(
+  HANDLE hFindFile,
+  LPWIN32_FIND_DATAA lpFindFileData
+) {
+  using func_type = decltype(&FindNextFileA);
+  using real_type = decltype(&MyFindNextFileA);
+
+  static_assert(std::is_same_v<real_type, func_type>);
+
   static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
@@ -5205,6 +5218,7 @@ BOOL MyFindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 
   static auto baseFuncAddr = _funcMap[funcName];
   if (baseFuncAddr == NULL) { return FALSE; }
+
   static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
   
   BOOL bRes = TRUE;
@@ -5214,8 +5228,15 @@ BOOL MyFindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 
   return FALSE;
 }
-BOOL MyFindNextFileW(HANDLE hFindFile, LPWIN32_FIND_DATAW lpFindFileData) {
-  using func_type = BOOL(*)(HANDLE, LPWIN32_FIND_DATAW);
+BOOL WINAPI MyFindNextFileW(
+  HANDLE hFindFile,
+  LPWIN32_FIND_DATAW lpFindFileData
+) {
+  using func_type = decltype(&FindNextFileW);
+  using real_type = decltype(&MyFindNextFileW);
+
+  static_assert(std::is_same_v<real_type, func_type>);
+
   static const std::string funcName(__func__ + 2);
   
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
@@ -5224,6 +5245,7 @@ BOOL MyFindNextFileW(HANDLE hFindFile, LPWIN32_FIND_DATAW lpFindFileData) {
 
   static auto baseFuncAddr = _funcMap[funcName];
   if (baseFuncAddr == NULL) { return FALSE; }
+
   static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
   
   BOOL bRes = TRUE;

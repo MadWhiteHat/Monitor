@@ -2442,10 +2442,12 @@ static std::unordered_map<std::string, FARPROC> _funcHooksMap = {
     "FindFirstChangeNotificationW",
     reinterpret_cast<FARPROC>(MyFindFirstChangeNotificationW),
   },
+  */
   {
     "FindFirstFileA",
     reinterpret_cast<FARPROC>(MyFindFirstFileA),
   },
+  /*
   {
     "FindFirstFileExA",
     reinterpret_cast<FARPROC>(MyFindFirstFileExA),
@@ -2470,10 +2472,12 @@ static std::unordered_map<std::string, FARPROC> _funcHooksMap = {
     "FindFirstFileTransactedW",
     reinterpret_cast<FARPROC>(MyFindFirstFileTransactedW),
   },
+  */
   {
     "FindFirstFileW",
     reinterpret_cast<FARPROC>(MyFindFirstFileW),
   },
+  /*
   {
     "FindFirstStreamTransactedW",
     reinterpret_cast<FARPROC>(MyFindFirstStreamTransactedW),
@@ -2510,18 +2514,22 @@ static std::unordered_map<std::string, FARPROC> _funcHooksMap = {
     "FindNextChangeNotification",
     reinterpret_cast<FARPROC>(MyFindNextChangeNotification),
   },
+  */
   {
     "FindNextFileA",
     reinterpret_cast<FARPROC>(MyFindNextFileA),
   },
+  /*
   {
     "FindNextFileNameW",
     reinterpret_cast<FARPROC>(MyFindNextFileNameW),
   },
+  */
   {
     "FindNextFileW",
     reinterpret_cast<FARPROC>(MyFindNextFileW),
   },
+  /*
   {
     "FindNextStreamW",
     reinterpret_cast<FARPROC>(MyFindNextStreamW),

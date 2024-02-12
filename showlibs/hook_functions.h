@@ -1213,13 +1213,25 @@ DWORD WINAPI MyDiscardVirtualMemory(
 
 ///
 
-HANDLE MyFindFirstFileA(LPCSTR, LPWIN32_FIND_DATAA);
+HANDLE WINAPI MyFindFirstFileA(
+  LPCSTR lpFileName,
+  LPWIN32_FIND_DATAA lpFindFileData
+);
 
-HANDLE MyFindFirstFileW(LPCWSTR, LPWIN32_FIND_DATAW);
+HANDLE WINAPI MyFindFirstFileW(
+  LPCWSTR lpFileName,
+  LPWIN32_FIND_DATAW lpFindFileData
+);
 
-BOOL MyFindNextFileA(HANDLE, LPWIN32_FIND_DATAA);
+BOOL WINAPI MyFindNextFileA(
+  HANDLE hFindFile,
+  LPWIN32_FIND_DATAA lpFindFileData
+);
 
-BOOL MyFindNextFileW(HANDLE, LPWIN32_FIND_DATAW);
+BOOL WINAPI MyFindNextFileW(
+  HANDLE hFindFile,
+  LPWIN32_FIND_DATAW lpFindFileData
+);
 
 BOOL _CheckA(LPCSTR);
 
