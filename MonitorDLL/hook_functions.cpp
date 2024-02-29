@@ -20,13 +20,7 @@ void WINAPI MyAcquireSRWLockExclusive(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(SRWLock);
+  return AcquireSRWLockExclusive(SRWLock);
 }
 
 void WINAPI MyAcquireSRWLockShared(
@@ -43,13 +37,7 @@ void WINAPI MyAcquireSRWLockShared(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(SRWLock);
+  return AcquireSRWLockShared(SRWLock);
 }
 
 BOOL WINAPI MyActivateActCtx(
@@ -67,13 +55,7 @@ BOOL WINAPI MyActivateActCtx(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hActCtx, lpCookie);
+  return ActivateActCtx(hActCtx, lpCookie);
 }
 
 ATOM WINAPI MyAddAtomA(
@@ -90,13 +72,7 @@ ATOM WINAPI MyAddAtomA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return 0; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpString);
+  return AddAtomA(lpString);
 }
 
 ATOM WINAPI MyAddAtomW(
@@ -113,13 +89,7 @@ ATOM WINAPI MyAddAtomW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return 0; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpString);
+  return AddAtomW(lpString);
 }
 
 BOOL WINAPI MyAddConsoleAliasA(
@@ -138,13 +108,7 @@ BOOL WINAPI MyAddConsoleAliasA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(Source, Target, ExeName);
+  return AddConsoleAliasA(Source, Target, ExeName);
 }
 
 BOOL WINAPI MyAddConsoleAliasW(
@@ -163,13 +127,7 @@ BOOL WINAPI MyAddConsoleAliasW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(Source, Target, ExeName);
+  return AddConsoleAliasW(Source, Target, ExeName);
 }
 
 DLL_DIRECTORY_COOKIE WINAPI MyAddDllDirectory(
@@ -186,10 +144,7 @@ DLL_DIRECTORY_COOKIE WINAPI MyAddDllDirectory(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-  if (baseFuncAddr == NULL) { return 0; }
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-  return baseFunc(NewDirectory);
+  return AddDllDirectory(NewDirectory);
 }
 
 BOOL WINAPI MyAddIntegrityLabelToBoundaryDescriptor(
@@ -207,13 +162,9 @@ BOOL WINAPI MyAddIntegrityLabelToBoundaryDescriptor(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(BoundaryDescriptor, IntegrityLabel);
+  return AddIntegrityLabelToBoundaryDescriptor(
+    BoundaryDescriptor, IntegrityLabel
+  );
 }
 
 void WINAPI MyAddRefActCtx(
@@ -230,13 +181,7 @@ void WINAPI MyAddRefActCtx(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hActCtx);
+  return AddRefActCtx(hActCtx);
 }
 
 BOOL WINAPI MyAddResourceAttributeAce(
@@ -259,13 +204,7 @@ BOOL WINAPI MyAddResourceAttributeAce(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return AddResourceAttributeAce(
     pAcl ,dwAceRevision, AceFlags, AccessMask, pSid, pAttributeInfo,
     pReturnLength
   );
@@ -285,13 +224,7 @@ BOOL WINAPI MyAddSecureMemoryCacheCallback(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pfnCallBack);
+  return AddSecureMemoryCacheCallback(pfnCallBack);
 }
 
 BOOL WINAPI MyAddSIDToBoundaryDescriptor(
@@ -309,13 +242,7 @@ BOOL WINAPI MyAddSIDToBoundaryDescriptor(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(BoundaryDescriptor, RequireSid);
+  return AddSIDToBoundaryDescriptor(BoundaryDescriptor, RequireSid);
 }
 
 PVOID WINAPI MyAddVectoredContinueHandler(
@@ -333,13 +260,7 @@ PVOID WINAPI MyAddVectoredContinueHandler(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(First, Handler);
+  return AddVectoredContinueHandler(First, Handler);
 }
 
 PVOID WINAPI MyAddVectoredExceptionHandler(
@@ -357,13 +278,7 @@ PVOID WINAPI MyAddVectoredExceptionHandler(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(First, Handler);
+  return AddVectoredExceptionHandler(First, Handler);
 }
 
 BOOL WINAPI MyAllocateUserPhysicalPages(
@@ -382,13 +297,7 @@ BOOL WINAPI MyAllocateUserPhysicalPages(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hProcess, NumberOfPages, PageArray);
+  return AllocateUserPhysicalPages(hProcess, NumberOfPages, PageArray);
 }
 
 BOOL WINAPI MyAllocateUserPhysicalPagesNuma(
@@ -408,13 +317,9 @@ BOOL WINAPI MyAllocateUserPhysicalPagesNuma(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hProcess, NumberOfPages, PageArray, nndPreferred);
+  return AllocateUserPhysicalPagesNuma(
+    hProcess, NumberOfPages, PageArray, nndPreferred
+  );
 }
 
 BOOL WINAPI MyAllocConsole() {
@@ -429,13 +334,7 @@ BOOL WINAPI MyAllocConsole() {
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc();
+  return AllocConsole();
 }
 
 void WINAPI MyApplicationRecoveryFinished(
@@ -452,13 +351,7 @@ void WINAPI MyApplicationRecoveryFinished(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(bSuccess);
+  return ApplicationRecoveryFinished(bSuccess);
 }
 
 HRESULT WINAPI MyApplicationRecoveryInProgress(
@@ -475,13 +368,7 @@ HRESULT WINAPI MyApplicationRecoveryInProgress(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return E_FAIL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pbCancelled);
+  return ApplicationRecoveryInProgress(pbCancelled);
 }
 
 LONG WINAPI MyAppPolicyGetClrCompat(
@@ -499,13 +386,7 @@ LONG WINAPI MyAppPolicyGetClrCompat(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(processToken, policy);
+  return AppPolicyGetClrCompat(processToken, policy);
 }
 
 LONG WINAPI MyAppPolicyGetMediaFoundationCodecLoading(
@@ -523,13 +404,7 @@ LONG WINAPI MyAppPolicyGetMediaFoundationCodecLoading(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(processToken, policy);
+  return AppPolicyGetMediaFoundationCodecLoading(processToken, policy);
 }
 
 LONG WINAPI MyAppPolicyGetProcessTerminationMethod(
@@ -547,13 +422,7 @@ LONG WINAPI MyAppPolicyGetProcessTerminationMethod(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(processToken, policy);
+  return AppPolicyGetProcessTerminationMethod(processToken, policy);
 }
 
 LONG WINAPI MyAppPolicyGetThreadInitializationType(
@@ -571,13 +440,7 @@ LONG WINAPI MyAppPolicyGetThreadInitializationType(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(processToken, policy);
+  return AppPolicyGetThreadInitializationType(processToken, policy);
 }
 
 LONG WINAPI MyAppPolicyGetWindowingModel(
@@ -595,13 +458,7 @@ LONG WINAPI MyAppPolicyGetWindowingModel(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return ERROR_INVALID_PARAMETER; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(processToken, policy);
+  return AppPolicyGetWindowingModel(processToken, policy);
 }
 
 BOOL WINAPI MyAreFileApisANSI() {
@@ -616,13 +473,7 @@ BOOL WINAPI MyAreFileApisANSI() {
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return TRUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc();
+  return AreFileApisANSI();
 }
 
 BOOL WINAPI MyAssignProcessToJobObject(
@@ -640,13 +491,7 @@ BOOL WINAPI MyAssignProcessToJobObject(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hJob, hProcess);
+  return AssignProcessToJobObject(hJob, hProcess);
 }
 
 BOOL WINAPI MyAttachConsole(
@@ -663,13 +508,7 @@ BOOL WINAPI MyAttachConsole(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(dwProcessId);
+  return AttachConsole(dwProcessId);
 }
 
 BOOL WINAPI MyBackupRead(
@@ -692,13 +531,7 @@ BOOL WINAPI MyBackupRead(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return BackupRead(
     hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, bAbort,
     bProcessSecurity, lpContext
   );
@@ -723,13 +556,7 @@ BOOL WINAPI MyBackupSeek(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return BackupSeek(
     hFile, dwLowBytesToSeek, dwHighBytesToSeek, lpdwLowByteSeeked,
     lpdwHighByteSeeked, lpContext
   );
@@ -755,13 +582,7 @@ BOOL WINAPI MyBackupWrite(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return BackupWrite(
     hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, bAbort,
     bProcessSecurity, lpContext
   );
@@ -782,13 +603,7 @@ BOOL WINAPI MyBeep(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(dwFreq, dwDuration);
+  return Beep(dwFreq, dwDuration);
 }
 
 HANDLE WINAPI MyBeginUpdateResourceA(
@@ -806,13 +621,7 @@ HANDLE WINAPI MyBeginUpdateResourceA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pFileName, bDeleteExistingResources);
+  return BeginUpdateResourceA(pFileName, bDeleteExistingResources);
 }
 
 HANDLE WINAPI MyBeginUpdateResourceW(
@@ -830,13 +639,7 @@ HANDLE WINAPI MyBeginUpdateResourceW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pFileName, bDeleteExistingResources);
+  return BeginUpdateResourceW(pFileName, bDeleteExistingResources);
 }
 
 BOOL WINAPI MyBindIoCompletionCallback(
@@ -855,13 +658,7 @@ BOOL WINAPI MyBindIoCompletionCallback(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(FilehHandle, Function, Flags);
+  return BindIoCompletionCallback(FilehHandle, Function, Flags);
 }
 
 BOOL WINAPI MyBuildCommDCBA(
@@ -879,13 +676,7 @@ BOOL WINAPI MyBuildCommDCBA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpDef, lpDCB);
+  return BuildCommDCBA(lpDef, lpDCB);
 }
 
 BOOL WINAPI MyBuildCommDCBAndTimeoutsA(
@@ -904,13 +695,7 @@ BOOL WINAPI MyBuildCommDCBAndTimeoutsA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpDef, lpDCB, lpCommTimeouts);
+  return BuildCommDCBAndTimeoutsA(lpDef, lpDCB, lpCommTimeouts);
 }
 
 BOOL WINAPI MyBuildCommDCBAndTimeoutsW(
@@ -929,13 +714,7 @@ BOOL WINAPI MyBuildCommDCBAndTimeoutsW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpDef, lpDCB, lpCommTimeouts);
+  return BuildCommDCBAndTimeoutsW(lpDef, lpDCB, lpCommTimeouts);
 }
 
 BOOL WINAPI MyBuildCommDCBW(
@@ -953,13 +732,7 @@ BOOL WINAPI MyBuildCommDCBW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpDef, lpDCB);
+  return BuildCommDCBW(lpDef, lpDCB);
 }
 
 BOOL WINAPI MyCallbackMayRunLong(
@@ -976,13 +749,7 @@ BOOL WINAPI MyCallbackMayRunLong(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pci);
+  return CallbackMayRunLong(pci);
 }
 
 BOOL WINAPI MyCallNamedPipeA(
@@ -1005,13 +772,7 @@ BOOL WINAPI MyCallNamedPipeA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CallNamedPipeA(
     lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize,
     lpBytesRead, nTimeOut
   );
@@ -1037,13 +798,7 @@ BOOL WINAPI MyCallNamedPipeW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CallNamedPipeW(
     lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize,
     lpBytesRead, nTimeOut
   );
@@ -1063,13 +818,7 @@ BOOL WINAPI MyCancelIo(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hFile);
+  return CancelIo(hFile);
 }
 
 BOOL WINAPI MyCancelIoEx(
@@ -1087,13 +836,7 @@ BOOL WINAPI MyCancelIoEx(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hFile, lpOverlapped);
+  return CancelIoEx(hFile, lpOverlapped);
 }
 
 BOOL WINAPI MyCancelSynchronousIo(
@@ -1110,13 +853,7 @@ BOOL WINAPI MyCancelSynchronousIo(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hThread);
+  return CancelSynchronousIo(hThread);
 }
 
 void WINAPI MyCancelThreadpoolIo(
@@ -1133,13 +870,7 @@ void WINAPI MyCancelThreadpoolIo(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pio);
+  return CancelThreadpoolIo(pio);
 }
 
 BOOL WINAPI MyCancelWaitableTimer(
@@ -1156,13 +887,7 @@ BOOL WINAPI MyCancelWaitableTimer(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hTimer);
+  return CancelWaitableTimer(hTimer);
 }
 
 BOOL WINAPI MyCeipIsOptedIn() {
@@ -1177,13 +902,7 @@ BOOL WINAPI MyCeipIsOptedIn() {
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc();
+  return CeipIsOptedIn();
 }
 
 BOOL WINAPI MyChangeTimerQueueTimer(
@@ -1203,13 +922,7 @@ BOOL WINAPI MyChangeTimerQueueTimer(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(TimerQueue, Timer, DueTime, Period);
+  return ChangeTimerQueueTimer(TimerQueue, Timer, DueTime, Period);
 }
 
 BOOL WINAPI MyCheckNameLegalDOS8Dot3A(
@@ -1230,13 +943,7 @@ BOOL WINAPI MyCheckNameLegalDOS8Dot3A(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CheckNameLegalDOS8Dot3A(
     lpName, lpOemName, OemNameSize, pbNameContainsSpaces, pbNameLegal
   );
 }
@@ -1259,13 +966,7 @@ BOOL WINAPI MyCheckNameLegalDOS8Dot3W(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CheckNameLegalDOS8Dot3W(
     lpName, lpOemName, OemNameSize, pbNameContainsSpaces, pbNameLegal
   );
 }
@@ -1285,13 +986,7 @@ BOOL WINAPI MyCheckRemoteDebuggerPresent(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hProcess, pbDebuggerPresent);
+  return CheckRemoteDebuggerPresent(hProcess, pbDebuggerPresent);
 }
 
 
@@ -1311,13 +1006,7 @@ BOOL WINAPI MyCheckTokenCapability(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(TokenHandle, CapabilitySidToCheck, HasCapability);
+  return CheckTokenCapability(TokenHandle, CapabilitySidToCheck, HasCapability);
 }
 
 BOOL WINAPI MyCheckTokenMembershipEx(
@@ -1337,13 +1026,7 @@ BOOL WINAPI MyCheckTokenMembershipEx(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(TokenHandle, SidToCheck, Flags, IsMember);
+  return CheckTokenMembershipEx(TokenHandle, SidToCheck, Flags, IsMember);
 }
 
 BOOL WINAPI MyClearCommBreak(
@@ -1360,13 +1043,7 @@ BOOL WINAPI MyClearCommBreak(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hFile);
+  return ClearCommBreak(hFile);
 }
 
 BOOL WINAPI MyClearCommError(
@@ -1385,13 +1062,7 @@ BOOL WINAPI MyClearCommError(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hFile, lpErrors, lpStat);
+  return ClearCommError(hFile, lpErrors, lpStat);
 }
 
 BOOL MyCloseHandle(
@@ -1408,13 +1079,7 @@ BOOL MyCloseHandle(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hObject);
+  return CloseHandle(hObject);
 }
 
 LONG WINAPI MyClosePackageInfo(
@@ -1431,13 +1096,7 @@ LONG WINAPI MyClosePackageInfo(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return ERROR_INVALID_FUNCTION; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(packageInfoReference);
+  return ClosePackageInfo(packageInfoReference);
 }
 
 BOOLEAN WINAPI MyClosePrivateNamespace(
@@ -1455,13 +1114,7 @@ BOOLEAN WINAPI MyClosePrivateNamespace(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(Handle, Flags);
+  return ClosePrivateNamespace(Handle, Flags);
 }
 
 void WINAPI MyClosePseudoConsole(
@@ -1478,13 +1131,7 @@ void WINAPI MyClosePseudoConsole(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hPC);
+  return ClosePseudoConsole(hPC);
 }
 
 
@@ -1502,13 +1149,7 @@ void WINAPI MyCloseThreadpool(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(ptpp);
+  return CloseThreadpool(ptpp);
 }
 
 void WINAPI MyCloseThreadpoolCleanupGroup(
@@ -1525,13 +1166,7 @@ void WINAPI MyCloseThreadpoolCleanupGroup(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(ptpcg);
+  return CloseThreadpoolCleanupGroup(ptpcg);
 }
 
 void WINAPI MyCloseThreadpoolCleanupGroupMembers(
@@ -1550,13 +1185,9 @@ void WINAPI MyCloseThreadpoolCleanupGroupMembers(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(ptpcg, fCancelPendingCallbacks, pvCleanupContext);
+  return CloseThreadpoolCleanupGroupMembers(
+    ptpcg, fCancelPendingCallbacks, pvCleanupContext
+  );
 }
 
 void WINAPI MyCloseThreadpoolIo(
@@ -1573,13 +1204,7 @@ void WINAPI MyCloseThreadpoolIo(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pio);
+  return CloseThreadpoolIo(pio);
 }
 
 void WINAPI MyCloseThreadpoolTimer(
@@ -1596,13 +1221,7 @@ void WINAPI MyCloseThreadpoolTimer(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pti);
+  return CloseThreadpoolTimer(pti);
 }
 
 void WINAPI MyCloseThreadpoolWait(
@@ -1619,13 +1238,7 @@ void WINAPI MyCloseThreadpoolWait(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pwa);
+  return CloseThreadpoolWait(pwa);
 }
 
 void WINAPI MyCloseThreadpoolWork(
@@ -1642,13 +1255,7 @@ void WINAPI MyCloseThreadpoolWork(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pwk);
+  return CloseThreadpoolWork(pwk);
 }
 
 BOOL WINAPI MyCommConfigDialogA(
@@ -1667,13 +1274,7 @@ BOOL WINAPI MyCommConfigDialogA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpszName, hWnd, lpCC);
+  return CommConfigDialogA(lpszName, hWnd, lpCC);
 }
 
 BOOL WINAPI MyCommConfigDialogW(
@@ -1692,13 +1293,7 @@ BOOL WINAPI MyCommConfigDialogW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpszName, hWnd, lpCC);
+  return CommConfigDialogW(lpszName, hWnd, lpCC);
 }
 
 LONG WINAPI MyCompareFileTime(
@@ -1716,13 +1311,7 @@ LONG WINAPI MyCompareFileTime(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return 0; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpFileTime1, lpFileTime2);
+  return CompareFileTime(lpFileTime1, lpFileTime2);
 }
 
 int WINAPI MyCompareStringA(
@@ -1744,13 +1333,7 @@ int WINAPI MyCompareStringA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return 0; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CompareStringA(
     Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2
   );
 }
@@ -1777,13 +1360,7 @@ int WINAPI MyCompareStringEx(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return 0; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CompareStringEx(
     lpLocaleName, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2,
     lpVersionInformation, lpReserved, lParam
   );
@@ -1807,13 +1384,9 @@ int WINAPI MyCompareStringOrdinal(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return 0; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpString1, cchCount1, lpString2, cchCount2, bIgnoreCase);
+  return CompareStringOrdinal(
+    lpString1, cchCount1, lpString2, cchCount2, bIgnoreCase
+  );
 }
 
 int WINAPI MyCompareStringW(
@@ -1835,13 +1408,7 @@ int WINAPI MyCompareStringW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return 0; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CompareStringW(
     Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2
   );
 }
@@ -1861,13 +1428,7 @@ BOOL WINAPI MyConnectNamedPipe(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hNamedPipe, lpOverlapped);
+  return ConnectNamedPipe(hNamedPipe, lpOverlapped);
 }
 
 BOOL WINAPI MyContinueDebugEvent(
@@ -1886,13 +1447,7 @@ BOOL WINAPI MyContinueDebugEvent(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(dwProcessId, dwThreadId, dwContinueStatus);
+  return ContinueDebugEvent(dwProcessId, dwThreadId, dwContinueStatus);
 }
 
 LCID WINAPI MyConvertDefaultLocale(
@@ -1909,13 +1464,7 @@ LCID WINAPI MyConvertDefaultLocale(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return Locale; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(Locale);
+  return ConvertDefaultLocale(Locale);
 }
 
 BOOL WINAPI MyConvertFiberToThread() {
@@ -1930,13 +1479,7 @@ BOOL WINAPI MyConvertFiberToThread() {
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc();
+  return ConvertFiberToThread();
 }
 
 LPVOID WINAPI MyConvertThreadToFiber(
@@ -1953,13 +1496,7 @@ LPVOID WINAPI MyConvertThreadToFiber(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpParameter);
+  return ConvertThreadToFiber(lpParameter);
 }
 
 LPVOID WINAPI MyConvertThreadToFiberEx(
@@ -1977,13 +1514,7 @@ LPVOID WINAPI MyConvertThreadToFiberEx(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpParameter, dwFlags);
+  return ConvertThreadToFiberEx(lpParameter, dwFlags);
 }
 
 BOOL WINAPI MyCopyContext(
@@ -2002,13 +1533,7 @@ BOOL WINAPI MyCopyContext(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(Destination, ContextFlags, Source);
+  return CopyContext(Destination, ContextFlags, Source);
 }
 
 HRESULT WINAPI MyCopyFile2(
@@ -2027,15 +1552,7 @@ HRESULT WINAPI MyCopyFile2(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) {
-    return HRESULT_FROM_WIN32(ERROR_INVALID_FUNCTION);
-  }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pwszExistingFileName, pwszNewFileName, pExtendedParameters);
+  return CopyFile2(pwszExistingFileName, pwszNewFileName, pExtendedParameters);
 }
 
 
@@ -2055,13 +1572,7 @@ BOOL WINAPI MyCopyFileA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpExistingFileName, lpNewFileName, bFailExists);
+  return CopyFileA(lpExistingFileName, lpNewFileName, bFailExists);
 }
 
 BOOL WINAPI MyCopyFileExA(
@@ -2083,13 +1594,7 @@ BOOL WINAPI MyCopyFileExA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CopyFileExA(
     lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel,
     dwCopyFlags
   );
@@ -2114,13 +1619,7 @@ BOOL WINAPI MyCopyFileExW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CopyFileExW(
     lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel,
     dwCopyFlags
   );
@@ -2146,13 +1645,7 @@ BOOL WINAPI MyCopyFileTransactedA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CopyFileTransactedA(
     lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel,
     dwCopyFlags, hTransaction
   );
@@ -2178,13 +1671,7 @@ BOOL WINAPI MyCopyFileTransactedW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CopyFileTransactedW(
     lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel,
     dwCopyFlags, hTransaction
   );
@@ -2206,13 +1693,7 @@ BOOL WINAPI MyCopyFileW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpExistingFileName, lpNewFileName, bFailExists);
+  return CopyFileW(lpExistingFileName, lpNewFileName, bFailExists);
 }
 
 HANDLE WINAPI MyCreateActCtxA(
@@ -2229,13 +1710,7 @@ HANDLE WINAPI MyCreateActCtxA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pActCtx);
+  return CreateActCtxA(pActCtx);
 }
 
 HANDLE WINAPI MyCreateActCtxW(
@@ -2252,13 +1727,7 @@ HANDLE WINAPI MyCreateActCtxW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pActCtx);
+  return CreateActCtxW(pActCtx);
 }
 
 HANDLE WINAPI MyCreateBoundaryDescriptorA(
@@ -2276,13 +1745,7 @@ HANDLE WINAPI MyCreateBoundaryDescriptorA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(Name, Flags);
+  return CreateBoundaryDescriptorA(Name, Flags);
 }
 
 HANDLE WINAPI MyCreateBoundaryDescriptorW(
@@ -2300,13 +1763,7 @@ HANDLE WINAPI MyCreateBoundaryDescriptorW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(Name, Flags);
+  return CreateBoundaryDescriptorW(Name, Flags);
 }
 
 HANDLE WINAPI MyCreateConsoleScreenBuffer(
@@ -2327,13 +1784,7 @@ HANDLE WINAPI MyCreateConsoleScreenBuffer(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateConsoleScreenBuffer(
     dwDesiredAccess, dwSharedMode, lpSecurityAttributes, dwFlags, lpScreenBuffer
   );
 }
@@ -2353,13 +1804,7 @@ BOOL WINAPI MyCreateDirectoryA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpPathName, lpSecurityAttributes);
+  return CreateDirectoryA(lpPathName, lpSecurityAttributes);
 }
 
 BOOL WINAPI MyCreateDirectoryExA(
@@ -2378,13 +1823,9 @@ BOOL WINAPI MyCreateDirectoryExA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpTempalteDirectory , lpPathName, lpSecurityAttributes);
+  return CreateDirectoryExA(
+    lpTempalteDirectory , lpPathName, lpSecurityAttributes
+  );
 }
 
 
@@ -2404,13 +1845,9 @@ BOOL WINAPI MyCreateDirectoryExW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpTempalteDirectory , lpPathName, lpSecurityAttributes);
+  return CreateDirectoryExW(
+    lpTempalteDirectory , lpPathName, lpSecurityAttributes
+  );
 }
 
 BOOL WINAPI MyCreateDirectoryTransactedA(
@@ -2430,13 +1867,7 @@ BOOL WINAPI MyCreateDirectoryTransactedA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateDirectoryTransactedA(
     lpTempalteDirectory , lpPathName, lpSecurityAttributes, hTrancation
   );
 }
@@ -2458,13 +1889,7 @@ BOOL WINAPI MyCreateDirectoryTransactedW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateDirectoryTransactedW(
     lpTempalteDirectory , lpPathName, lpSecurityAttributes, hTrancation
   );
 }
@@ -2485,13 +1910,7 @@ BOOL WINAPI MyCreateDirectoryW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpPathName, lpSecurityAttributes);
+  return CreateDirectoryW(lpPathName, lpSecurityAttributes);
 }
 
 LPVOID WINAPI MyCreateEnclave(
@@ -2515,13 +1934,7 @@ LPVOID WINAPI MyCreateEnclave(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateEnclave(
     hProcess, lpAddress, dwSize, dwInitialCommitment, flEnclaveType,
     lpEnclaveInformation, dwInfoLength, lpEnclaveError
   );
@@ -2545,13 +1958,7 @@ HANDLE WINAPI MyCreateEventA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpEventAttributes, bManualReset, bInitialState, lpName);
+  return CreateEventA(lpEventAttributes, bManualReset, bInitialState, lpName);
 }
 
 HANDLE WINAPI MyCreateEventExA(
@@ -2571,13 +1978,7 @@ HANDLE WINAPI MyCreateEventExA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpEventAttributes, lpName, dwFlags, dwDesiredAccess);
+  return CreateEventExA(lpEventAttributes, lpName, dwFlags, dwDesiredAccess);
 }
 
 HANDLE WINAPI MyCreateEventExW(
@@ -2597,13 +1998,7 @@ HANDLE WINAPI MyCreateEventExW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpEventAttributes, lpName, dwFlags, dwDesiredAccess);
+  return CreateEventExW(lpEventAttributes, lpName, dwFlags, dwDesiredAccess);
 }
 
 
@@ -2624,13 +2019,7 @@ HANDLE WINAPI MyCreateEventW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpEventAttributes, bManualReset, bInitialState, lpName);
+  return CreateEventW(lpEventAttributes, bManualReset, bInitialState, lpName);
 }
 
 LPVOID WINAPI MyCreateFiber(
@@ -2649,13 +2038,7 @@ LPVOID WINAPI MyCreateFiber(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(dwStackSize, lpStartAddress, lpParameter);
+  return CreateFiber(dwStackSize, lpStartAddress, lpParameter);
 }
 
 LPVOID WINAPI MyCreateFiberEx(
@@ -2676,13 +2059,7 @@ LPVOID WINAPI MyCreateFiberEx(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFiberEx(
     dwStackCommitSize, dwStackReservedSize, dwFlags, lpStartAddress, lpParameter
   );
 }
@@ -2705,13 +2082,7 @@ HANDLE WINAPI MyCreateFile2(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFile2(
     lpFileName, dwDesiredAccess, dwSharedMode, dwCreationDisposition,
     pCreateExParams
   );
@@ -2739,13 +2110,7 @@ HANDLE WINAPI MyCreateFileA(
 
   if (_CheckA(lpFileName)) { return INVALID_HANDLE_VALUE; }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFileA(
     lpFileName, dwDesiredAccess, dwSharedMode, lpSecurityAttributes,
     dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile
   );
@@ -2770,13 +2135,7 @@ HANDLE WINAPI MyCreateFileMappingA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFileMappingA(
     hFile, lpSecurityAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow,
     lpName
   );
@@ -2800,13 +2159,7 @@ HANDLE WINAPI MyCreateFileMappingFromApp(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFileMappingFromApp(
     hFile, SecurityAttributes, PageProtection, MaximumSize, Name
   );
 }
@@ -2831,13 +2184,7 @@ HANDLE WINAPI MyCreateFileMappingNumaA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFileMappingNumaA(
     hFile, lpFileMappingAttributes, flProject, dwMaximumSizeHigh,
     dwMaximumSizeLow, lpName, nndPreferred
   );
@@ -2863,13 +2210,7 @@ HANDLE WINAPI MyCreateFileMappingNumaW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFileMappingNumaW(
     hFile, lpFileMappingAttributes, flProject, dwMaximumSizeHigh,
     dwMaximumSizeLow, lpName, nndPreferred
   );
@@ -2894,13 +2235,7 @@ HANDLE WINAPI MyCreateFileMappingW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFileMappingW(
     hFile, lpSecurityAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow,
     lpName
   );
@@ -2929,13 +2264,7 @@ HANDLE WINAPI MyCreateFileTransactedA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFileTransactedA(
     lpFileName, dwDesiredAccess, dwSharedMode, lpSecurityAttributes,
     dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, hTransaction,
     pusMiniVersion, lpExtendedParameter
@@ -2965,13 +2294,7 @@ HANDLE WINAPI MyCreateFileTransactedW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFileTransactedW(
     lpFileName, dwDesiredAccess, dwSharedMode, lpSecurityAttributes,
     dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, hTransaction,
     pusMiniVersion, lpExtendedParameter
@@ -3000,13 +2323,7 @@ HANDLE WINAPI MyCreateFileW(
 
   if (_CheckW(lpFileName)) { return INVALID_HANDLE_VALUE; }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateFileW(
     lpFileName, dwDesiredAccess, dwSharedMode, lpSecurityAttributes,
     dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile
   );
@@ -3028,13 +2345,7 @@ BOOL WINAPI MyCreateHardLinkA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpFileName, lpExistingFileName, lpSecurityAttributes);
+  return CreateHardLinkA(lpFileName, lpExistingFileName, lpSecurityAttributes);
 }
 
 BOOL WINAPI MyCreateHardLinkTransactedA(
@@ -3054,13 +2365,7 @@ BOOL WINAPI MyCreateHardLinkTransactedA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateHardLinkTransactedA(
     lpFileName, lpExistingFileName, lpSecurityAttributes, hTransaction
   );
 }
@@ -3082,13 +2387,7 @@ BOOL WINAPI MyCreateHardLinkTransactedW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateHardLinkTransactedW(
     lpFileName, lpExistingFileName, lpSecurityAttributes, hTransaction
   );
 }
@@ -3109,13 +2408,7 @@ BOOL WINAPI MyCreateHardLinkW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpFileName, lpExistingFileName, lpSecurityAttributes);
+  return CreateHardLinkW(lpFileName, lpExistingFileName, lpSecurityAttributes);
 }
 
 HANDLE WINAPI MyCreateIoCompletionPort(
@@ -3135,13 +2428,7 @@ HANDLE WINAPI MyCreateIoCompletionPort(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateIoCompletionPort(
     FileHandle, ExistingCompletionPort, CompletionKey, NumberOfConcurrentThreads
   );
 }
@@ -3161,13 +2448,7 @@ HANDLE WINAPI MyCreateJobObjectA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSecurityAttributes, lpName);
+  return CreateJobObjectA(lpSecurityAttributes, lpName);
 }
 
 HANDLE WINAPI MyCreateJobObjectW(
@@ -3185,13 +2466,7 @@ HANDLE WINAPI MyCreateJobObjectW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSecurityAttributes, lpName);
+  return CreateJobObjectW(lpSecurityAttributes, lpName);
 }
 
 HANDLE WINAPI MyCreateMailslotA(
@@ -3211,13 +2486,9 @@ HANDLE WINAPI MyCreateMailslotA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes);
+  return CreateMailslotA(
+    lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes
+  );
 }
 
 HANDLE WINAPI MyCreateMailslotW(
@@ -3237,13 +2508,9 @@ HANDLE WINAPI MyCreateMailslotW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes);
+  return CreateMailslotW(
+    lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes
+  );
 }
 
 HANDLE WINAPI MyCreateMemoryResourceNotification(
@@ -3260,13 +2527,7 @@ HANDLE WINAPI MyCreateMemoryResourceNotification(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(NotificationType);
+  return CreateMemoryResourceNotification(NotificationType);
 }
 
 HANDLE WINAPI MyCreateMutexA(
@@ -3285,13 +2546,7 @@ HANDLE WINAPI MyCreateMutexA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSecurityAttributes, bInitialOwner, lpName);
+  return CreateMutexA(lpSecurityAttributes, bInitialOwner, lpName);
 }
 
 HANDLE WINAPI MyCreateMutexExA(
@@ -3311,13 +2566,7 @@ HANDLE WINAPI MyCreateMutexExA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSecurityAttributes, lpName, dwFlags, dwDesiredAccess);
+  return CreateMutexExA(lpSecurityAttributes, lpName, dwFlags, dwDesiredAccess);
 }
 
 HANDLE WINAPI MyCreateMutexExW(
@@ -3337,13 +2586,7 @@ HANDLE WINAPI MyCreateMutexExW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSecurityAttributes, lpName, dwFlags, dwDesiredAccess);
+  return CreateMutexExW(lpSecurityAttributes, lpName, dwFlags, dwDesiredAccess);
 }
 
 HANDLE WINAPI MyCreateMutexW(
@@ -3362,13 +2605,7 @@ HANDLE WINAPI MyCreateMutexW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSecurityAttributes, bInitialOwner, lpName);
+  return CreateMutexW(lpSecurityAttributes, bInitialOwner, lpName);
 }
 
 HANDLE WINAPI MyCreateNamedPipeA(
@@ -3392,13 +2629,7 @@ HANDLE WINAPI MyCreateNamedPipeA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateNamedPipeA(
     lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize,
     nInBufferSize, nDefaultTimeOut, lpSecurityAttributes
   );
@@ -3425,13 +2656,7 @@ HANDLE WINAPI MyCreateNamedPipeW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return INVALID_HANDLE_VALUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateNamedPipeW(
     lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize,
     nInBufferSize, nDefaultTimeOut, lpSecurityAttributes
   );
@@ -3454,13 +2679,7 @@ BOOL WINAPI MyCreatePipe(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hReadPipe, hWritePipe, lpPipeAttributes, nSize);
+  return CreatePipe(hReadPipe, hWritePipe, lpPipeAttributes, nSize);
 }
 
 HANDLE WINAPI MyCreatePrivateNamespaceA(
@@ -3479,13 +2698,7 @@ HANDLE WINAPI MyCreatePrivateNamespaceA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreatePrivateNamespaceA(
     lpPrivateNamespaceAttributes, lpBoundaryDescriptor, lpAliasPrefix
   );
 }
@@ -3506,13 +2719,7 @@ HANDLE WINAPI MyCreatePrivateNamespaceW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreatePrivateNamespaceW(
     lpPrivateNamespaceAttributes, lpBoundaryDescriptor, lpAliasPrefix
   );
 }
@@ -3540,13 +2747,7 @@ BOOL WINAPI MyCreateProcessA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateProcessA(
     lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes,
     bInheritHandle, dwCreationFlags, lpEnvironment, lpCurrentDirectory,
     lpStartupInfo, lpProcessInformation
@@ -3577,13 +2778,7 @@ BOOL WINAPI MyCreateProcessAsUserA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateProcessAsUserA(
     hToken, lpApplicationName, lpCommandLine, lpProcessAttributes,
     lpThreadAttributes, bInheritHandle, dwCreationFlags, lpEnvironment,
     lpCurrentDirectory, lpStartupInfo, lpProcessInformation
@@ -3614,13 +2809,7 @@ BOOL WINAPI MyCreateProcessAsUserW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateProcessAsUserW(
     hToken, lpApplicationName, lpCommandLine, lpProcessAttributes,
     lpThreadAttributes, bInheritHandle, dwCreationFlags, lpEnvironment,
     lpCurrentDirectory, lpStartupInfo, lpProcessInformation
@@ -3650,13 +2839,7 @@ BOOL WINAPI MyCreateProcessW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateProcessW(
     lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes,
     bInheritHandle, dwCreationFlags, lpEnvironment, lpCurrentDirectory,
     lpStartupInfo, lpProcessInformation
@@ -3681,15 +2864,7 @@ HRESULT WINAPI MyCreatePseudoConsole(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) {
-    return HRESULT_FROM_WIN32(ERROR_INVALID_FUNCTION);
-  }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(size, hInput, hOutput, dwFlags, phPC);
+  return CreatePseudoConsole(size, hInput, hOutput, dwFlags, phPC);
 }
 
 HANDLE WINAPI MyCreateRemoteThread(
@@ -3712,13 +2887,7 @@ HANDLE WINAPI MyCreateRemoteThread(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateRemoteThread(
     hProcess, lpThreadAttributes, dwStackSize, lpStartAdress, lpParameter,
     dwCreationFlags, lpThreadId
   );
@@ -3745,13 +2914,7 @@ HANDLE WINAPI MyCreateRemoteThreadEx(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateRemoteThreadEx(
     hProcess, lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter,
     dwCreationFlags, lpAttributeList, lpThreadId
   );
@@ -3774,13 +2937,9 @@ HANDLE WINAPI MyCreateSemaphoreA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName);
+  return CreateSemaphoreA(
+    lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName
+  );
 }
 
 HANDLE WINAPI MyCreateSemaphoreExA(
@@ -3802,13 +2961,7 @@ HANDLE WINAPI MyCreateSemaphoreExA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateSemaphoreExA(
     lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName, dwFlags,
     dwDesiredAccess
   );
@@ -3833,13 +2986,7 @@ HANDLE WINAPI MyCreateSemaphoreExW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateSemaphoreExW(
     lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName, dwFlags,
     dwDesiredAccess
   );
@@ -3862,13 +3009,9 @@ HANDLE WINAPI MyCreateSemaphoreW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName);
+  return CreateSemaphoreW(
+    lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName
+  );
 }
 
 BOOLEAN WINAPI MyCreateSymbolicLinkA(
@@ -3887,13 +3030,7 @@ BOOLEAN WINAPI MyCreateSymbolicLinkA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSymlinkFileName, lpTargetFileName, dwFlags);
+  return CreateSymbolicLinkA(lpSymlinkFileName, lpTargetFileName, dwFlags);
 }
 
 BOOLEAN WINAPI MyCreateSymbolicLinkTransactedA(
@@ -3913,13 +3050,9 @@ BOOLEAN WINAPI MyCreateSymbolicLinkTransactedA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSymlinkFileName, lpTargetFileName, dwFlags, hTransaction);
+  return CreateSymbolicLinkTransactedA(
+    lpSymlinkFileName, lpTargetFileName, dwFlags, hTransaction
+  );
 }
 
 BOOLEAN WINAPI MyCreateSymbolicLinkTransactedW(
@@ -3939,13 +3072,9 @@ BOOLEAN WINAPI MyCreateSymbolicLinkTransactedW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSymlinkFileName, lpTargetFileName, dwFlags, hTransaction);
+  return CreateSymbolicLinkTransactedW(
+    lpSymlinkFileName, lpTargetFileName, dwFlags, hTransaction
+  );
 }
 
 BOOLEAN WINAPI MyCreateSymbolicLinkW(
@@ -3964,13 +3093,7 @@ BOOLEAN WINAPI MyCreateSymbolicLinkW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpSymlinkFileName, lpTargetFileName, dwFlags);
+  return CreateSymbolicLinkW(lpSymlinkFileName, lpTargetFileName, dwFlags);
 }
 
 DWORD WINAPI MyCreateTapePartition(
@@ -3990,13 +3113,7 @@ DWORD WINAPI MyCreateTapePartition(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return ERROR_NOT_SUPPORTED; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hDevice, dwPartitionMethod, dwCount, dwSize);
+  return CreateTapePartition(hDevice, dwPartitionMethod, dwCount, dwSize);
 }
 
 HANDLE WINAPI MyCreateThread(
@@ -4018,13 +3135,7 @@ HANDLE WINAPI MyCreateThread(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateThread(
     lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter,
     dwCreationFlags, lpThreadId
   );
@@ -4044,13 +3155,7 @@ PTP_POOL WINAPI MyCreateThreadpool(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(reserved);
+  return CreateThreadpool(reserved);
 }
 
 PTP_CLEANUP_GROUP WINAPI MyCreateThreadpoolCleanupGroup() {
@@ -4065,13 +3170,7 @@ PTP_CLEANUP_GROUP WINAPI MyCreateThreadpoolCleanupGroup() {
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc();
+  return CreateThreadpoolCleanupGroup();
 }
 
 PTP_IO WINAPI MyCreateThreadpoolIo(
@@ -4091,13 +3190,7 @@ PTP_IO WINAPI MyCreateThreadpoolIo(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(fl, pfnio, pv, pcbe);
+  return CreateThreadpoolIo(fl, pfnio, pv, pcbe);
 }
 
 PTP_TIMER WINAPI MyCreateThreadpoolTimer(
@@ -4116,13 +3209,7 @@ PTP_TIMER WINAPI MyCreateThreadpoolTimer(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pfnti, pv, pcbe);
+  return CreateThreadpoolTimer(pfnti, pv, pcbe);
 }
 
 PTP_WAIT WINAPI MyCreateThreadpoolWait(
@@ -4141,13 +3228,7 @@ PTP_WAIT WINAPI MyCreateThreadpoolWait(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pfnwa, pv, pcbe);
+  return CreateThreadpoolWait(pfnwa, pv, pcbe);
 }
 
 PTP_WORK WINAPI MyCreateThreadpoolWork(
@@ -4166,13 +3247,7 @@ PTP_WORK WINAPI MyCreateThreadpoolWork(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(pfnwk, pv, pcbe);
+  return CreateThreadpoolWork(pfnwk, pv, pcbe);
 }
 
 HANDLE WINAPI MyCreateTimerQueue() {
@@ -4187,13 +3262,7 @@ HANDLE WINAPI MyCreateTimerQueue() {
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc();
+  return CreateTimerQueue();
 }
 
 BOOL WINAPI MyCreateTimerQueueTimer(
@@ -4216,13 +3285,7 @@ BOOL WINAPI MyCreateTimerQueueTimer(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(
+  return CreateTimerQueueTimer(
     phNewTimer, TimerQueue, Callback, Parameter, DueTime, Period, Flags
   );
 }
@@ -4242,13 +3305,7 @@ HANDLE WINAPI MyCreateToolhelp32Snapshot(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(dwFlags, th32ProcessID);
+  return CreateToolhelp32Snapshot(dwFlags, th32ProcessID);
 }
 
 BOOL WINAPI MyCreateUmsCompletionList(
@@ -4265,13 +3322,7 @@ BOOL WINAPI MyCreateUmsCompletionList(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(UmsCompletionList);
+  return CreateUmsCompletionList(UmsCompletionList);
 }
 
 BOOL WINAPI MyCreateUmsThreadContext(
@@ -4288,13 +3339,7 @@ BOOL WINAPI MyCreateUmsThreadContext(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpUmsThread);
+  return CreateUmsThreadContext(lpUmsThread);
 }
 
 HANDLE WINAPI MyCreateWaitableTimerExW(
@@ -4314,13 +3359,9 @@ HANDLE WINAPI MyCreateWaitableTimerExW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpTimerAttributes, lpTimerName, dwFlags, dwDesiredAccess);
+  return CreateWaitableTimerExW(
+    lpTimerAttributes, lpTimerName, dwFlags, dwDesiredAccess
+  );
 }
 
 HANDLE WINAPI MyCreateWaitableTimerW(
@@ -4339,13 +3380,7 @@ HANDLE WINAPI MyCreateWaitableTimerW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpTimerAttributes, bManualReset, lpTimerName);
+  return CreateWaitableTimerW(lpTimerAttributes, bManualReset, lpTimerName);
 }
 
 BOOL WINAPI MyDeactivateActCtx(
@@ -4363,13 +3398,7 @@ BOOL WINAPI MyDeactivateActCtx(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(dwFlags, ulCookie);
+  return DeactivateActCtx(dwFlags, ulCookie);
 }
 
 void WINAPI MyDebugBreak() {
@@ -4384,13 +3413,7 @@ void WINAPI MyDebugBreak() {
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc();
+  return DebugBreak();
 }
 
 BOOL WINAPI MyDebugBreakProcess(
@@ -4407,13 +3430,7 @@ BOOL WINAPI MyDebugBreakProcess(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(hProcess);
+  return DebugBreakProcess(hProcess);
 }
 
 BOOL WINAPI MyDebugSetProcessKillOnExit(
@@ -4430,13 +3447,7 @@ BOOL WINAPI MyDebugSetProcessKillOnExit(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(KillOnExit);
+  return DebugSetProcessKillOnExit(KillOnExit);
 }
 
 PVOID WINAPI MyDecodePointer(
@@ -4453,13 +3464,7 @@ PVOID WINAPI MyDecodePointer(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(Ptr);
+  return DecodePointer(Ptr);
 }
 
 PVOID WINAPI MyDecodeSystemPointer(
@@ -4476,13 +3481,7 @@ PVOID WINAPI MyDecodeSystemPointer(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return NULL; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(Ptr);
+  return DecodeSystemPointer(Ptr);
 }
 
 BOOL WINAPI MyDefineDosDeviceA(
@@ -4501,13 +3500,7 @@ BOOL WINAPI MyDefineDosDeviceA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(dwFlags, lpDeviceName, lpTargetPath);
+  return DefineDosDeviceA(dwFlags, lpDeviceName, lpTargetPath);
 }
 
 BOOL WINAPI MyDefineDosDeviceW(
@@ -4526,13 +3519,7 @@ BOOL WINAPI MyDefineDosDeviceW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(dwFlags, lpDeviceName, lpTargetPath);
+  return DefineDosDeviceW(dwFlags, lpDeviceName, lpTargetPath);
 }
 
 ATOM WINAPI MyDeleteAtom(
@@ -4549,13 +3536,7 @@ ATOM WINAPI MyDeleteAtom(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return nAtom; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(nAtom);
+  return DeleteAtom(nAtom);
 }
 
 void WINAPI MyDeleteBoundaryDescriptor(
@@ -4572,13 +3553,7 @@ void WINAPI MyDeleteBoundaryDescriptor(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(BoundaryDescriptor);
+  return DeleteBoundaryDescriptor(BoundaryDescriptor);
 }
 
 void WINAPI MyDeleteCriticalSection(
@@ -4595,13 +3570,7 @@ void WINAPI MyDeleteCriticalSection(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpCriticalSection);
+  return DeleteCriticalSection(lpCriticalSection);
 }
 
 void WINAPI MyDeleteFiber(
@@ -4618,13 +3587,7 @@ void WINAPI MyDeleteFiber(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpFiber);
+  return DeleteFiber(lpFiber);
 }
 
 BOOL WINAPI MyDeleteFileA(
@@ -4641,13 +3604,7 @@ BOOL WINAPI MyDeleteFileA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpFileName);
+  return DeleteFileA(lpFileName);
 }
 
 BOOL WINAPI MyDeleteFileTransactedA(
@@ -4665,13 +3622,7 @@ BOOL WINAPI MyDeleteFileTransactedA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpFileName, hTransactoin);
+  return DeleteFileTransactedA(lpFileName, hTransactoin);
 }
 
 BOOL WINAPI MyDeleteFileTransactedW(
@@ -4689,13 +3640,7 @@ BOOL WINAPI MyDeleteFileTransactedW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpFileName, hTransactoin);
+  return DeleteFileTransactedW(lpFileName, hTransactoin);
 }
 
 BOOL WINAPI MyDeleteFileW(
@@ -4712,13 +3657,7 @@ BOOL WINAPI MyDeleteFileW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpFileName);
+  return DeleteFileW(lpFileName);
 }
 
 void WINAPI MyDeleteProcThreadAttributeList(
@@ -4735,13 +3674,7 @@ void WINAPI MyDeleteProcThreadAttributeList(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpAttributeList);
+  return DeleteProcThreadAttributeList(lpAttributeList);
 }
 
 BOOL WINAPI MyDeleteSynchronizationBarrier(
@@ -4758,13 +3691,7 @@ BOOL WINAPI MyDeleteSynchronizationBarrier(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return TRUE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpBarrier);
+  return DeleteSynchronizationBarrier(lpBarrier);
 }
 
 BOOL WINAPI MyDeleteTimerQueue(
@@ -4781,13 +3708,7 @@ BOOL WINAPI MyDeleteTimerQueue(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(TimerQueue);
+  return DeleteTimerQueue(TimerQueue);
 }
 
 BOOL WINAPI MyDeleteTimerQueueEx(
@@ -4805,13 +3726,7 @@ BOOL WINAPI MyDeleteTimerQueueEx(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(TimerQueue, CompletionEvent);
+  return DeleteTimerQueueEx(TimerQueue, CompletionEvent);
 }
 
 BOOL WINAPI MyDeleteTimerQueueTimer(
@@ -4830,13 +3745,7 @@ BOOL WINAPI MyDeleteTimerQueueTimer(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(TimerQueue, Timer, CompletionEvent);
+  return DeleteTimerQueueTimer(TimerQueue, Timer, CompletionEvent);
 }
 
 BOOL WINAPI MyDeleteUmsCompletionList(
@@ -4853,13 +3762,7 @@ BOOL WINAPI MyDeleteUmsCompletionList(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(UmsCompletionList);
+  return DeleteUmsCompletionList(UmsCompletionList);
 }
 
 BOOL WINAPI MyDeleteUmsThreadContext(
@@ -4876,13 +3779,7 @@ BOOL WINAPI MyDeleteUmsThreadContext(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(UmsThread);
+  return DeleteUmsThreadContext(UmsThread);
 }
 
 BOOL WINAPI MyDeleteVolumeMountPointA(
@@ -4899,13 +3796,7 @@ BOOL WINAPI MyDeleteVolumeMountPointA(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpszVolumeMountPoint);
+  return DeleteVolumeMountPointA(lpszVolumeMountPoint);
 }
 
 BOOL WINAPI MyDeleteVolumeMountPointW(
@@ -4922,13 +3813,7 @@ BOOL WINAPI MyDeleteVolumeMountPointW(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-
-  return baseFunc(lpszVolumeMountPoint);
+  return DeleteVolumeMountPointW(lpszVolumeMountPoint);
 }
 
 BOOL WINAPI MyDequeueUmsCompletionListItems(
@@ -4947,11 +3832,9 @@ BOOL WINAPI MyDequeueUmsCompletionListItems(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-  return baseFunc(UmsCompletionContext, WaitTime, UmsThreadList);
+  return DequeueUmsCompletionListItems(
+    UmsCompletionContext, WaitTime, UmsThreadList
+  );
 }
 
 BOOL WINAPI MyDeviceIoControl(
@@ -4975,11 +3858,7 @@ BOOL WINAPI MyDeviceIoControl(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-  return baseFunc(
+  return DeviceIoControl(
     hDevice, dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer,
     nOutBufferSize, lpBytesReturned, lpOverlapped
   );
@@ -4999,11 +3878,7 @@ BOOL WINAPI MyDisableThreadLibraryCalls(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-  return baseFunc(hLibModule);
+  return DisableThreadLibraryCalls(hLibModule);
 }
 
 DWORD WINAPI MyDisableThreadProfiling(
@@ -5020,11 +3895,7 @@ DWORD WINAPI MyDisableThreadProfiling(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-  if (baseFuncAddr == NULL) { return ERROR_INVALID_FUNCTION; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-  return baseFunc(PerformanceDataHandle);
+  return DisableThreadProfiling(PerformanceDataHandle);
 }
 
 void WINAPI MyDisassociateCurrentThreadFromCallback(
@@ -5041,11 +3912,7 @@ void WINAPI MyDisassociateCurrentThreadFromCallback(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-  if (baseFuncAddr == NULL) { return; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-  return baseFunc(pci);
+  return DisassociateCurrentThreadFromCallback(pci);
 }
 
 DWORD WINAPI MyDiscardVirtualMemory(
@@ -5063,11 +3930,7 @@ DWORD WINAPI MyDiscardVirtualMemory(
     _SendInfo(funcName);
   }
 
-  static auto baseFuncAddr = _funcMap[funcName];
-  if (baseFuncAddr == NULL) { return ERROR_INVALID_FUNCTION; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
-  return baseFunc(VirtualAddress, Size);
+  return DiscardVirtualMemory(VirtualAddress, Size);
 }
 
 /// Here
@@ -5216,14 +4079,9 @@ BOOL WINAPI MyFindNextFileA(
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
   }
-
-  static auto baseFuncAddr = _funcMap[funcName];
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
   
   BOOL bRes = TRUE;
-  while (baseFunc(hFindFile, lpFindFileData)) {
+  while (FindNextFileA(hFindFile, lpFindFileData)) {
     if (!_CheckA(lpFindFileData->cFileName)) { return TRUE; }
   }
 
@@ -5243,14 +4101,9 @@ BOOL WINAPI MyFindNextFileW(
   if (_track._funcNames.count(funcName) && _track._funcNames[funcName]) {
     _SendInfo(funcName);
   }
-
-  static auto baseFuncAddr = _funcMap[funcName];
-  if (baseFuncAddr == NULL) { return FALSE; }
-
-  static func_type baseFunc = reinterpret_cast<func_type>(baseFuncAddr);
   
   BOOL bRes = TRUE;
-  while (baseFunc(hFindFile, lpFindFileData)) {
+  while (FindNextFileW(hFindFile, lpFindFileData)) {
     if (!_CheckW(lpFindFileData->cFileName)) { return TRUE; }
   }
 

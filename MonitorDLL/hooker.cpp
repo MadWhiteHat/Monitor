@@ -6914,6 +6914,7 @@ void _DisconnectPipe() {
 }
 
 BOOL _ParseInit() { 
+  _hooks.reserve(MAX_HOOK_COUNT);
   BOOL res = TRUE;
   for (const auto& el : _track._funcNames) {
     res &= _AddHook(el.first);
@@ -6923,33 +6924,38 @@ BOOL _ParseInit() {
 
 BOOL _AddHook(const std::string& funcName) {
 
-  HOOK_TRACE_INFO* _hHook;
+  std::unique_ptr<HOOK_TRACE_INFO> _hHook;
   FARPROC baseFunc = _funcMap[funcName];
   FARPROC hookFunc = _funcHooksMap[funcName];
   NTSTATUS res = 0;
 
-  _hHook = new(std::nothrow) HOOK_TRACE_INFO;
+  _hHook = std::make_unique<HOOK_TRACE_INFO>();
   if (_hHook == nullptr) { return FALSE; }
+
+  MessageBox(NULL, std::to_string((uint64_t)_hHook->Link).data(), NULL, MB_OK);
 
   res = LhInstallHook(
     baseFunc,
     hookFunc,
     NULL,
-    _hHook
+    _hHook.get()
   );
 
-  if (FAILED(res)) { return FALSE; }
+  if (FAILED(res)) {
+    return FALSE;
+  }
 
   ULONG aclEntries[1] = { 0 };
 
-  if (FAILED(LhSetExclusiveACL(aclEntries, 1, _hHook))) {
-    LhUninstallHook(_hHook);
-    delete _hHook;
+  res = LhSetExclusiveACL(aclEntries, 1, _hHook.get());
+
+  if (FAILED(res)) {
+    LhUninstallHook(_hHook.get());
     return FALSE;
   }
 
   // Add hook to list of all hooks to keep it valid  
-  _hooks.emplace(hookFunc, _hHook);
+  _hooks.emplace(hookFunc, std::move(_hHook));
 
   return TRUE;
 }
