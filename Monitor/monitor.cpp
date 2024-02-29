@@ -19,9 +19,9 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #ifdef NDEBUG
-#define DLL_PATH_X64 L"..\\x64\\Release\\showlibs.dll"
+#define DLL_PATH_X64 L"..\\x64\\Release\\MonitorDLL.dll"
 #else
-#define DLL_PATH_X64 L"..\\x64\\Debug\\showlibs.dll"
+#define DLL_PATH_X64 L"..\\x64\\Debug\\MonitorDLL.dll"
 #endif
 
 MyProgram::
@@ -357,7 +357,7 @@ Monitor::_ConnectToNewClient(HANDLE __pipe, LPOVERLAPPED __lpOverlapped) {
   return __pendingIO;
 }
 
-BOOL
+void
 MyProgram::
 Monitor::_InjectLibAll() {
   for (const auto& __el : _pidToTrackingInfo) {

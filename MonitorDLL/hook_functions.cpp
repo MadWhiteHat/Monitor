@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <windowsceip.h>
 #include <tlhelp32.h>
+#include <string>
 
 #include "hooker.h"
 #include "hook_functions.h"

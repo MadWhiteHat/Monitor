@@ -37,7 +37,7 @@ private:
   BOOL _CreatePipes();
   void _ConnectToAllClients();
   BOOL _ConnectToNewClient(HANDLE __pipe, LPOVERLAPPED __lpOverlapped);
-  BOOL _InjectLibAll();
+  void _InjectLibAll();
   BOOL _InjectLibByPid(DWORD __pid, const std::wstring& __injLib);
   void _Disconnect(DWORD __idx);
   BOOL _AllDisconnected();

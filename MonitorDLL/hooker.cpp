@@ -6701,6 +6701,8 @@ static std::unordered_map<std::string, FARPROC> _funcHooksMap = {
   */
 };
 
+// Maps hook function ptr to its TRACED_HOOK_HANDLE struct
+static std::unordered_map<FARPROC, std::unique_ptr<HOOK_TRACE_INFO>> _hooks;
 static PIPEINST _pipeInst;
 
 TRACKING _track;
@@ -6718,6 +6720,7 @@ BOOL _Init() {
       _funcMap[funcName.data()] = baseFuncAddr;
     }
   }
+
   return (_hKernel == NULL) ? FALSE : TRUE;
 }
 
@@ -6725,6 +6728,7 @@ void _Deinit() {
   _DisconnectPipe();
   LhUninstallAllHooks();
   LhWaitForPendingRemovals();
+  _hooks.clear();
 }
 
 BOOL _Run() {
@@ -6783,7 +6787,7 @@ BOOL _RecvInit() {
   if (!success) { return FALSE; }
 
   for (DWORD idx = 0; idx < size; ++idx) {
-    ZeroMemory(_pipeInst._reqBuff, PIPE_BUFFER_SIZE * sizeof(TCHAR));
+    ZeroMemory(_pipeInst._reqBuff, PIPE_BUFFER_SIZE);
     DWORD strLen = 0;
     BOOL verbose = FALSE;
 
@@ -6919,23 +6923,33 @@ BOOL _ParseInit() {
 
 BOOL _AddHook(const std::string& funcName) {
 
-  HOOK_TRACE_INFO _hHook = { NULL };
+  HOOK_TRACE_INFO* _hHook;
   FARPROC baseFunc = _funcMap[funcName];
   FARPROC hookFunc = _funcHooksMap[funcName];
   NTSTATUS res = 0;
+
+  _hHook = new(std::nothrow) HOOK_TRACE_INFO;
+  if (_hHook == nullptr) { return FALSE; }
 
   res = LhInstallHook(
     baseFunc,
     hookFunc,
     NULL,
-    &_hHook
+    _hHook
   );
 
   if (FAILED(res)) { return FALSE; }
 
   ULONG aclEntries[1] = { 0 };
 
-  if (FAILED(LhSetExclusiveACL(aclEntries, 1, &_hHook))) { return FALSE; }
+  if (FAILED(LhSetExclusiveACL(aclEntries, 1, _hHook))) {
+    LhUninstallHook(_hHook);
+    delete _hHook;
+    return FALSE;
+  }
+
+  // Add hook to list of all hooks to keep it valid  
+  _hooks.emplace(hookFunc, _hHook);
 
   return TRUE;
 }

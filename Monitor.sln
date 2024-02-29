@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33328.57
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Monitor", "Monitor\Monitor.vcxproj", "{6F076345-097C-4440-BB82-6C4ED0581FCA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "showlibs", "showlibs\showlibs.vcxproj", "{E712B343-0FD5-484D-8958-E3D98BD29E25}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonitorDLL", "MonitorDLL\MonitorDLL.vcxproj", "{E712B343-0FD5-484D-8958-E3D98BD29E25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
